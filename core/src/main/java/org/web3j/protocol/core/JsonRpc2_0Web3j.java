@@ -133,14 +133,14 @@ public class JsonRpc2_0Web3j implements Web3j {
     @Override
     public Request<?, EthAccounts> ethAccounts() {
         return new Request<>(
-                "eth_accounts", Collections.<String>emptyList(), web3jService, EthAccounts.class);
+                "account_listAddresses", Collections.<String>emptyList(), web3jService, EthAccounts.class);
     }
 
     //TODO: This method is in Tolar API
     @Override
     public Request<?, EthBlockNumber> ethBlockNumber() {
         return new Request<>(
-                "eth_blockNumber",
+                "tol_getBlockCount",
                 Collections.<String>emptyList(),
                 web3jService,
                 EthBlockNumber.class);
@@ -151,7 +151,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     public Request<?, EthGetBalance> ethGetBalance(
             String address, DefaultBlockParameter defaultBlockParameter) {
         return new Request<>(
-                "eth_getBalance",
+                "tol_getBalance",
                 Arrays.asList(address, defaultBlockParameter.getValue()),
                 web3jService,
                 EthGetBalance.class);
@@ -168,7 +168,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     public Request<?, EthGetTransactionCount> ethGetTransactionCount(
             String address, DefaultBlockParameter defaultBlockParameter) {
         return new Request<>(
-                "eth_getTransactionCount",
+                "tol_getNonce",
                 Arrays.asList(address, defaultBlockParameter.getValue()),
                 web3jService,
                 EthGetTransactionCount.class);
@@ -213,7 +213,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     public Request<?, org.web3j.protocol.core.methods.response.EthSendTransaction>
     ethSendTransaction(Transaction transaction) {
         return new Request<>(
-                "eth_sendTransaction",
+                "tx_sendSignedTransaction",
                 Arrays.asList(transaction),
                 web3jService,
                 org.web3j.protocol.core.methods.response.EthSendTransaction.class);
@@ -224,7 +224,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     public Request<?, org.web3j.protocol.core.methods.response.EthSendTransaction>
     ethSendRawTransaction(String signedTransactionData) {
         return new Request<>(
-                "eth_sendRawTransaction",
+                "account_sendRawTransaction",
                 Arrays.asList(signedTransactionData),
                 web3jService,
                 org.web3j.protocol.core.methods.response.EthSendTransaction.class);
@@ -235,7 +235,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     public Request<?, org.web3j.protocol.core.methods.response.EthCall> ethCall(
             Transaction transaction, DefaultBlockParameter defaultBlockParameter) {
         return new Request<>(
-                "eth_call",
+                "tol_tryCallTransaction",
                 Arrays.asList(transaction, defaultBlockParameter),
                 web3jService,
                 org.web3j.protocol.core.methods.response.EthCall.class);
@@ -245,7 +245,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     @Override
     public Request<?, EthEstimateGas> ethEstimateGas(Transaction transaction) {
         return new Request<>(
-                "eth_estimateGas", Arrays.asList(transaction), web3jService, EthEstimateGas.class);
+                "tol_getGasEstimate", Arrays.asList(transaction), web3jService, EthEstimateGas.class);
     }
 
     //TODO: This method is in Tolar API
@@ -253,7 +253,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     public Request<?, EthBlock> ethGetBlockByHash(
             String blockHash, boolean returnFullTransactionObjects) {
         return new Request<>(
-                "eth_getBlockByHash",
+                "tol_getBlockByHash",
                 Arrays.asList(blockHash, returnFullTransactionObjects),
                 web3jService,
                 EthBlock.class);
@@ -264,7 +264,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     public Request<?, EthBlock> ethGetBlockByNumber(
             DefaultBlockParameter defaultBlockParameter, boolean returnFullTransactionObjects) {
         return new Request<>(
-                "eth_getBlockByNumber",
+                "tol_getBlockByIndex",
                 Arrays.asList(defaultBlockParameter.getValue(), returnFullTransactionObjects),
                 web3jService,
                 EthBlock.class);
@@ -274,7 +274,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     @Override
     public Request<?, EthTransaction> ethGetTransactionByHash(String transactionHash) {
         return new Request<>(
-                "eth_getTransactionByHash",
+                "tol_getTransaction",
                 Arrays.asList(transactionHash),
                 web3jService,
                 EthTransaction.class);
@@ -296,7 +296,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     @Override
     public Request<?, EthGetTransactionReceipt> ethGetTransactionReceipt(String transactionHash) {
         return new Request<>(
-                "eth_getTransactionReceipt",
+                "tol_getTransactionReceipt",
                 Arrays.asList(transactionHash),
                 web3jService,
                 EthGetTransactionReceipt.class);
