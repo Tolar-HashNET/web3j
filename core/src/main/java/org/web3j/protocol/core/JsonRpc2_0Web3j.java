@@ -12,82 +12,28 @@
  */
 package org.web3j.protocol.core;
 
-import java.io.IOException;
-import java.math.BigInteger;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ScheduledExecutorService;
-
 import io.reactivex.Flowable;
-
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.Web3jService;
 import org.web3j.protocol.core.methods.request.ShhFilter;
 import org.web3j.protocol.core.methods.request.ShhPost;
 import org.web3j.protocol.core.methods.request.Transaction;
-import org.web3j.protocol.core.methods.response.DbGetHex;
-import org.web3j.protocol.core.methods.response.DbGetString;
-import org.web3j.protocol.core.methods.response.DbPutHex;
-import org.web3j.protocol.core.methods.response.DbPutString;
-import org.web3j.protocol.core.methods.response.EthAccounts;
-import org.web3j.protocol.core.methods.response.EthBlock;
-import org.web3j.protocol.core.methods.response.EthBlockNumber;
-import org.web3j.protocol.core.methods.response.EthChainId;
-import org.web3j.protocol.core.methods.response.EthCoinbase;
-import org.web3j.protocol.core.methods.response.EthCompileLLL;
-import org.web3j.protocol.core.methods.response.EthCompileSerpent;
-import org.web3j.protocol.core.methods.response.EthCompileSolidity;
-import org.web3j.protocol.core.methods.response.EthEstimateGas;
-import org.web3j.protocol.core.methods.response.EthFilter;
-import org.web3j.protocol.core.methods.response.EthGasPrice;
-import org.web3j.protocol.core.methods.response.EthGetBalance;
-import org.web3j.protocol.core.methods.response.EthGetBlockTransactionCountByHash;
-import org.web3j.protocol.core.methods.response.EthGetBlockTransactionCountByNumber;
-import org.web3j.protocol.core.methods.response.EthGetCode;
-import org.web3j.protocol.core.methods.response.EthGetCompilers;
-import org.web3j.protocol.core.methods.response.EthGetStorageAt;
-import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
-import org.web3j.protocol.core.methods.response.EthGetTransactionReceipt;
-import org.web3j.protocol.core.methods.response.EthGetUncleCountByBlockHash;
-import org.web3j.protocol.core.methods.response.EthGetUncleCountByBlockNumber;
-import org.web3j.protocol.core.methods.response.EthGetWork;
-import org.web3j.protocol.core.methods.response.EthHashrate;
-import org.web3j.protocol.core.methods.response.EthLog;
-import org.web3j.protocol.core.methods.response.EthMining;
-import org.web3j.protocol.core.methods.response.EthProtocolVersion;
-import org.web3j.protocol.core.methods.response.EthSign;
-import org.web3j.protocol.core.methods.response.EthSubmitHashrate;
-import org.web3j.protocol.core.methods.response.EthSubmitWork;
-import org.web3j.protocol.core.methods.response.EthSubscribe;
-import org.web3j.protocol.core.methods.response.EthSyncing;
-import org.web3j.protocol.core.methods.response.EthTransaction;
-import org.web3j.protocol.core.methods.response.EthUninstallFilter;
-import org.web3j.protocol.core.methods.response.Log;
-import org.web3j.protocol.core.methods.response.NetListening;
-import org.web3j.protocol.core.methods.response.NetPeerCount;
-import org.web3j.protocol.core.methods.response.NetVersion;
-import org.web3j.protocol.core.methods.response.ShhAddToGroup;
-import org.web3j.protocol.core.methods.response.ShhHasIdentity;
-import org.web3j.protocol.core.methods.response.ShhMessages;
-import org.web3j.protocol.core.methods.response.ShhNewFilter;
-import org.web3j.protocol.core.methods.response.ShhNewGroup;
-import org.web3j.protocol.core.methods.response.ShhNewIdentity;
-import org.web3j.protocol.core.methods.response.ShhUninstallFilter;
-import org.web3j.protocol.core.methods.response.ShhVersion;
-import org.web3j.protocol.core.methods.response.Web3ClientVersion;
-import org.web3j.protocol.core.methods.response.Web3Sha3;
+import org.web3j.protocol.core.methods.response.*;
 import org.web3j.protocol.core.methods.response.admin.AdminNodeInfo;
 import org.web3j.protocol.core.methods.response.admin.AdminPeers;
 import org.web3j.protocol.rx.JsonRpc2_0Rx;
 import org.web3j.protocol.websocket.events.LogNotification;
 import org.web3j.protocol.websocket.events.NewHeadsNotification;
 import org.web3j.utils.Async;
-import org.web3j.utils.Numeric;
 
-/** JSON-RPC 2.0 factory implementation. */
+import java.io.IOException;
+import java.math.BigInteger;
+import java.util.*;
+import java.util.concurrent.ScheduledExecutorService;
+
+/**
+ * JSON-RPC 2.0 factory implementation.
+ */
 public class JsonRpc2_0Web3j implements Web3j {
 
     public static final int DEFAULT_BLOCK_TIME = 15 * 1000;
@@ -113,30 +59,25 @@ public class JsonRpc2_0Web3j implements Web3j {
 
     @Override
     public Request<?, Web3ClientVersion> web3ClientVersion() {
-        return new Request<>(
-                "web3_clientVersion",
-                Collections.<String>emptyList(),
-                web3jService,
-                Web3ClientVersion.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, Web3Sha3> web3Sha3(String data) {
-        return new Request<>("web3_sha3", Arrays.asList(data), web3jService, Web3Sha3.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, NetVersion> netVersion() {
-        return new Request<>(
-                "net_version", Collections.<String>emptyList(), web3jService, NetVersion.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, NetListening> netListening() {
-        return new Request<>(
-                "net_listening", Collections.<String>emptyList(), web3jService, NetListening.class);
+        throw new UnsupportedOperationException();
     }
 
+    //TODO: This method is in Tolar API
     @Override
     public Request<?, NetPeerCount> netPeerCount() {
         return new Request<>(
@@ -145,67 +86,57 @@ public class JsonRpc2_0Web3j implements Web3j {
 
     @Override
     public Request<?, AdminNodeInfo> adminNodeInfo() {
-        return new Request<>(
-                "admin_nodeInfo", Collections.emptyList(), web3jService, AdminNodeInfo.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, AdminPeers> adminPeers() {
-        return new Request<>(
-                "admin_peers", Collections.emptyList(), web3jService, AdminPeers.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, EthProtocolVersion> ethProtocolVersion() {
-        return new Request<>(
-                "eth_protocolVersion",
-                Collections.<String>emptyList(),
-                web3jService,
-                EthProtocolVersion.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, EthChainId> ethChainId() {
-        return new Request<>(
-                "eth_chainId", Collections.<String>emptyList(), web3jService, EthChainId.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, EthCoinbase> ethCoinbase() {
-        return new Request<>(
-                "eth_coinbase", Collections.<String>emptyList(), web3jService, EthCoinbase.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, EthSyncing> ethSyncing() {
-        return new Request<>(
-                "eth_syncing", Collections.<String>emptyList(), web3jService, EthSyncing.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, EthMining> ethMining() {
-        return new Request<>(
-                "eth_mining", Collections.<String>emptyList(), web3jService, EthMining.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, EthHashrate> ethHashrate() {
-        return new Request<>(
-                "eth_hashrate", Collections.<String>emptyList(), web3jService, EthHashrate.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, EthGasPrice> ethGasPrice() {
-        return new Request<>(
-                "eth_gasPrice", Collections.<String>emptyList(), web3jService, EthGasPrice.class);
+        throw new UnsupportedOperationException();
     }
 
+    //TODO: This method is in Tolar API
     @Override
     public Request<?, EthAccounts> ethAccounts() {
         return new Request<>(
                 "eth_accounts", Collections.<String>emptyList(), web3jService, EthAccounts.class);
     }
 
+    //TODO: This method is in Tolar API
     @Override
     public Request<?, EthBlockNumber> ethBlockNumber() {
         return new Request<>(
@@ -215,6 +146,7 @@ public class JsonRpc2_0Web3j implements Web3j {
                 EthBlockNumber.class);
     }
 
+    //TODO: This method is in Tolar API
     @Override
     public Request<?, EthGetBalance> ethGetBalance(
             String address, DefaultBlockParameter defaultBlockParameter) {
@@ -228,16 +160,10 @@ public class JsonRpc2_0Web3j implements Web3j {
     @Override
     public Request<?, EthGetStorageAt> ethGetStorageAt(
             String address, BigInteger position, DefaultBlockParameter defaultBlockParameter) {
-        return new Request<>(
-                "eth_getStorageAt",
-                Arrays.asList(
-                        address,
-                        Numeric.encodeQuantity(position),
-                        defaultBlockParameter.getValue()),
-                web3jService,
-                EthGetStorageAt.class);
+        throw new UnsupportedOperationException();
     }
 
+    //TODO: This method is in Tolar API
     @Override
     public Request<?, EthGetTransactionCount> ethGetTransactionCount(
             String address, DefaultBlockParameter defaultBlockParameter) {
@@ -251,64 +177,41 @@ public class JsonRpc2_0Web3j implements Web3j {
     @Override
     public Request<?, EthGetBlockTransactionCountByHash> ethGetBlockTransactionCountByHash(
             String blockHash) {
-        return new Request<>(
-                "eth_getBlockTransactionCountByHash",
-                Arrays.asList(blockHash),
-                web3jService,
-                EthGetBlockTransactionCountByHash.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, EthGetBlockTransactionCountByNumber> ethGetBlockTransactionCountByNumber(
             DefaultBlockParameter defaultBlockParameter) {
-        return new Request<>(
-                "eth_getBlockTransactionCountByNumber",
-                Arrays.asList(defaultBlockParameter.getValue()),
-                web3jService,
-                EthGetBlockTransactionCountByNumber.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, EthGetUncleCountByBlockHash> ethGetUncleCountByBlockHash(String blockHash) {
-        return new Request<>(
-                "eth_getUncleCountByBlockHash",
-                Arrays.asList(blockHash),
-                web3jService,
-                EthGetUncleCountByBlockHash.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, EthGetUncleCountByBlockNumber> ethGetUncleCountByBlockNumber(
             DefaultBlockParameter defaultBlockParameter) {
-        return new Request<>(
-                "eth_getUncleCountByBlockNumber",
-                Arrays.asList(defaultBlockParameter.getValue()),
-                web3jService,
-                EthGetUncleCountByBlockNumber.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, EthGetCode> ethGetCode(
             String address, DefaultBlockParameter defaultBlockParameter) {
-        return new Request<>(
-                "eth_getCode",
-                Arrays.asList(address, defaultBlockParameter.getValue()),
-                web3jService,
-                EthGetCode.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, EthSign> ethSign(String address, String sha3HashOfDataToSign) {
-        return new Request<>(
-                "eth_sign",
-                Arrays.asList(address, sha3HashOfDataToSign),
-                web3jService,
-                EthSign.class);
+        throw new UnsupportedOperationException();
     }
 
+    //TODO: This method is in Tolar API
     @Override
     public Request<?, org.web3j.protocol.core.methods.response.EthSendTransaction>
-            ethSendTransaction(Transaction transaction) {
+    ethSendTransaction(Transaction transaction) {
         return new Request<>(
                 "eth_sendTransaction",
                 Arrays.asList(transaction),
@@ -316,9 +219,10 @@ public class JsonRpc2_0Web3j implements Web3j {
                 org.web3j.protocol.core.methods.response.EthSendTransaction.class);
     }
 
+    //TODO: This method is in Tolar API
     @Override
     public Request<?, org.web3j.protocol.core.methods.response.EthSendTransaction>
-            ethSendRawTransaction(String signedTransactionData) {
+    ethSendRawTransaction(String signedTransactionData) {
         return new Request<>(
                 "eth_sendRawTransaction",
                 Arrays.asList(signedTransactionData),
@@ -326,6 +230,7 @@ public class JsonRpc2_0Web3j implements Web3j {
                 org.web3j.protocol.core.methods.response.EthSendTransaction.class);
     }
 
+    //TODO: This method is in Tolar API
     @Override
     public Request<?, org.web3j.protocol.core.methods.response.EthCall> ethCall(
             Transaction transaction, DefaultBlockParameter defaultBlockParameter) {
@@ -336,12 +241,14 @@ public class JsonRpc2_0Web3j implements Web3j {
                 org.web3j.protocol.core.methods.response.EthCall.class);
     }
 
+    //TODO: This method is in Tolar API
     @Override
     public Request<?, EthEstimateGas> ethEstimateGas(Transaction transaction) {
         return new Request<>(
                 "eth_estimateGas", Arrays.asList(transaction), web3jService, EthEstimateGas.class);
     }
 
+    //TODO: This method is in Tolar API
     @Override
     public Request<?, EthBlock> ethGetBlockByHash(
             String blockHash, boolean returnFullTransactionObjects) {
@@ -352,6 +259,7 @@ public class JsonRpc2_0Web3j implements Web3j {
                 EthBlock.class);
     }
 
+    //TODO: This method is in Tolar API
     @Override
     public Request<?, EthBlock> ethGetBlockByNumber(
             DefaultBlockParameter defaultBlockParameter, boolean returnFullTransactionObjects) {
@@ -362,6 +270,7 @@ public class JsonRpc2_0Web3j implements Web3j {
                 EthBlock.class);
     }
 
+    //TODO: This method is in Tolar API
     @Override
     public Request<?, EthTransaction> ethGetTransactionByHash(String transactionHash) {
         return new Request<>(
@@ -374,24 +283,16 @@ public class JsonRpc2_0Web3j implements Web3j {
     @Override
     public Request<?, EthTransaction> ethGetTransactionByBlockHashAndIndex(
             String blockHash, BigInteger transactionIndex) {
-        return new Request<>(
-                "eth_getTransactionByBlockHashAndIndex",
-                Arrays.asList(blockHash, Numeric.encodeQuantity(transactionIndex)),
-                web3jService,
-                EthTransaction.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, EthTransaction> ethGetTransactionByBlockNumberAndIndex(
             DefaultBlockParameter defaultBlockParameter, BigInteger transactionIndex) {
-        return new Request<>(
-                "eth_getTransactionByBlockNumberAndIndex",
-                Arrays.asList(
-                        defaultBlockParameter.getValue(), Numeric.encodeQuantity(transactionIndex)),
-                web3jService,
-                EthTransaction.class);
+        throw new UnsupportedOperationException();
     }
 
+    //TODO: This method is in Tolar API
     @Override
     public Request<?, EthGetTransactionReceipt> ethGetTransactionReceipt(String transactionHash) {
         return new Request<>(
@@ -404,280 +305,170 @@ public class JsonRpc2_0Web3j implements Web3j {
     @Override
     public Request<?, EthBlock> ethGetUncleByBlockHashAndIndex(
             String blockHash, BigInteger transactionIndex) {
-        return new Request<>(
-                "eth_getUncleByBlockHashAndIndex",
-                Arrays.asList(blockHash, Numeric.encodeQuantity(transactionIndex)),
-                web3jService,
-                EthBlock.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, EthBlock> ethGetUncleByBlockNumberAndIndex(
             DefaultBlockParameter defaultBlockParameter, BigInteger uncleIndex) {
-        return new Request<>(
-                "eth_getUncleByBlockNumberAndIndex",
-                Arrays.asList(defaultBlockParameter.getValue(), Numeric.encodeQuantity(uncleIndex)),
-                web3jService,
-                EthBlock.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, EthGetCompilers> ethGetCompilers() {
-        return new Request<>(
-                "eth_getCompilers",
-                Collections.<String>emptyList(),
-                web3jService,
-                EthGetCompilers.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, EthCompileLLL> ethCompileLLL(String sourceCode) {
-        return new Request<>(
-                "eth_compileLLL", Arrays.asList(sourceCode), web3jService, EthCompileLLL.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, EthCompileSolidity> ethCompileSolidity(String sourceCode) {
-        return new Request<>(
-                "eth_compileSolidity",
-                Arrays.asList(sourceCode),
-                web3jService,
-                EthCompileSolidity.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, EthCompileSerpent> ethCompileSerpent(String sourceCode) {
-        return new Request<>(
-                "eth_compileSerpent",
-                Arrays.asList(sourceCode),
-                web3jService,
-                EthCompileSerpent.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, EthFilter> ethNewFilter(
             org.web3j.protocol.core.methods.request.EthFilter ethFilter) {
-        return new Request<>(
-                "eth_newFilter", Arrays.asList(ethFilter), web3jService, EthFilter.class);
+        throw new UnsupportedOperationException();
+
     }
 
     @Override
     public Request<?, EthFilter> ethNewBlockFilter() {
-        return new Request<>(
-                "eth_newBlockFilter",
-                Collections.<String>emptyList(),
-                web3jService,
-                EthFilter.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, EthFilter> ethNewPendingTransactionFilter() {
-        return new Request<>(
-                "eth_newPendingTransactionFilter",
-                Collections.<String>emptyList(),
-                web3jService,
-                EthFilter.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, EthUninstallFilter> ethUninstallFilter(BigInteger filterId) {
-        return new Request<>(
-                "eth_uninstallFilter",
-                Arrays.asList(Numeric.toHexStringWithPrefixSafe(filterId)),
-                web3jService,
-                EthUninstallFilter.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, EthLog> ethGetFilterChanges(BigInteger filterId) {
-        return new Request<>(
-                "eth_getFilterChanges",
-                Arrays.asList(Numeric.toHexStringWithPrefixSafe(filterId)),
-                web3jService,
-                EthLog.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, EthLog> ethGetFilterLogs(BigInteger filterId) {
-        return new Request<>(
-                "eth_getFilterLogs",
-                Arrays.asList(Numeric.toHexStringWithPrefixSafe(filterId)),
-                web3jService,
-                EthLog.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, EthLog> ethGetLogs(
             org.web3j.protocol.core.methods.request.EthFilter ethFilter) {
-        return new Request<>("eth_getLogs", Arrays.asList(ethFilter), web3jService, EthLog.class);
+        throw new UnsupportedOperationException();
+
     }
 
     @Override
     public Request<?, EthGetWork> ethGetWork() {
-        return new Request<>(
-                "eth_getWork", Collections.<String>emptyList(), web3jService, EthGetWork.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, EthSubmitWork> ethSubmitWork(
             String nonce, String headerPowHash, String mixDigest) {
-        return new Request<>(
-                "eth_submitWork",
-                Arrays.asList(nonce, headerPowHash, mixDigest),
-                web3jService,
-                EthSubmitWork.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, EthSubmitHashrate> ethSubmitHashrate(String hashrate, String clientId) {
-        return new Request<>(
-                "eth_submitHashrate",
-                Arrays.asList(hashrate, clientId),
-                web3jService,
-                EthSubmitHashrate.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, DbPutString> dbPutString(
             String databaseName, String keyName, String stringToStore) {
-        return new Request<>(
-                "db_putString",
-                Arrays.asList(databaseName, keyName, stringToStore),
-                web3jService,
-                DbPutString.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, DbGetString> dbGetString(String databaseName, String keyName) {
-        return new Request<>(
-                "db_getString",
-                Arrays.asList(databaseName, keyName),
-                web3jService,
-                DbGetString.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, DbPutHex> dbPutHex(String databaseName, String keyName, String dataToStore) {
-        return new Request<>(
-                "db_putHex",
-                Arrays.asList(databaseName, keyName, dataToStore),
-                web3jService,
-                DbPutHex.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, DbGetHex> dbGetHex(String databaseName, String keyName) {
-        return new Request<>(
-                "db_getHex", Arrays.asList(databaseName, keyName), web3jService, DbGetHex.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, org.web3j.protocol.core.methods.response.ShhPost> shhPost(ShhPost shhPost) {
-        return new Request<>(
-                "shh_post",
-                Arrays.asList(shhPost),
-                web3jService,
-                org.web3j.protocol.core.methods.response.ShhPost.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, ShhVersion> shhVersion() {
-        return new Request<>(
-                "shh_version", Collections.<String>emptyList(), web3jService, ShhVersion.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, ShhNewIdentity> shhNewIdentity() {
-        return new Request<>(
-                "shh_newIdentity",
-                Collections.<String>emptyList(),
-                web3jService,
-                ShhNewIdentity.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, ShhHasIdentity> shhHasIdentity(String identityAddress) {
-        return new Request<>(
-                "shh_hasIdentity",
-                Arrays.asList(identityAddress),
-                web3jService,
-                ShhHasIdentity.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, ShhNewGroup> shhNewGroup() {
-        return new Request<>(
-                "shh_newGroup", Collections.<String>emptyList(), web3jService, ShhNewGroup.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, ShhAddToGroup> shhAddToGroup(String identityAddress) {
-        return new Request<>(
-                "shh_addToGroup",
-                Arrays.asList(identityAddress),
-                web3jService,
-                ShhAddToGroup.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, ShhNewFilter> shhNewFilter(ShhFilter shhFilter) {
-        return new Request<>(
-                "shh_newFilter", Arrays.asList(shhFilter), web3jService, ShhNewFilter.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, ShhUninstallFilter> shhUninstallFilter(BigInteger filterId) {
-        return new Request<>(
-                "shh_uninstallFilter",
-                Arrays.asList(Numeric.toHexStringWithPrefixSafe(filterId)),
-                web3jService,
-                ShhUninstallFilter.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, ShhMessages> shhGetFilterChanges(BigInteger filterId) {
-        return new Request<>(
-                "shh_getFilterChanges",
-                Arrays.asList(Numeric.toHexStringWithPrefixSafe(filterId)),
-                web3jService,
-                ShhMessages.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Request<?, ShhMessages> shhGetMessages(BigInteger filterId) {
-        return new Request<>(
-                "shh_getMessages",
-                Arrays.asList(Numeric.toHexStringWithPrefixSafe(filterId)),
-                web3jService,
-                ShhMessages.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Flowable<NewHeadsNotification> newHeadsNotifications() {
-        return web3jService.subscribe(
-                new Request<>(
-                        "eth_subscribe",
-                        Collections.singletonList("newHeads"),
-                        web3jService,
-                        EthSubscribe.class),
-                "eth_unsubscribe",
-                NewHeadsNotification.class);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Flowable<LogNotification> logsNotifications(
             List<String> addresses, List<String> topics) {
-
-        Map<String, Object> params = createLogsParams(addresses, topics);
-
-        return web3jService.subscribe(
-                new Request<>(
-                        "eth_subscribe",
-                        Arrays.asList("logs", params),
-                        web3jService,
-                        EthSubscribe.class),
-                "eth_unsubscribe",
-                LogNotification.class);
+        throw new UnsupportedOperationException();
     }
 
     private Map<String, Object> createLogsParams(List<String> addresses, List<String> topics) {
@@ -714,7 +505,7 @@ public class JsonRpc2_0Web3j implements Web3j {
 
     @Override
     public Flowable<org.web3j.protocol.core.methods.response.Transaction>
-            pendingTransactionFlowable() {
+    pendingTransactionFlowable() {
         return web3jRx.pendingTransactionFlowable(blockTime);
     }
 
@@ -758,14 +549,14 @@ public class JsonRpc2_0Web3j implements Web3j {
 
     @Override
     public Flowable<org.web3j.protocol.core.methods.response.Transaction>
-            replayPastTransactionsFlowable(
-                    DefaultBlockParameter startBlock, DefaultBlockParameter endBlock) {
+    replayPastTransactionsFlowable(
+            DefaultBlockParameter startBlock, DefaultBlockParameter endBlock) {
         return web3jRx.replayTransactionsFlowable(startBlock, endBlock);
     }
 
     @Override
     public Flowable<org.web3j.protocol.core.methods.response.Transaction>
-            replayPastTransactionsFlowable(DefaultBlockParameter startBlock) {
+    replayPastTransactionsFlowable(DefaultBlockParameter startBlock) {
         return web3jRx.replayPastTransactionsFlowable(startBlock);
     }
 
@@ -778,7 +569,7 @@ public class JsonRpc2_0Web3j implements Web3j {
 
     @Override
     public Flowable<org.web3j.protocol.core.methods.response.Transaction>
-            replayPastAndFutureTransactionsFlowable(DefaultBlockParameter startBlock) {
+    replayPastAndFutureTransactionsFlowable(DefaultBlockParameter startBlock) {
         return web3jRx.replayPastAndFutureTransactionsFlowable(startBlock, blockTime);
     }
 
