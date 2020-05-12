@@ -12,7 +12,13 @@
  */
 package org.web3j.protocol.core;
 
+import java.io.IOException;
+import java.math.BigInteger;
+import java.util.*;
+import java.util.concurrent.ScheduledExecutorService;
+
 import io.reactivex.Flowable;
+
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.Web3jService;
 import org.web3j.protocol.core.methods.request.ShhFilter;
@@ -26,14 +32,7 @@ import org.web3j.protocol.websocket.events.LogNotification;
 import org.web3j.protocol.websocket.events.NewHeadsNotification;
 import org.web3j.utils.Async;
 
-import java.io.IOException;
-import java.math.BigInteger;
-import java.util.*;
-import java.util.concurrent.ScheduledExecutorService;
-
-/**
- * JSON-RPC 2.0 factory implementation.
- */
+/** JSON-RPC 2.0 factory implementation. */
 public class JsonRpc2_0Web3j implements Web3j {
 
     public static final int DEFAULT_BLOCK_TIME = 15 * 1000;
@@ -77,7 +76,7 @@ public class JsonRpc2_0Web3j implements Web3j {
         throw new UnsupportedOperationException();
     }
 
-    //TODO: This method is in Tolar API
+    // TODO: This method is in Tolar API
     @Override
     public Request<?, NetPeerCount> netPeerCount() {
         return new Request<>(
@@ -129,14 +128,17 @@ public class JsonRpc2_0Web3j implements Web3j {
         throw new UnsupportedOperationException();
     }
 
-    //TODO: This method is in Tolar API
+    // TODO: This method is in Tolar API
     @Override
     public Request<?, EthAccounts> ethAccounts() {
         return new Request<>(
-                "account_listAddresses", Collections.<String>emptyList(), web3jService, EthAccounts.class);
+                "account_listAddresses",
+                Collections.<String>emptyList(),
+                web3jService,
+                EthAccounts.class);
     }
 
-    //TODO: This method is in Tolar API
+    // TODO: This method is in Tolar API
     @Override
     public Request<?, EthBlockNumber> ethBlockNumber() {
         return new Request<>(
@@ -146,7 +148,7 @@ public class JsonRpc2_0Web3j implements Web3j {
                 EthBlockNumber.class);
     }
 
-    //TODO: This method is in Tolar API
+    // TODO: This method is in Tolar API
     @Override
     public Request<?, EthGetBalance> ethGetBalance(
             String address, DefaultBlockParameter defaultBlockParameter) {
@@ -163,7 +165,7 @@ public class JsonRpc2_0Web3j implements Web3j {
         throw new UnsupportedOperationException();
     }
 
-    //TODO: This method is in Tolar API
+    // TODO: This method is in Tolar API
     @Override
     public Request<?, EthGetTransactionCount> ethGetTransactionCount(
             String address, DefaultBlockParameter defaultBlockParameter) {
@@ -208,10 +210,10 @@ public class JsonRpc2_0Web3j implements Web3j {
         throw new UnsupportedOperationException();
     }
 
-    //TODO: This method is in Tolar API
+    // TODO: This method is in Tolar API
     @Override
     public Request<?, org.web3j.protocol.core.methods.response.EthSendTransaction>
-    ethSendTransaction(Transaction transaction) {
+            ethSendTransaction(Transaction transaction) {
         return new Request<>(
                 "tx_sendSignedTransaction",
                 Arrays.asList(transaction),
@@ -219,10 +221,10 @@ public class JsonRpc2_0Web3j implements Web3j {
                 org.web3j.protocol.core.methods.response.EthSendTransaction.class);
     }
 
-    //TODO: This method is in Tolar API
+    // TODO: This method is in Tolar API
     @Override
     public Request<?, org.web3j.protocol.core.methods.response.EthSendTransaction>
-    ethSendRawTransaction(String signedTransactionData) {
+            ethSendRawTransaction(String signedTransactionData) {
         return new Request<>(
                 "account_sendRawTransaction",
                 Arrays.asList(signedTransactionData),
@@ -230,7 +232,7 @@ public class JsonRpc2_0Web3j implements Web3j {
                 org.web3j.protocol.core.methods.response.EthSendTransaction.class);
     }
 
-    //TODO: This method is in Tolar API
+    // TODO: This method is in Tolar API
     @Override
     public Request<?, org.web3j.protocol.core.methods.response.EthCall> ethCall(
             Transaction transaction, DefaultBlockParameter defaultBlockParameter) {
@@ -241,14 +243,17 @@ public class JsonRpc2_0Web3j implements Web3j {
                 org.web3j.protocol.core.methods.response.EthCall.class);
     }
 
-    //TODO: This method is in Tolar API
+    // TODO: This method is in Tolar API
     @Override
     public Request<?, EthEstimateGas> ethEstimateGas(Transaction transaction) {
         return new Request<>(
-                "tol_getGasEstimate", Arrays.asList(transaction), web3jService, EthEstimateGas.class);
+                "tol_getGasEstimate",
+                Arrays.asList(transaction),
+                web3jService,
+                EthEstimateGas.class);
     }
 
-    //TODO: This method is in Tolar API
+    // TODO: This method is in Tolar API
     @Override
     public Request<?, EthBlock> ethGetBlockByHash(
             String blockHash, boolean returnFullTransactionObjects) {
@@ -259,7 +264,7 @@ public class JsonRpc2_0Web3j implements Web3j {
                 EthBlock.class);
     }
 
-    //TODO: This method is in Tolar API
+    // TODO: This method is in Tolar API
     @Override
     public Request<?, EthBlock> ethGetBlockByNumber(
             DefaultBlockParameter defaultBlockParameter, boolean returnFullTransactionObjects) {
@@ -270,7 +275,7 @@ public class JsonRpc2_0Web3j implements Web3j {
                 EthBlock.class);
     }
 
-    //TODO: This method is in Tolar API
+    // TODO: This method is in Tolar API
     @Override
     public Request<?, EthTransaction> ethGetTransactionByHash(String transactionHash) {
         return new Request<>(
@@ -292,7 +297,7 @@ public class JsonRpc2_0Web3j implements Web3j {
         throw new UnsupportedOperationException();
     }
 
-    //TODO: This method is in Tolar API
+    // TODO: This method is in Tolar API
     @Override
     public Request<?, EthGetTransactionReceipt> ethGetTransactionReceipt(String transactionHash) {
         return new Request<>(
@@ -338,7 +343,6 @@ public class JsonRpc2_0Web3j implements Web3j {
     public Request<?, EthFilter> ethNewFilter(
             org.web3j.protocol.core.methods.request.EthFilter ethFilter) {
         throw new UnsupportedOperationException();
-
     }
 
     @Override
@@ -370,7 +374,6 @@ public class JsonRpc2_0Web3j implements Web3j {
     public Request<?, EthLog> ethGetLogs(
             org.web3j.protocol.core.methods.request.EthFilter ethFilter) {
         throw new UnsupportedOperationException();
-
     }
 
     @Override
@@ -505,7 +508,7 @@ public class JsonRpc2_0Web3j implements Web3j {
 
     @Override
     public Flowable<org.web3j.protocol.core.methods.response.Transaction>
-    pendingTransactionFlowable() {
+            pendingTransactionFlowable() {
         return web3jRx.pendingTransactionFlowable(blockTime);
     }
 
@@ -549,14 +552,14 @@ public class JsonRpc2_0Web3j implements Web3j {
 
     @Override
     public Flowable<org.web3j.protocol.core.methods.response.Transaction>
-    replayPastTransactionsFlowable(
-            DefaultBlockParameter startBlock, DefaultBlockParameter endBlock) {
+            replayPastTransactionsFlowable(
+                    DefaultBlockParameter startBlock, DefaultBlockParameter endBlock) {
         return web3jRx.replayTransactionsFlowable(startBlock, endBlock);
     }
 
     @Override
     public Flowable<org.web3j.protocol.core.methods.response.Transaction>
-    replayPastTransactionsFlowable(DefaultBlockParameter startBlock) {
+            replayPastTransactionsFlowable(DefaultBlockParameter startBlock) {
         return web3jRx.replayPastTransactionsFlowable(startBlock);
     }
 
@@ -569,7 +572,7 @@ public class JsonRpc2_0Web3j implements Web3j {
 
     @Override
     public Flowable<org.web3j.protocol.core.methods.response.Transaction>
-    replayPastAndFutureTransactionsFlowable(DefaultBlockParameter startBlock) {
+            replayPastAndFutureTransactionsFlowable(DefaultBlockParameter startBlock) {
         return web3jRx.replayPastAndFutureTransactionsFlowable(startBlock, blockTime);
     }
 
