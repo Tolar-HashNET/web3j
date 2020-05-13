@@ -213,21 +213,16 @@ public class JsonRpc2_0Web3j implements Web3j {
     public Request<?, org.web3j.protocol.core.methods.response.EthSendTransaction>
             ethSendTransaction(Transaction transaction) {
         return new Request<>(
-                "tx_sendSignedTransaction",
+                "account_sendRawTransaction",
                 Arrays.asList(transaction),
                 web3jService,
                 org.web3j.protocol.core.methods.response.EthSendTransaction.class);
     }
 
-    // TODO: This method is in Tolar API
     @Override
     public Request<?, org.web3j.protocol.core.methods.response.EthSendTransaction>
             ethSendRawTransaction(String signedTransactionData) {
-        return new Request<>(
-                "account_sendRawTransaction",
-                Arrays.asList(signedTransactionData),
-                web3jService,
-                org.web3j.protocol.core.methods.response.EthSendTransaction.class);
+        throw new UnsupportedOperationException();
     }
 
     // TODO: This method is in Tolar API
