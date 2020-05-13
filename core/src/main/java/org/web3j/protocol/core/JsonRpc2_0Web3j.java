@@ -140,12 +140,12 @@ public class JsonRpc2_0Web3j implements Web3j {
 
     // TODO: This method is in Tolar API
     @Override
-    public Request<?, EthBlockNumber> ethBlockNumber() {
+    public Request<?, TolGetBlockCount> tolGetBlockCount() {
         return new Request<>(
                 "tol_getBlockCount",
                 Collections.<String>emptyList(),
                 web3jService,
-                EthBlockNumber.class);
+                TolGetBlockCount.class);
     }
 
     // TODO: This method is in Tolar API

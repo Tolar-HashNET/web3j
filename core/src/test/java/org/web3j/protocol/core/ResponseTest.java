@@ -30,7 +30,6 @@ import org.web3j.protocol.core.methods.response.DbGetString;
 import org.web3j.protocol.core.methods.response.DbPutHex;
 import org.web3j.protocol.core.methods.response.DbPutString;
 import org.web3j.protocol.core.methods.response.EthBlock;
-import org.web3j.protocol.core.methods.response.EthBlockNumber;
 import org.web3j.protocol.core.methods.response.EthCall;
 import org.web3j.protocol.core.methods.response.EthCompileLLL;
 import org.web3j.protocol.core.methods.response.EthCompileSerpent;
@@ -75,6 +74,7 @@ import org.web3j.protocol.core.methods.response.ShhPost;
 import org.web3j.protocol.core.methods.response.ShhUninstallFilter;
 import org.web3j.protocol.core.methods.response.ShhVersion;
 import org.web3j.protocol.core.methods.response.TolAddresses;
+import org.web3j.protocol.core.methods.response.TolGetBlockCount;
 import org.web3j.protocol.core.methods.response.Transaction;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.core.methods.response.Web3ClientVersion;
@@ -360,8 +360,8 @@ public class ResponseTest extends ResponseTester {
                         + "  \"result\": \"0x4b7\"\n"
                         + "}");
 
-        EthBlockNumber ethBlockNumber = deserialiseResponse(EthBlockNumber.class);
-        assertEquals(ethBlockNumber.getBlockNumber(), (BigInteger.valueOf(1207L)));
+        TolGetBlockCount tolGetBlockCount = deserialiseResponse(TolGetBlockCount.class);
+        assertEquals(tolGetBlockCount.getBlockCount(), (BigInteger.valueOf(1207L)));
     }
 
     @Test

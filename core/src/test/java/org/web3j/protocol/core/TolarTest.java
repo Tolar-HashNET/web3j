@@ -18,13 +18,17 @@ import java.math.BigInteger;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.platform.commons.logging.Logger;
+import org.junit.platform.commons.logging.LoggerFactory;
 
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.methods.response.NetPeerCount;
 import org.web3j.protocol.core.methods.response.TolAddresses;
+import org.web3j.protocol.core.methods.response.TolGetBlockCount;
 import org.web3j.protocol.http.HttpService;
 
 class TolarTest {
+    private static final Logger LOGGER = LoggerFactory.getLogger(TolarTest.class);
     private static Web3j web3j;
 
     @BeforeAll
@@ -43,7 +47,14 @@ class TolarTest {
         TolAddresses response = web3j.accountListAddresses().send();
 
         for (String address : response.getAddresses()) {
-            System.out.println(address);
+            System.out.println("Address: " + address);
         }
+    }
+
+    @Test
+    public void testTolGetBlockCount() throws IOException {
+        TolGetBlockCount response = web3j.tolGetBlockCount().send();
+
+        System.out.println("Block count: " + response.getBlockCount());
     }
 }

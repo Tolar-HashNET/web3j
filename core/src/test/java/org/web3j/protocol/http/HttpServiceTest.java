@@ -26,8 +26,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import org.web3j.protocol.core.Request;
-import org.web3j.protocol.core.methods.response.EthBlockNumber;
 import org.web3j.protocol.core.methods.response.EthSubscribe;
+import org.web3j.protocol.core.methods.response.TolGetBlockCount;
 import org.web3j.protocol.exceptions.ClientConnectionException;
 import org.web3j.protocol.websocket.events.NewHeadsNotification;
 
@@ -89,14 +89,14 @@ public class HttpServiceTest {
                         });
         HttpService mockedHttpService = new HttpService(httpClient);
 
-        Request<String, EthBlockNumber> request =
+        Request<String, TolGetBlockCount> request =
                 new Request<>(
                         "eth_blockNumber1",
                         Collections.emptyList(),
                         mockedHttpService,
-                        EthBlockNumber.class);
+                        TolGetBlockCount.class);
         try {
-            mockedHttpService.send(request, EthBlockNumber.class);
+            mockedHttpService.send(request, TolGetBlockCount.class);
         } catch (ClientConnectionException e) {
             assertEquals(
                     e.getMessage(),

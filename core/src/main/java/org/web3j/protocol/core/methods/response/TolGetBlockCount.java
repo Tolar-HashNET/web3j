@@ -18,8 +18,8 @@ import org.web3j.protocol.core.Response;
 import org.web3j.utils.Numeric;
 
 /** eth_blockNumber. */
-public class EthBlockNumber extends Response<String> {
-    public BigInteger getBlockNumber() {
+public class TolGetBlockCount extends Response<String> {
+    public BigInteger getBlockCount() {
         return Numeric.decodeQuantity(getResult());
     }
 }

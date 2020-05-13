@@ -132,7 +132,7 @@ public class RequestTest extends RequestTester {
 
     @Test
     public void testEthBlockNumber() throws Exception {
-        web3j.ethBlockNumber().send();
+        web3j.tolGetBlockCount().send();
 
         verifyResult("{\"jsonrpc\":\"2.0\",\"method\":\"eth_blockNumber\",\"params\":[],\"id\":1}");
     }

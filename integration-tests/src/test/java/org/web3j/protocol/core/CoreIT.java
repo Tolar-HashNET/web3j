@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.methods.response.TolAddresses;
 import org.web3j.protocol.core.methods.response.EthBlock;
-import org.web3j.protocol.core.methods.response.EthBlockNumber;
+import org.web3j.protocol.core.methods.response.TolGetBlockCount;
 import org.web3j.protocol.core.methods.response.EthCall;
 import org.web3j.protocol.core.methods.response.EthCoinbase;
 import org.web3j.protocol.core.methods.response.EthCompileLLL;
@@ -158,8 +158,8 @@ public class CoreIT {
 
     @Test
     public void testEthBlockNumber() throws Exception {
-        EthBlockNumber ethBlockNumber = web3j.ethBlockNumber().send();
-        assertTrue(ethBlockNumber.getBlockNumber().signum() == 1);
+        TolGetBlockCount tolGetBlockCount = web3j.tolGetBlockCount().send();
+        assertTrue(tolGetBlockCount.getBlockCount().signum() == 1);
     }
 
     @Test
