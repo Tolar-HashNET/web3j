@@ -24,6 +24,7 @@ import org.junit.platform.commons.logging.LoggerFactory;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.methods.response.NetPeerCount;
 import org.web3j.protocol.core.methods.response.TolAddresses;
+import org.web3j.protocol.core.methods.response.TolGetBalance;
 import org.web3j.protocol.core.methods.response.TolGetBlockCount;
 import org.web3j.protocol.http.HttpService;
 
@@ -56,5 +57,17 @@ class TolarTest {
         TolGetBlockCount response = web3j.tolGetBlockCount().send();
 
         System.out.println("Block count: " + response.getBlockCount());
+    }
+
+    @Test
+    public void testTolGetBalance() throws IOException {
+        TolGetBalance response =
+                web3j.tolGetBalance(
+                                "5484c512b1cf3d45e7506a772b7358375acc571b2930d27deb",
+                                BigInteger.valueOf(2104397L))
+                        .send();
+
+        System.out.println("Balance: " + response.getBalance());
+        System.out.println("Block index: " + response.getBlockIndex());
     }
 }

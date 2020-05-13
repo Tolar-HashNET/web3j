@@ -150,13 +150,12 @@ public class JsonRpc2_0Web3j implements Web3j {
 
     // TODO: This method is in Tolar API
     @Override
-    public Request<?, EthGetBalance> ethGetBalance(
-            String address, DefaultBlockParameter defaultBlockParameter) {
+    public Request<?, TolGetBalance> tolGetBalance(String address, BigInteger blockIndex) {
         return new Request<>(
                 "tol_getBalance",
-                Arrays.asList(address, defaultBlockParameter.getValue()),
+                Arrays.asList(address, blockIndex),
                 web3jService,
-                EthGetBalance.class);
+                TolGetBalance.class);
     }
 
     @Override

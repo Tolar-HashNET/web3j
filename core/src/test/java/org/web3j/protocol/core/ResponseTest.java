@@ -37,7 +37,6 @@ import org.web3j.protocol.core.methods.response.EthCompileSolidity;
 import org.web3j.protocol.core.methods.response.EthEstimateGas;
 import org.web3j.protocol.core.methods.response.EthFilter;
 import org.web3j.protocol.core.methods.response.EthGasPrice;
-import org.web3j.protocol.core.methods.response.EthGetBalance;
 import org.web3j.protocol.core.methods.response.EthGetBlockTransactionCountByHash;
 import org.web3j.protocol.core.methods.response.EthGetBlockTransactionCountByNumber;
 import org.web3j.protocol.core.methods.response.EthGetCode;
@@ -74,6 +73,7 @@ import org.web3j.protocol.core.methods.response.ShhPost;
 import org.web3j.protocol.core.methods.response.ShhUninstallFilter;
 import org.web3j.protocol.core.methods.response.ShhVersion;
 import org.web3j.protocol.core.methods.response.TolAddresses;
+import org.web3j.protocol.core.methods.response.TolGetBalance;
 import org.web3j.protocol.core.methods.response.TolGetBlockCount;
 import org.web3j.protocol.core.methods.response.Transaction;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
@@ -373,8 +373,8 @@ public class ResponseTest extends ResponseTester {
                         + "  \"result\": \"0x234c8a3397aab58\"\n"
                         + "}");
 
-        EthGetBalance ethGetBalance = deserialiseResponse(EthGetBalance.class);
-        assertEquals(ethGetBalance.getBalance(), (BigInteger.valueOf(158972490234375000L)));
+        TolGetBalance tolGetBalance = deserialiseResponse(TolGetBalance.class);
+        assertEquals(tolGetBalance.getBalance(), (BigInteger.valueOf(158972490234375000L)));
     }
 
     @Test

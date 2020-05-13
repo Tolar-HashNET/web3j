@@ -31,7 +31,7 @@ import org.web3j.protocol.core.methods.response.EthCompileSolidity;
 import org.web3j.protocol.core.methods.response.EthEstimateGas;
 import org.web3j.protocol.core.methods.response.EthFilter;
 import org.web3j.protocol.core.methods.response.EthGasPrice;
-import org.web3j.protocol.core.methods.response.EthGetBalance;
+import org.web3j.protocol.core.methods.response.TolGetBalance;
 import org.web3j.protocol.core.methods.response.EthGetBlockTransactionCountByHash;
 import org.web3j.protocol.core.methods.response.EthGetBlockTransactionCountByNumber;
 import org.web3j.protocol.core.methods.response.EthGetCode;
@@ -164,10 +164,10 @@ public class CoreIT {
 
     @Test
     public void testEthGetBalance() throws Exception {
-        EthGetBalance ethGetBalance =
-                web3j.ethGetBalance(config.validAccount(), DefaultBlockParameter.valueOf("latest"))
+        TolGetBalance tolGetBalance =
+                web3j.tolGetBalance(config.validAccount(), DefaultBlockParameter.valueOf("latest"))
                         .send();
-        assertTrue(ethGetBalance.getBalance().signum() == 1);
+        assertTrue(tolGetBalance.getBalance().signum() == 1);
     }
 
     @Test
