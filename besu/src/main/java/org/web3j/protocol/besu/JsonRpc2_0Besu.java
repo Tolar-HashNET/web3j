@@ -37,7 +37,7 @@ import org.web3j.protocol.besu.response.privacy.PrivateTransactionReceipt;
 import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.Request;
 import org.web3j.protocol.core.methods.request.Transaction;
-import org.web3j.protocol.core.methods.response.EthAccounts;
+import org.web3j.protocol.core.methods.response.TolAddresses;
 import org.web3j.protocol.core.methods.response.EthCall;
 import org.web3j.protocol.core.methods.response.EthGetCode;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
@@ -77,21 +77,21 @@ public class JsonRpc2_0Besu extends JsonRpc2_0Eea implements Besu {
     }
 
     @Override
-    public Request<?, EthAccounts> cliqueGetSigners(DefaultBlockParameter defaultBlockParameter) {
+    public Request<?, TolAddresses> cliqueGetSigners(DefaultBlockParameter defaultBlockParameter) {
         return new Request<>(
                 "clique_getSigners",
                 Arrays.asList(defaultBlockParameter.getValue()),
                 web3jService,
-                EthAccounts.class);
+                TolAddresses.class);
     }
 
     @Override
-    public Request<?, EthAccounts> cliqueGetSignersAtHash(String blockHash) {
+    public Request<?, TolAddresses> cliqueGetSignersAtHash(String blockHash) {
         return new Request<>(
                 "clique_getSignersAtHash",
                 Arrays.asList(blockHash),
                 web3jService,
-                EthAccounts.class);
+                TolAddresses.class);
     }
 
     @Override

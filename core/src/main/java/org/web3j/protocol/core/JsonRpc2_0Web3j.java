@@ -130,12 +130,12 @@ public class JsonRpc2_0Web3j implements Web3j {
 
     // TODO: This method is in Tolar API
     @Override
-    public Request<?, EthAccounts> ethAccounts() {
+    public Request<?, TolAddresses> accountListAddresses() {
         return new Request<>(
                 "account_listAddresses",
                 Collections.<String>emptyList(),
                 web3jService,
-                EthAccounts.class);
+                TolAddresses.class);
     }
 
     // TODO: This method is in Tolar API

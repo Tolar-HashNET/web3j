@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import org.web3j.protocol.Web3j;
-import org.web3j.protocol.core.methods.response.EthAccounts;
+import org.web3j.protocol.core.methods.response.TolAddresses;
 import org.web3j.protocol.core.methods.response.EthBlock;
 import org.web3j.protocol.core.methods.response.EthBlockNumber;
 import org.web3j.protocol.core.methods.response.EthCall;
@@ -152,8 +152,8 @@ public class CoreIT {
 
     @Test
     public void testEthAccounts() throws Exception {
-        EthAccounts ethAccounts = web3j.ethAccounts().send();
-        assertNotNull(ethAccounts.getAccounts());
+        TolAddresses ethAccounts = web3j.accountListAddresses().send();
+        assertNotNull(ethAccounts.getAddresses());
     }
 
     @Test

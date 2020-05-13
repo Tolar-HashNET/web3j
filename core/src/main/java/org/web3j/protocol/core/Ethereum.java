@@ -19,7 +19,6 @@ import org.web3j.protocol.core.methods.response.DbGetHex;
 import org.web3j.protocol.core.methods.response.DbGetString;
 import org.web3j.protocol.core.methods.response.DbPutHex;
 import org.web3j.protocol.core.methods.response.DbPutString;
-import org.web3j.protocol.core.methods.response.EthAccounts;
 import org.web3j.protocol.core.methods.response.EthBlock;
 import org.web3j.protocol.core.methods.response.EthBlockNumber;
 import org.web3j.protocol.core.methods.response.EthChainId;
@@ -62,6 +61,7 @@ import org.web3j.protocol.core.methods.response.ShhNewGroup;
 import org.web3j.protocol.core.methods.response.ShhNewIdentity;
 import org.web3j.protocol.core.methods.response.ShhUninstallFilter;
 import org.web3j.protocol.core.methods.response.ShhVersion;
+import org.web3j.protocol.core.methods.response.TolAddresses;
 import org.web3j.protocol.core.methods.response.Web3ClientVersion;
 import org.web3j.protocol.core.methods.response.Web3Sha3;
 import org.web3j.protocol.core.methods.response.admin.AdminNodeInfo;
@@ -97,7 +97,7 @@ public interface Ethereum {
 
     Request<?, EthGasPrice> ethGasPrice();
 
-    Request<?, EthAccounts> ethAccounts();
+    Request<?, TolAddresses> accountListAddresses();
 
     Request<?, EthBlockNumber> ethBlockNumber();
 

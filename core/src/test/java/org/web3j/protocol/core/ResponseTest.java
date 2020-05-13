@@ -29,7 +29,6 @@ import org.web3j.protocol.core.methods.response.DbGetHex;
 import org.web3j.protocol.core.methods.response.DbGetString;
 import org.web3j.protocol.core.methods.response.DbPutHex;
 import org.web3j.protocol.core.methods.response.DbPutString;
-import org.web3j.protocol.core.methods.response.EthAccounts;
 import org.web3j.protocol.core.methods.response.EthBlock;
 import org.web3j.protocol.core.methods.response.EthBlockNumber;
 import org.web3j.protocol.core.methods.response.EthCall;
@@ -75,6 +74,7 @@ import org.web3j.protocol.core.methods.response.ShhNewIdentity;
 import org.web3j.protocol.core.methods.response.ShhPost;
 import org.web3j.protocol.core.methods.response.ShhUninstallFilter;
 import org.web3j.protocol.core.methods.response.ShhVersion;
+import org.web3j.protocol.core.methods.response.TolAddresses;
 import org.web3j.protocol.core.methods.response.Transaction;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.core.methods.response.Web3ClientVersion;
@@ -345,9 +345,9 @@ public class ResponseTest extends ResponseTester {
                         + "  \"result\": [\"0x407d73d8a49eeb85d32cf465507dd71d507100c1\"]\n"
                         + "}");
 
-        EthAccounts ethAccounts = deserialiseResponse(EthAccounts.class);
+        TolAddresses ethAccounts = deserialiseResponse(TolAddresses.class);
         assertEquals(
-                ethAccounts.getAccounts(),
+                ethAccounts.getAddresses(),
                 (Arrays.asList("0x407d73d8a49eeb85d32cf465507dd71d507100c1")));
     }
 

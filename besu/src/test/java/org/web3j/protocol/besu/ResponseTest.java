@@ -30,7 +30,7 @@ import org.web3j.protocol.besu.response.privacy.PrivacyGroup;
 import org.web3j.protocol.besu.response.privacy.PrivateTransactionLegacy;
 import org.web3j.protocol.besu.response.privacy.PrivateTransactionReceipt;
 import org.web3j.protocol.besu.response.privacy.PrivateTransactionWithPrivacyGroup;
-import org.web3j.protocol.core.methods.response.EthAccounts;
+import org.web3j.protocol.core.methods.response.TolAddresses;
 import org.web3j.protocol.core.methods.response.Log;
 import org.web3j.utils.Base64String;
 
@@ -49,9 +49,9 @@ public class ResponseTest extends ResponseTester {
                         + "\"0xb279182d99e65703f0076e4812653aab85fca0f0\"]\n"
                         + "}");
 
-        EthAccounts ethAccounts = deserialiseResponse(EthAccounts.class);
+        TolAddresses ethAccounts = deserialiseResponse(TolAddresses.class);
         assertEquals(
-                ethAccounts.getAccounts().toString(),
+                ethAccounts.getAddresses().toString(),
                 ("[0x42eb768f2244c8811c63729a21a3569731535f06, "
                         + "0x7ffc57839b00206d1ad20c69a1981b489f772031, "
                         + "0xb279182d99e65703f0076e4812653aab85fca0f0]"));

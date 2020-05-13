@@ -125,7 +125,7 @@ public class RequestTest extends RequestTester {
 
     @Test
     public void testEthAccounts() throws Exception {
-        web3j.ethAccounts().send();
+        web3j.accountListAddresses().send();
 
         verifyResult("{\"jsonrpc\":\"2.0\",\"method\":\"eth_accounts\",\"params\":[],\"id\":1}");
     }

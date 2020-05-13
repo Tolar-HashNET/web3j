@@ -28,7 +28,7 @@ import org.web3j.protocol.besu.response.privacy.PrivGetPrivateTransaction;
 import org.web3j.protocol.besu.response.privacy.PrivGetTransactionReceipt;
 import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.Request;
-import org.web3j.protocol.core.methods.response.EthAccounts;
+import org.web3j.protocol.core.methods.response.TolAddresses;
 import org.web3j.protocol.core.methods.response.EthGetCode;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
@@ -48,9 +48,9 @@ public interface Besu extends Eea {
 
     Request<?, BooleanResponse> cliqueDiscard(String address);
 
-    Request<?, EthAccounts> cliqueGetSigners(DefaultBlockParameter defaultBlockParameter);
+    Request<?, TolAddresses> cliqueGetSigners(DefaultBlockParameter defaultBlockParameter);
 
-    Request<?, EthAccounts> cliqueGetSignersAtHash(String blockHash);
+    Request<?, TolAddresses> cliqueGetSignersAtHash(String blockHash);
 
     Request<?, BooleanResponse> cliquePropose(String address, Boolean signerAddition);
 
