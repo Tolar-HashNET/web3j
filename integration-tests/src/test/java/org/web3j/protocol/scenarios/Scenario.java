@@ -30,7 +30,7 @@ import org.web3j.crypto.Credentials;
 import org.web3j.protocol.admin.Admin;
 import org.web3j.protocol.admin.methods.response.PersonalUnlockAccount;
 import org.web3j.protocol.core.DefaultBlockParameterName;
-import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
+import org.web3j.protocol.core.methods.response.TolGetNonce;
 import org.web3j.protocol.core.methods.response.EthGetTransactionReceipt;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.http.HttpService;
@@ -127,12 +127,12 @@ public class Scenario {
     }
 
     BigInteger getNonce(String address) throws Exception {
-        EthGetTransactionCount ethGetTransactionCount =
-                web3j.ethGetTransactionCount(address, DefaultBlockParameterName.LATEST)
+        TolGetNonce tolGetNonce =
+                web3j.tolGetNonce(address, DefaultBlockParameterName.LATEST)
                         .sendAsync()
                         .get();
 
-        return ethGetTransactionCount.getTransactionCount();
+        return tolGetNonce.getNonce();
     }
 
     Function createFibonacciFunction() {

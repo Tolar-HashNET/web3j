@@ -21,12 +21,11 @@ import org.web3j.crypto.RawTransaction;
 import org.web3j.crypto.TransactionEncoder;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameter;
-import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.protocol.core.methods.response.EthCall;
 import org.web3j.protocol.core.methods.response.EthGetCode;
-import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
+import org.web3j.protocol.core.methods.response.TolGetNonce;
 import org.web3j.tx.exceptions.TxHashMismatchException;
 import org.web3j.tx.response.TransactionReceiptProcessor;
 import org.web3j.utils.Numeric;
@@ -91,12 +90,9 @@ public class RawTransactionManager extends TransactionManager {
     }
 
     protected BigInteger getNonce() throws IOException {
-        EthGetTransactionCount ethGetTransactionCount =
-                web3j.ethGetTransactionCount(
-                                credentials.getAddress(), DefaultBlockParameterName.PENDING)
-                        .send();
+        TolGetNonce tolGetNonce = web3j.tolGetNonce(credentials.getAddress()).send();
 
-        return ethGetTransactionCount.getTransactionCount();
+        return tolGetNonce.getNonce();
     }
 
     public TxHashVerifier getTxHashVerifier() {

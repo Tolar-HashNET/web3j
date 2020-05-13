@@ -131,7 +131,7 @@ public abstract class PrivateTransactionManager extends TransactionManager {
         final BigInteger nonce =
                 besu.privGetTransactionCount(credentials.getAddress(), getPrivacyGroupId())
                         .send()
-                        .getTransactionCount();
+                        .getNonce();
 
         final Object privacyGroupIdOrPrivateFor = privacyGroupIdOrPrivateFor();
 

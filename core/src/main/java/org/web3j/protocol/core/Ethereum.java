@@ -58,8 +58,7 @@ public interface Ethereum {
     Request<?, EthGetStorageAt> ethGetStorageAt(
             String address, BigInteger position, DefaultBlockParameter defaultBlockParameter);
 
-    Request<?, EthGetTransactionCount> ethGetTransactionCount(
-            String address, DefaultBlockParameter defaultBlockParameter);
+    Request<?, TolGetNonce> tolGetNonce(String address);
 
     Request<?, EthGetBlockTransactionCountByHash> ethGetBlockTransactionCountByHash(
             String blockHash);

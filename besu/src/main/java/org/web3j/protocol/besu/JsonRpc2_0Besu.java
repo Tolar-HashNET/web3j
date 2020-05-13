@@ -40,7 +40,7 @@ import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.protocol.core.methods.response.TolAddresses;
 import org.web3j.protocol.core.methods.response.EthCall;
 import org.web3j.protocol.core.methods.response.EthGetCode;
-import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
+import org.web3j.protocol.core.methods.response.TolGetNonce;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.core.methods.response.MinerStartResponse;
 import org.web3j.protocol.eea.JsonRpc2_0Eea;
@@ -123,13 +123,13 @@ public class JsonRpc2_0Besu extends JsonRpc2_0Eea implements Besu {
     }
 
     @Override
-    public Request<?, EthGetTransactionCount> privGetTransactionCount(
+    public Request<?, TolGetNonce> privGetTransactionCount(
             final String address, final Base64String privacyGroupId) {
         return new Request<>(
                 "priv_getTransactionCount",
                 Arrays.asList(address, privacyGroupId.toString()),
                 web3jService,
-                EthGetTransactionCount.class);
+                TolGetNonce.class);
     }
 
     @Override
@@ -172,7 +172,7 @@ public class JsonRpc2_0Besu extends JsonRpc2_0Eea implements Besu {
         BigInteger transactionCount =
                 privGetTransactionCount(credentials.getAddress(), privacyGroupId)
                         .send()
-                        .getTransactionCount();
+                        .getNonce();
         String lockContractCall =
                 OnChainPrivacyTransactionBuilder.getEncodedSingleParamFunction(
                         lock ? "lock" : "unlock");
@@ -199,7 +199,7 @@ public class JsonRpc2_0Besu extends JsonRpc2_0Eea implements Besu {
         BigInteger transactionCount =
                 privGetTransactionCount(credentials.getAddress(), privacyGroupId)
                         .send()
-                        .getTransactionCount();
+                        .getNonce();
         String lockContractCall =
                 OnChainPrivacyTransactionBuilder.getEncodedSingleParamFunction("lock");
 
@@ -242,7 +242,7 @@ public class JsonRpc2_0Besu extends JsonRpc2_0Eea implements Besu {
         BigInteger transactionCount =
                 privGetTransactionCount(credentials.getAddress(), privacyGroupId)
                         .send()
-                        .getTransactionCount();
+                        .getNonce();
         String addToContractCall =
                 OnChainPrivacyTransactionBuilder.getEncodedAddToGroupFunction(
                         enclaveKey, participantsAsBytes);
@@ -268,7 +268,7 @@ public class JsonRpc2_0Besu extends JsonRpc2_0Eea implements Besu {
         BigInteger transactionCount =
                 privGetTransactionCount(credentials.getAddress(), privacyGroupId)
                         .send()
-                        .getTransactionCount();
+                        .getNonce();
         String removeFromContractCall =
                 OnChainPrivacyTransactionBuilder.getEncodedRemoveFromGroupFunction(
                         enclaveKey, participant.raw());

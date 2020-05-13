@@ -426,9 +426,9 @@ Or if you wish to create your own custom transaction:
    Credentials credentials = WalletUtils.loadCredentials("password", "/path/to/walletfile");
 
    // get the next available nonce
-   EthGetTransactionCount ethGetTransactionCount = web3j.ethGetTransactionCount(
+   EthGetTransactionCount tolGetNonce = web3j.tolGetNonce(
                 address, DefaultBlockParameterName.LATEST).sendAsync().get();
-   BigInteger nonce = ethGetTransactionCount.getTransactionCount();
+   BigInteger nonce = tolGetNonce.getTransactionCount();
 
    // create our transaction
    RawTransaction rawTransaction  = RawTransaction.createEtherTransaction(

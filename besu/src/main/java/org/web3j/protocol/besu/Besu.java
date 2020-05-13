@@ -30,7 +30,7 @@ import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.Request;
 import org.web3j.protocol.core.methods.response.TolAddresses;
 import org.web3j.protocol.core.methods.response.EthGetCode;
-import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
+import org.web3j.protocol.core.methods.response.TolGetNonce;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.core.methods.response.MinerStartResponse;
 import org.web3j.protocol.eea.Eea;
@@ -59,7 +59,7 @@ public interface Besu extends Eea {
     Request<?, BesuFullDebugTraceResponse> debugTraceTransaction(
             String transactionHash, Map<String, Boolean> options);
 
-    Request<?, EthGetTransactionCount> privGetTransactionCount(
+    Request<?, TolGetNonce> privGetTransactionCount(
             final String address, final Base64String privacyGroupId);
 
     Request<?, PrivGetPrivateTransaction> privGetPrivateTransaction(final String transactionHash);

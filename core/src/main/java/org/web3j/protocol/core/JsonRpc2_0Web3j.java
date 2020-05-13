@@ -166,13 +166,12 @@ public class JsonRpc2_0Web3j implements Web3j {
 
     // TODO: This method is in Tolar API
     @Override
-    public Request<?, EthGetTransactionCount> ethGetTransactionCount(
-            String address, DefaultBlockParameter defaultBlockParameter) {
+    public Request<?, TolGetNonce> tolGetNonce(String address) {
         return new Request<>(
                 "tol_getNonce",
-                Arrays.asList(address, defaultBlockParameter.getValue()),
+                Collections.singletonList(address),
                 web3jService,
-                EthGetTransactionCount.class);
+                TolGetNonce.class);
     }
 
     @Override

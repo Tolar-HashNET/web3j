@@ -18,8 +18,8 @@ import org.web3j.protocol.core.Response;
 import org.web3j.utils.Numeric;
 
 /** eth_getTransactionCount. */
-public class EthGetTransactionCount extends Response<String> {
-    public BigInteger getTransactionCount() {
+public class TolGetNonce extends Response<String> {
+    public BigInteger getNonce() {
         return Numeric.decodeQuantity(getResult());
     }
 }

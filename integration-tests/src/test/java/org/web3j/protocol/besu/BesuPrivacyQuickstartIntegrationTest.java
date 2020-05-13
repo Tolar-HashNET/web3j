@@ -107,7 +107,7 @@ public class BesuPrivacyQuickstartIntegrationTest {
                 nodeCharlie
                         .privGetTransactionCount(ALICE.getAddress(), privacyGroupId)
                         .send()
-                        .getTransactionCount();
+                        .getNonce();
         final RawPrivateTransaction rawPrivateTransaction =
                 RawPrivateTransaction.createContractTransaction(
                         nonce,

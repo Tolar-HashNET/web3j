@@ -19,13 +19,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.SampleKeys;
 import org.web3j.protocol.Web3j;
-import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.Request;
-import org.web3j.protocol.core.methods.response.EthGasPrice;
-import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
-import org.web3j.protocol.core.methods.response.EthGetTransactionReceipt;
-import org.web3j.protocol.core.methods.response.EthSendTransaction;
-import org.web3j.protocol.core.methods.response.TransactionReceipt;
+import org.web3j.protocol.core.methods.response.*;
+import org.web3j.protocol.core.methods.response.TolGetNonce;
 import org.web3j.utils.TxHashVerifier;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -68,13 +64,12 @@ public abstract class ManagedTransactionTester {
 
     @SuppressWarnings("unchecked")
     void prepareNonceRequest() throws IOException {
-        EthGetTransactionCount ethGetTransactionCount = new EthGetTransactionCount();
-        ethGetTransactionCount.setResult("0x1");
+        TolGetNonce tolGetNonce = new TolGetNonce();
+        tolGetNonce.setResult("0x1");
 
-        Request<?, EthGetTransactionCount> transactionCountRequest = mock(Request.class);
-        when(transactionCountRequest.send()).thenReturn(ethGetTransactionCount);
-        when(web3j.ethGetTransactionCount(SampleKeys.ADDRESS, DefaultBlockParameterName.PENDING))
-                .thenReturn((Request) transactionCountRequest);
+        Request<?, TolGetNonce> transactionCountRequest = mock(Request.class);
+        when(transactionCountRequest.send()).thenReturn(tolGetNonce);
+        when(web3j.tolGetNonce(SampleKeys.ADDRESS)).thenReturn((Request) transactionCountRequest);
     }
 
     @SuppressWarnings("unchecked")
