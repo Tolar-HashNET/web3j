@@ -583,4 +583,10 @@ public class JsonRpc2_0Web3j implements Web3j {
     public BatchRequest newBatch() {
         return new BatchRequest(web3jService);
     }
+
+    @Override
+    public Request<?, IsMasterNode> netIsMasterNode() {
+        return new Request<>(
+                "net_isMasterNode", Collections.emptyList(), web3jService, IsMasterNode.class);
+    }
 }

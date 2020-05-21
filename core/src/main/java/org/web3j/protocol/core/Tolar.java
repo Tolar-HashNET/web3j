@@ -165,4 +165,6 @@ public interface Tolar {
     Request<?, ShhMessages> shhGetFilterChanges(BigInteger filterId);
 
     Request<?, ShhMessages> shhGetMessages(BigInteger filterId);
+
+    Request<?, IsMasterNode> netIsMasterNode();
 }

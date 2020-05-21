@@ -75,4 +75,11 @@ class TolarTest {
 
         System.out.println("Nonce: " + response.getNonce());
     }
+
+    @Test
+    public void testNetIsMasterNode() throws IOException {
+        IsMasterNode response = web3j.netIsMasterNode().send();
+
+        System.out.println("Is master node: " + response.isMasterNode());
+    }
 }
