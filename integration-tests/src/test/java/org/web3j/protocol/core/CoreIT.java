@@ -282,10 +282,10 @@ public class CoreIT {
 
     @Test
     public void testEthGetTransactionByHash() throws Exception {
-        EthTransaction ethTransaction =
+        TolTransaction tolTransaction =
                 web3j.tolGetTransaction(config.validTransactionHash()).send();
-        assertTrue(ethTransaction.getTransaction().isPresent());
-        Transaction transaction = ethTransaction.getTransaction().get();
+        assertTrue(tolTransaction.getTransaction().isPresent());
+        Transaction transaction = tolTransaction.getTransaction().get();
         assertEquals(transaction.getBlockHash(), (config.validBlockHash()));
     }
 
@@ -293,10 +293,10 @@ public class CoreIT {
     public void testEthGetTransactionByBlockHashAndIndex() throws Exception {
         BigInteger index = BigInteger.ONE;
 
-        EthTransaction ethTransaction =
+        TolTransaction tolTransaction =
                 web3j.ethGetTransactionByBlockHashAndIndex(config.validBlockHash(), index).send();
-        assertTrue(ethTransaction.getTransaction().isPresent());
-        Transaction transaction = ethTransaction.getTransaction().get();
+        assertTrue(tolTransaction.getTransaction().isPresent());
+        Transaction transaction = tolTransaction.getTransaction().get();
         assertEquals(transaction.getBlockHash(), (config.validBlockHash()));
         assertEquals(transaction.getTransactionIndex(), (index));
     }
@@ -305,12 +305,12 @@ public class CoreIT {
     public void testEthGetTransactionByBlockNumberAndIndex() throws Exception {
         BigInteger index = BigInteger.ONE;
 
-        EthTransaction ethTransaction =
+        TolTransaction tolTransaction =
                 web3j.ethGetTransactionByBlockNumberAndIndex(
                                 DefaultBlockParameter.valueOf(config.validBlock()), index)
                         .send();
-        assertTrue(ethTransaction.getTransaction().isPresent());
-        Transaction transaction = ethTransaction.getTransaction().get();
+        assertTrue(tolTransaction.getTransaction().isPresent());
+        Transaction transaction = tolTransaction.getTransaction().get();
         assertEquals(transaction.getBlockHash(), (config.validBlockHash()));
         assertEquals(transaction.getTransactionIndex(), (index));
     }

@@ -268,22 +268,22 @@ public class JsonRpc2_0Web3j implements Web3j {
 
     // TODO: This method is in Tolar API
     @Override
-    public Request<?, EthTransaction> tolGetTransaction(String transactionHash) {
+    public Request<?, TolTransaction> tolGetTransaction(String transactionHash) {
         return new Request<>(
                 "tol_getTransaction",
                 Arrays.asList(transactionHash),
                 web3jService,
-                EthTransaction.class);
+                TolTransaction.class);
     }
 
     @Override
-    public Request<?, EthTransaction> ethGetTransactionByBlockHashAndIndex(
+    public Request<?, TolTransaction> ethGetTransactionByBlockHashAndIndex(
             String blockHash, BigInteger transactionIndex) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Request<?, EthTransaction> ethGetTransactionByBlockNumberAndIndex(
+    public Request<?, TolTransaction> ethGetTransactionByBlockNumberAndIndex(
             DefaultBlockParameter defaultBlockParameter, BigInteger transactionIndex) {
         throw new UnsupportedOperationException();
     }

@@ -16,7 +16,7 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/** Transaction object used by both {@link EthTransaction} and {@link TolBlock}. */
+/** Transaction object used by both {@link TolTransaction} and {@link TolBlock}. */
 public class Transaction {
     @JsonProperty("block_hash")
     private String blockHash;

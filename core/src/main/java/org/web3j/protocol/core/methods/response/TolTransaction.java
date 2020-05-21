@@ -38,7 +38,7 @@ import org.web3j.protocol.core.Response;
  * <p>See <a href="https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gettransactionbyhash">docs</a>
  * for further details.
  */
-public class EthTransaction extends Response<Transaction> {
+public class TolTransaction extends Response<Transaction> {
 
     public Optional<Transaction> getTransaction() {
         return Optional.ofNullable(getResult());

@@ -93,12 +93,12 @@ public interface Tolar {
 
     Request<?, TolBlock> tolGetBlockByIndex(DefaultBlockParameter defaultBlockParameter);
 
-    Request<?, EthTransaction> tolGetTransaction(String transactionHash);
+    Request<?, TolTransaction> tolGetTransaction(String transactionHash);
 
-    Request<?, EthTransaction> ethGetTransactionByBlockHashAndIndex(
+    Request<?, TolTransaction> ethGetTransactionByBlockHashAndIndex(
             String blockHash, BigInteger transactionIndex);
 
-    Request<?, EthTransaction> ethGetTransactionByBlockNumberAndIndex(
+    Request<?, TolTransaction> ethGetTransactionByBlockNumberAndIndex(
             DefaultBlockParameter defaultBlockParameter, BigInteger transactionIndex);
 
     Request<?, EthGetTransactionReceipt> ethGetTransactionReceipt(String transactionHash);

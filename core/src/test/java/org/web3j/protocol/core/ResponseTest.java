@@ -570,8 +570,8 @@ public class ResponseTest extends ResponseTester {
     public void testEthTransactionNull() {
         buildResponse("{\n" + "  \"result\": null\n" + "}");
 
-        EthTransaction ethTransaction = deserialiseResponse(EthTransaction.class);
-        assertEquals(ethTransaction.getTransaction(), (Optional.empty()));
+        TolTransaction tolTransaction = deserialiseResponse(TolTransaction.class);
+        assertEquals(tolTransaction.getTransaction(), (Optional.empty()));
     }
 
     @Test
