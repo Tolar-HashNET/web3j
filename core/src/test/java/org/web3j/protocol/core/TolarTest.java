@@ -14,6 +14,7 @@ package org.web3j.protocol.core;
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.Collections;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -95,5 +96,13 @@ class TolarTest {
         MasterNodeCount response = web3j.netMasterNodeCount().send();
 
         System.out.println("Master node count: " + response.getMasterNodeCount());
+    }
+
+    @Test
+    public void testGetTransactionList() throws IOException {
+        GetTransactionList response = web3j.tolGetTransactionList(Collections.singletonList("5484c512b1cf3d45e7506a772b7358375acc571b2930d27deb"), 2, 0).send();
+
+        System.out.println("Transaction list:");
+        response.getTransactionList().forEach(t -> System.out.println(t.getBlockHash()));
     }
 }

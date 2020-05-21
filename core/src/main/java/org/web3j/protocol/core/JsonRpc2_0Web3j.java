@@ -604,4 +604,13 @@ public class JsonRpc2_0Web3j implements Web3j {
                 web3jService,
                 MasterNodeCount.class);
     }
+
+    @Override
+    public Request<?, GetTransactionList> tolGetTransactionList(List<String> addresses, long limit, long skip) {
+        return new Request<>(
+                "tol_getTransactionList",
+                Arrays.asList(addresses, limit, skip),
+                web3jService,
+                GetTransactionList.class);
+    }
 }

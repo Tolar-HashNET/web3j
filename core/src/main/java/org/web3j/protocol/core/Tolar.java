@@ -13,6 +13,7 @@
 package org.web3j.protocol.core;
 
 import java.math.BigInteger;
+import java.util.List;
 
 import org.web3j.protocol.core.methods.request.ShhFilter;
 import org.web3j.protocol.core.methods.response.*;
@@ -171,4 +172,6 @@ public interface Tolar {
     Request<?, MaxPeerCount> netMaxPeerCount();
 
     Request<?, MasterNodeCount> netMasterNodeCount();
+
+    Request<?, GetTransactionList> tolGetTransactionList(List<String> addresses, long limit, long skip);
 }
