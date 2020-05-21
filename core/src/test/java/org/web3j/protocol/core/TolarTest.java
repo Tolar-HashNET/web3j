@@ -236,22 +236,38 @@ class TolarTest {
 
     @Test
     public void testTolGetBlockByHash() throws IOException {
-        TolBlock response = web3j.tolGetBlockByHash("93f0c1766bf3fe06b7a29b51ceb6626906b0d8d654f33b5c1b50768fab06bb9f").send();
+        TolBlock response =
+                web3j.tolGetBlockByHash(
+                                "93f0c1766bf3fe06b7a29b51ceb6626906b0d8d654f33b5c1b50768fab06bb9f")
+                        .send();
         System.out.println("Transaction hashes: ");
         response.getBlock().getTransactionHashes().forEach(System.out::println);
         System.out.println("Block index: " + response.getBlock().getBlockIndex());
-        System.out.println("Confirmation timestamp: " + response.getBlock().getConfirmationTimestamp());
+        System.out.println(
+                "Confirmation timestamp: " + response.getBlock().getConfirmationTimestamp());
         System.out.println("Previous block hash: " + response.getBlock().getPreviousBlockHash());
     }
 
     @Test
     public void testTolGetBlockByIndex() throws IOException {
-        TolBlock blockByHash = web3j.tolGetBlockByHash("93f0c1766bf3fe06b7a29b51ceb6626906b0d8d654f33b5c1b50768fab06bb9f").send();
-        TolBlock blockByIndex = web3j.tolGetBlockByIndex(DefaultBlockParameter.valueOf(blockByHash.getBlock().getBlockIndex())).send();
+        TolBlock blockByHash =
+                web3j.tolGetBlockByHash(
+                                "93f0c1766bf3fe06b7a29b51ceb6626906b0d8d654f33b5c1b50768fab06bb9f")
+                        .send();
+        TolBlock blockByIndex =
+                web3j.tolGetBlockByIndex(
+                                DefaultBlockParameter.valueOf(
+                                        blockByHash.getBlock().getBlockIndex()))
+                        .send();
 
-        Assertions.assertEquals(blockByHash.getBlock().getBlockIndex(), blockByIndex.getBlock().getBlockIndex());
-        Assertions.assertEquals(blockByHash.getBlock().getConfirmationTimestamp(), blockByIndex.getBlock().getConfirmationTimestamp());
-        Assertions.assertEquals(blockByHash.getBlock().getPreviousBlockHash(), blockByIndex.getBlock().getPreviousBlockHash());
+        Assertions.assertEquals(
+                blockByHash.getBlock().getBlockIndex(), blockByIndex.getBlock().getBlockIndex());
+        Assertions.assertEquals(
+                blockByHash.getBlock().getConfirmationTimestamp(),
+                blockByIndex.getBlock().getConfirmationTimestamp());
+        Assertions.assertEquals(
+                blockByHash.getBlock().getPreviousBlockHash(),
+                blockByIndex.getBlock().getPreviousBlockHash());
 
         System.out.println("Transaction hashes: ");
         blockByIndex.getBlock().getTransactionHashes().forEach(System.out::println);
