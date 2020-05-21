@@ -18,8 +18,8 @@ import io.reactivex.Flowable;
 
 import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.methods.request.EthFilter;
-import org.web3j.protocol.core.methods.response.EthBlock;
 import org.web3j.protocol.core.methods.response.Log;
+import org.web3j.protocol.core.methods.response.TolBlock;
 import org.web3j.protocol.core.methods.response.Transaction;
 import org.web3j.protocol.websocket.events.LogNotification;
 import org.web3j.protocol.websocket.events.NewHeadsNotification;
@@ -75,7 +75,7 @@ public interface Web3jRx {
      * @return a {@link Flowable} instance that emits all new blocks as they are added to the
      *     blockchain
      */
-    Flowable<EthBlock> blockFlowable(boolean fullTransactionObjects);
+    Flowable<TolBlock> blockFlowable(boolean fullTransactionObjects);
 
     /**
      * Create an {@link Flowable} instance that emits all blocks from the blockchain contained
@@ -87,7 +87,7 @@ public interface Web3jRx {
      *     transaction hashes
      * @return a {@link Flowable} instance to emit these blocks
      */
-    Flowable<EthBlock> replayPastBlocksFlowable(
+    Flowable<TolBlock> replayPastBlocksFlowable(
             DefaultBlockParameter startBlock,
             DefaultBlockParameter endBlock,
             boolean fullTransactionObjects);
@@ -104,7 +104,7 @@ public interface Web3jRx {
      *     descending order
      * @return a {@link Flowable} instance to emit these blocks
      */
-    Flowable<EthBlock> replayPastBlocksFlowable(
+    Flowable<TolBlock> replayPastBlocksFlowable(
             DefaultBlockParameter startBlock,
             DefaultBlockParameter endBlock,
             boolean fullTransactionObjects,
@@ -120,15 +120,15 @@ public interface Web3jRx {
      *
      * @param startBlock the block number we wish to request from
      * @param fullTransactionObjects if we require full {@link Transaction} objects to be provided
-     *     in the {@link EthBlock} responses
+     *     in the {@link TolBlock} responses
      * @param onCompleteFlowable a subsequent Flowable that we wish to run once we are caught up
      *     with the latest block
      * @return a {@link Flowable} instance to emit all requested blocks
      */
-    Flowable<EthBlock> replayPastBlocksFlowable(
+    Flowable<TolBlock> replayPastBlocksFlowable(
             DefaultBlockParameter startBlock,
             boolean fullTransactionObjects,
-            Flowable<EthBlock> onCompleteFlowable);
+            Flowable<TolBlock> onCompleteFlowable);
 
     /**
      * Creates a {@link Flowable} instance that emits all blocks from the requested block number to
@@ -136,10 +136,10 @@ public interface Web3jRx {
      *
      * @param startBlock the block number we wish to request from
      * @param fullTransactionObjects if we require full {@link Transaction} objects to be provided
-     *     in the {@link EthBlock} responses
+     *     in the {@link TolBlock} responses
      * @return a {@link Flowable} instance to emit all requested blocks
      */
-    Flowable<EthBlock> replayPastBlocksFlowable(
+    Flowable<TolBlock> replayPastBlocksFlowable(
             DefaultBlockParameter startBlock, boolean fullTransactionObjects);
 
     /**
@@ -171,10 +171,10 @@ public interface Web3jRx {
      *
      * @param startBlock the block number we wish to request from
      * @param fullTransactionObjects if we require full {@link Transaction} objects to be provided
-     *     in the {@link EthBlock} responses
+     *     in the {@link TolBlock} responses
      * @return a {@link Flowable} instance to emit all requested blocks and future
      */
-    Flowable<EthBlock> replayPastAndFutureBlocksFlowable(
+    Flowable<TolBlock> replayPastAndFutureBlocksFlowable(
             DefaultBlockParameter startBlock, boolean fullTransactionObjects);
 
     /**

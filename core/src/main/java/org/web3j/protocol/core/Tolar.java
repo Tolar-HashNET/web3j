@@ -89,9 +89,9 @@ public interface Tolar {
     Request<?, EthEstimateGas> ethEstimateGas(
             org.web3j.protocol.core.methods.request.Transaction transaction);
 
-    Request<?, EthBlock> ethGetBlockByHash(String blockHash, boolean returnFullTransactionObjects);
+    Request<?, TolBlock> ethGetBlockByHash(String blockHash, boolean returnFullTransactionObjects);
 
-    Request<?, EthBlock> ethGetBlockByNumber(
+    Request<?, TolBlock> ethGetBlockByNumber(
             DefaultBlockParameter defaultBlockParameter, boolean returnFullTransactionObjects);
 
     Request<?, EthTransaction> ethGetTransactionByHash(String transactionHash);
@@ -104,10 +104,10 @@ public interface Tolar {
 
     Request<?, EthGetTransactionReceipt> ethGetTransactionReceipt(String transactionHash);
 
-    Request<?, EthBlock> ethGetUncleByBlockHashAndIndex(
+    Request<?, TolBlock> ethGetUncleByBlockHashAndIndex(
             String blockHash, BigInteger transactionIndex);
 
-    Request<?, EthBlock> ethGetUncleByBlockNumberAndIndex(
+    Request<?, TolBlock> ethGetUncleByBlockNumberAndIndex(
             DefaultBlockParameter defaultBlockParameter, BigInteger transactionIndex);
 
     Request<?, EthGetCompilers> ethGetCompilers();
@@ -173,5 +173,6 @@ public interface Tolar {
 
     Request<?, MasterNodeCount> netMasterNodeCount();
 
-    Request<?, GetTransactionList> tolGetTransactionList(List<String> addresses, long limit, long skip);
+    Request<?, GetTransactionList> tolGetTransactionList(
+            List<String> addresses, long limit, long skip);
 }

@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.methods.request.EthFilter;
-import org.web3j.protocol.core.methods.response.EthBlock;
+import org.web3j.protocol.core.methods.response.TolBlock;
 import org.web3j.protocol.http.HttpService;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -75,9 +75,9 @@ public class FlowableIT {
 
     @Test
     public void testReplayPastAndFutureBlocksFlowable() throws Exception {
-        EthBlock ethBlock =
+        TolBlock tolBlock =
                 web3j.ethGetBlockByNumber(DefaultBlockParameterName.LATEST, false).send();
-        BigInteger latestBlockNumber = ethBlock.getBlock().getNumber();
+        BigInteger latestBlockNumber = tolBlock.getBlock().getNumber();
         run(
                 web3j.replayPastAndFutureBlocksFlowable(
                         new DefaultBlockParameterNumber(latestBlockNumber.subtract(BigInteger.ONE)),

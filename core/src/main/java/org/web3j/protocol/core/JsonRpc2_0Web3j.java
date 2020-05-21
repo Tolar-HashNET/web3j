@@ -248,24 +248,24 @@ public class JsonRpc2_0Web3j implements Web3j {
 
     // TODO: This method is in Tolar API
     @Override
-    public Request<?, EthBlock> ethGetBlockByHash(
+    public Request<?, TolBlock> ethGetBlockByHash(
             String blockHash, boolean returnFullTransactionObjects) {
         return new Request<>(
                 "tol_getBlockByHash",
                 Arrays.asList(blockHash, returnFullTransactionObjects),
                 web3jService,
-                EthBlock.class);
+                TolBlock.class);
     }
 
     // TODO: This method is in Tolar API
     @Override
-    public Request<?, EthBlock> ethGetBlockByNumber(
+    public Request<?, TolBlock> ethGetBlockByNumber(
             DefaultBlockParameter defaultBlockParameter, boolean returnFullTransactionObjects) {
         return new Request<>(
                 "tol_getBlockByIndex",
                 Arrays.asList(defaultBlockParameter.getValue(), returnFullTransactionObjects),
                 web3jService,
-                EthBlock.class);
+                TolBlock.class);
     }
 
     // TODO: This method is in Tolar API
@@ -301,13 +301,13 @@ public class JsonRpc2_0Web3j implements Web3j {
     }
 
     @Override
-    public Request<?, EthBlock> ethGetUncleByBlockHashAndIndex(
+    public Request<?, TolBlock> ethGetUncleByBlockHashAndIndex(
             String blockHash, BigInteger transactionIndex) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Request<?, EthBlock> ethGetUncleByBlockNumberAndIndex(
+    public Request<?, TolBlock> ethGetUncleByBlockNumberAndIndex(
             DefaultBlockParameter defaultBlockParameter, BigInteger uncleIndex) {
         throw new UnsupportedOperationException();
     }
@@ -506,12 +506,12 @@ public class JsonRpc2_0Web3j implements Web3j {
     }
 
     @Override
-    public Flowable<EthBlock> blockFlowable(boolean fullTransactionObjects) {
+    public Flowable<TolBlock> blockFlowable(boolean fullTransactionObjects) {
         return web3jRx.blockFlowable(fullTransactionObjects, blockTime);
     }
 
     @Override
-    public Flowable<EthBlock> replayPastBlocksFlowable(
+    public Flowable<TolBlock> replayPastBlocksFlowable(
             DefaultBlockParameter startBlock,
             DefaultBlockParameter endBlock,
             boolean fullTransactionObjects) {
@@ -519,7 +519,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     }
 
     @Override
-    public Flowable<EthBlock> replayPastBlocksFlowable(
+    public Flowable<TolBlock> replayPastBlocksFlowable(
             DefaultBlockParameter startBlock,
             DefaultBlockParameter endBlock,
             boolean fullTransactionObjects,
@@ -529,16 +529,16 @@ public class JsonRpc2_0Web3j implements Web3j {
     }
 
     @Override
-    public Flowable<EthBlock> replayPastBlocksFlowable(
+    public Flowable<TolBlock> replayPastBlocksFlowable(
             DefaultBlockParameter startBlock,
             boolean fullTransactionObjects,
-            Flowable<EthBlock> onCompleteFlowable) {
+            Flowable<TolBlock> onCompleteFlowable) {
         return web3jRx.replayPastBlocksFlowable(
                 startBlock, fullTransactionObjects, onCompleteFlowable);
     }
 
     @Override
-    public Flowable<EthBlock> replayPastBlocksFlowable(
+    public Flowable<TolBlock> replayPastBlocksFlowable(
             DefaultBlockParameter startBlock, boolean fullTransactionObjects) {
         return web3jRx.replayPastBlocksFlowable(startBlock, fullTransactionObjects);
     }
@@ -557,7 +557,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     }
 
     @Override
-    public Flowable<EthBlock> replayPastAndFutureBlocksFlowable(
+    public Flowable<TolBlock> replayPastAndFutureBlocksFlowable(
             DefaultBlockParameter startBlock, boolean fullTransactionObjects) {
         return web3jRx.replayPastAndFutureBlocksFlowable(
                 startBlock, fullTransactionObjects, blockTime);
@@ -606,7 +606,8 @@ public class JsonRpc2_0Web3j implements Web3j {
     }
 
     @Override
-    public Request<?, GetTransactionList> tolGetTransactionList(List<String> addresses, long limit, long skip) {
+    public Request<?, GetTransactionList> tolGetTransactionList(
+            List<String> addresses, long limit, long skip) {
         return new Request<>(
                 "tol_getTransactionList",
                 Arrays.asList(addresses, limit, skip),
