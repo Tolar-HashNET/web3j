@@ -323,16 +323,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthGetBlockByHash() throws Exception {
-        web3j.ethGetBlockByHash(
-                        "0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331", true)
-                .send();
-
-        verifyResult(
-                "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockByHash\",\"params\":["
-                        + "\"0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331\""
-                        + ",true],\"id\":1}");
-    }
+    public void testEthGetBlockByHash() {}
 
     @Test
     public void testEthGetBlockByNumber() throws Exception {
