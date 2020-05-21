@@ -179,4 +179,6 @@ public interface Tolar {
     Request<?, TolGetLatestBalance> tolGetLatestBalance(String address);
 
     Request<?, TolGetBlockchainInfo> tolGetBlockchainInfo();
+
+    Request<?, AccountCreate> accountCreate(String masterPassword);
 }

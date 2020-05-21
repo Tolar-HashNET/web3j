@@ -632,4 +632,13 @@ public class JsonRpc2_0Web3j implements Web3j {
                 web3jService,
                 TolGetBlockchainInfo.class);
     }
+
+    @Override
+    public Request<?, AccountCreate> accountCreate(String masterPassword) {
+        return new Request<>(
+                "account_create",
+                Collections.singletonList(masterPassword),
+                web3jService,
+                AccountCreate.class);
+    }
 }

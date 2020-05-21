@@ -130,4 +130,11 @@ class TolarTest {
         System.out.println("Confirmed blocks count: " + response.getConfirmedBlocksCount());
         System.out.println("Total block count: " + response.getTotalBlockCount());
     }
+
+    @Test
+    public void testAccountCreate() throws IOException {
+        AccountCreate response = web3j.accountCreate("password").send();
+
+        System.out.println("Is account created: " + response.isCreated());
+    }
 }
