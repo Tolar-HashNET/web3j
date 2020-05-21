@@ -17,9 +17,6 @@ import org.web3j.crypto.WalletUtils;
 import org.web3j.ens.contracts.generated.ENS;
 import org.web3j.ens.contracts.generated.PublicResolver;
 import org.web3j.protocol.Web3j;
-import org.web3j.protocol.core.DefaultBlockParameterName;
-import org.web3j.protocol.core.methods.response.EthBlock;
-import org.web3j.protocol.core.methods.response.EthSyncing;
 import org.web3j.protocol.core.methods.response.NetVersion;
 import org.web3j.tx.ClientTransactionManager;
 import org.web3j.tx.TransactionManager;
@@ -149,17 +146,8 @@ public class EnsResolver {
                 resolverAddress, web3j, transactionManager, new DefaultGasProvider());
     }
 
-    boolean isSynced() throws Exception {
-        EthSyncing ethSyncing = web3j.ethSyncing().send();
-        if (ethSyncing.isSyncing()) {
-            return false;
-        } else {
-            EthBlock ethBlock =
-                    web3j.ethGetBlockByNumber(DefaultBlockParameterName.LATEST, false).send();
-            long timestamp = ethBlock.getBlock().getTimestamp().longValueExact() * 1000;
-
-            return System.currentTimeMillis() - syncThreshold < timestamp;
-        }
+    boolean isSynced() {
+        throw new UnsupportedOperationException();
     }
 
     public static boolean isValidEnsName(String input) {
