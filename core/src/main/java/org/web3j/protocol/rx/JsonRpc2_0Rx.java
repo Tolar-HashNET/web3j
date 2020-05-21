@@ -14,9 +14,9 @@ package org.web3j.protocol.rx;
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.stream.Collectors;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
@@ -31,8 +31,8 @@ import org.web3j.protocol.core.DefaultBlockParameterNumber;
 import org.web3j.protocol.core.filters.BlockFilter;
 import org.web3j.protocol.core.filters.LogFilter;
 import org.web3j.protocol.core.filters.PendingTransactionFilter;
-import org.web3j.protocol.core.methods.response.EthBlock;
 import org.web3j.protocol.core.methods.response.Log;
+import org.web3j.protocol.core.methods.response.TolBlock;
 import org.web3j.protocol.core.methods.response.Transaction;
 import org.web3j.utils.Flowables;
 
@@ -102,7 +102,7 @@ public class JsonRpc2_0Rx {
                 .map(ethTransaction -> ethTransaction.getTransaction().get());
     }
 
-    public Flowable<EthBlock> blockFlowable(boolean fullTransactionObjects, long pollingInterval) {
+    public Flowable<TolBlock> blockFlowable(boolean fullTransactionObjects, long pollingInterval) {
         return ethBlockHashFlowable(pollingInterval)
                 .flatMap(
                         blockHash ->
@@ -110,14 +110,14 @@ public class JsonRpc2_0Rx {
                                         .flowable());
     }
 
-    public Flowable<EthBlock> replayBlocksFlowable(
+    public Flowable<TolBlock> replayBlocksFlowable(
             DefaultBlockParameter startBlock,
             DefaultBlockParameter endBlock,
             boolean fullTransactionObjects) {
         return replayBlocksFlowable(startBlock, endBlock, fullTransactionObjects, true);
     }
 
-    public Flowable<EthBlock> replayBlocksFlowable(
+    public Flowable<TolBlock> replayBlocksFlowable(
             DefaultBlockParameter startBlock,
             DefaultBlockParameter endBlock,
             boolean fullTransactionObjects,
@@ -128,14 +128,14 @@ public class JsonRpc2_0Rx {
                 .subscribeOn(scheduler);
     }
 
-    private Flowable<EthBlock> replayBlocksFlowableSync(
+    private Flowable<TolBlock> replayBlocksFlowableSync(
             DefaultBlockParameter startBlock,
             DefaultBlockParameter endBlock,
             boolean fullTransactionObjects) {
         return replayBlocksFlowableSync(startBlock, endBlock, fullTransactionObjects, true);
     }
 
-    private Flowable<EthBlock> replayBlocksFlowableSync(
+    private Flowable<TolBlock> replayBlocksFlowableSync(
             DefaultBlockParameter startBlock,
             DefaultBlockParameter endBlock,
             boolean fullTransactionObjects,
@@ -144,8 +144,8 @@ public class JsonRpc2_0Rx {
         BigInteger startBlockNumber = null;
         BigInteger endBlockNumber = null;
         try {
-            startBlockNumber = getBlockNumber(startBlock);
-            endBlockNumber = getBlockNumber(endBlock);
+            startBlockNumber = getBlockIndex(startBlock);
+            endBlockNumber = getBlockIndex(endBlock);
         } catch (IOException e) {
             Flowable.error(e);
         }
@@ -175,31 +175,31 @@ public class JsonRpc2_0Rx {
                 .flatMapIterable(JsonRpc2_0Rx::toTransactions);
     }
 
-    public Flowable<EthBlock> replayPastBlocksFlowable(
+    public Flowable<TolBlock> replayPastBlocksFlowable(
             DefaultBlockParameter startBlock,
             boolean fullTransactionObjects,
-            Flowable<EthBlock> onCompleteFlowable) {
+            Flowable<TolBlock> onCompleteFlowable) {
         // We use a scheduler to ensure this Flowable runs asynchronously for users to be
         // consistent with the other Flowables
         return replayPastBlocksFlowableSync(startBlock, fullTransactionObjects, onCompleteFlowable)
                 .subscribeOn(scheduler);
     }
 
-    public Flowable<EthBlock> replayPastBlocksFlowable(
+    public Flowable<TolBlock> replayPastBlocksFlowable(
             DefaultBlockParameter startBlock, boolean fullTransactionObjects) {
         return replayPastBlocksFlowable(startBlock, fullTransactionObjects, Flowable.empty());
     }
 
-    private Flowable<EthBlock> replayPastBlocksFlowableSync(
+    private Flowable<TolBlock> replayPastBlocksFlowableSync(
             DefaultBlockParameter startBlock,
             boolean fullTransactionObjects,
-            Flowable<EthBlock> onCompleteFlowable) {
+            Flowable<TolBlock> onCompleteFlowable) {
 
         BigInteger startBlockNumber;
         BigInteger latestBlockNumber;
         try {
-            startBlockNumber = getBlockNumber(startBlock);
-            latestBlockNumber = getLatestBlockNumber();
+            startBlockNumber = getBlockIndex(startBlock);
+            latestBlockNumber = getLatestBlockIndex();
         } catch (IOException e) {
             return Flowable.error(e);
         }
@@ -227,7 +227,7 @@ public class JsonRpc2_0Rx {
                 .flatMapIterable(JsonRpc2_0Rx::toTransactions);
     }
 
-    public Flowable<EthBlock> replayPastAndFutureBlocksFlowable(
+    public Flowable<TolBlock> replayPastAndFutureBlocksFlowable(
             DefaultBlockParameter startBlock,
             boolean fullTransactionObjects,
             long pollingInterval) {
@@ -244,26 +244,27 @@ public class JsonRpc2_0Rx {
                 .flatMapIterable(JsonRpc2_0Rx::toTransactions);
     }
 
-    private BigInteger getLatestBlockNumber() throws IOException {
-        return getBlockNumber(DefaultBlockParameterName.LATEST);
+    private BigInteger getLatestBlockIndex() throws IOException {
+        return getBlockIndex(DefaultBlockParameterName.LATEST);
     }
 
-    private BigInteger getBlockNumber(DefaultBlockParameter defaultBlockParameter)
+    private BigInteger getBlockIndex(DefaultBlockParameter defaultBlockParameter)
             throws IOException {
         if (defaultBlockParameter instanceof DefaultBlockParameterNumber) {
             return ((DefaultBlockParameterNumber) defaultBlockParameter).getBlockNumber();
         } else {
-            EthBlock latestEthBlock =
+            TolBlock latestTolBlock =
                     web3j.ethGetBlockByNumber(defaultBlockParameter, false).send();
-            return latestEthBlock.getBlock().getNumber();
+            return latestTolBlock.getBlock().getBlockIndex();
         }
     }
 
-    private static List<Transaction> toTransactions(EthBlock ethBlock) {
+    private static List<Transaction> toTransactions(TolBlock tolBlock) {
         // If you ever see an exception thrown here, it's probably due to an incomplete chain in
         // Geth/Parity. You should resync to solve.
-        return ethBlock.getBlock().getTransactions().stream()
-                .map(transactionResult -> (Transaction) transactionResult.get())
-                .collect(Collectors.toList());
+
+        // TODO: See what to do here, not possible to get Transaction objects from Block in Tolar
+        // API
+        return Collections.emptyList();
     }
 }
