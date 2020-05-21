@@ -177,4 +177,6 @@ public interface Tolar {
             List<String> addresses, long limit, long skip);
 
     Request<?, TolGetLatestBalance> tolGetLatestBalance(String address);
+
+    Request<?, TolGetBlockchainInfo> tolGetBlockchainInfo();
 }

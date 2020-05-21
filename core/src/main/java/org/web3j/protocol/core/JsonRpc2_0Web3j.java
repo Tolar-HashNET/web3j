@@ -623,4 +623,13 @@ public class JsonRpc2_0Web3j implements Web3j {
                 web3jService,
                 TolGetLatestBalance.class);
     }
+
+    @Override
+    public Request<?, TolGetBlockchainInfo> tolGetBlockchainInfo() {
+        return new Request<>(
+                "tol_getBlockchainInfo",
+                Collections.emptyList(),
+                web3jService,
+                TolGetBlockchainInfo.class);
+    }
 }

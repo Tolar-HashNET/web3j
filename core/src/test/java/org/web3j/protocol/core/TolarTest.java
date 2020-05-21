@@ -121,4 +121,13 @@ class TolarTest {
         System.out.println("Latest balance: " + response.getLatestBalance());
         System.out.println("Block index: " + response.getBlockIndex());
     }
+
+    @Test
+    public void testGetBlockchainInfo() throws IOException {
+        TolGetBlockchainInfo response = web3j.tolGetBlockchainInfo().send();
+
+        System.out.println("Last confirmed block hash: " + response.getLastConfirmedBlockHash());
+        System.out.println("Confirmed blocks count: " + response.getConfirmedBlocksCount());
+        System.out.println("Total block count: " + response.getTotalBlockCount());
+    }
 }
