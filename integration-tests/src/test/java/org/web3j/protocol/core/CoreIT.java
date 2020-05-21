@@ -234,7 +234,7 @@ public class CoreIT {
 
     @Test
     public void testEthGetBlockByHashReturnHashObjects() throws Exception {
-        TolBlock tolBlock = web3j.ethGetBlockByHash(config.validBlockHash(), false).send();
+        TolBlock tolBlock = web3j.tolGetBlockByHash(config.validBlockHash(), false).send();
 
         TolBlock.Block block = tolBlock.getBlock();
         assertNotNull(tolBlock.getBlock());
@@ -245,7 +245,7 @@ public class CoreIT {
 
     @Test
     public void testEthGetBlockByHashReturnFullTransactionObjects() throws Exception {
-        TolBlock tolBlock = web3j.ethGetBlockByHash(config.validBlockHash(), true).send();
+        TolBlock tolBlock = web3j.tolGetBlockByHash(config.validBlockHash(), true).send();
 
         TolBlock.Block block = tolBlock.getBlock();
         assertNotNull(tolBlock.getBlock());

@@ -248,11 +248,10 @@ public class JsonRpc2_0Web3j implements Web3j {
 
     // TODO: This method is in Tolar API
     @Override
-    public Request<?, TolBlock> ethGetBlockByHash(
-            String blockHash, boolean returnFullTransactionObjects) {
+    public Request<?, TolBlock> tolGetBlockByHash(String blockHash) {
         return new Request<>(
                 "tol_getBlockByHash",
-                Arrays.asList(blockHash, returnFullTransactionObjects),
+                Collections.singletonList(blockHash),
                 web3jService,
                 TolBlock.class);
     }
@@ -506,8 +505,8 @@ public class JsonRpc2_0Web3j implements Web3j {
     }
 
     @Override
-    public Flowable<TolBlock> blockFlowable(boolean fullTransactionObjects) {
-        return web3jRx.blockFlowable(fullTransactionObjects, blockTime);
+    public Flowable<TolBlock> blockFlowable() {
+        return web3jRx.blockFlowable(blockTime);
     }
 
     @Override
