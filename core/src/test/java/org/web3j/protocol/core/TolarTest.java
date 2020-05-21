@@ -100,7 +100,7 @@ class TolarTest {
 
     @Test
     public void testGetTransactionList() throws IOException {
-        GetTransactionList response =
+        TolGetTransactionList response =
                 web3j.tolGetTransactionList(
                                 Collections.singletonList(
                                         "5484c512b1cf3d45e7506a772b7358375acc571b2930d27deb"),
@@ -110,5 +110,13 @@ class TolarTest {
 
         System.out.println("Transaction list:");
         response.getTransactionList().forEach(t -> System.out.println(t.getBlockHash()));
+    }
+
+    @Test
+    public void testGetLatestBalance() throws IOException {
+        TolGetLatestBalance response = web3j.tolGetLatestBalance("5484c512b1cf3d45e7506a772b7358375acc571b2930d27deb").send();
+
+        System.out.println("Latest balance: " + response.getLatestBalance());
+        System.out.println("Block index: " + response.getBlockIndex());
     }
 }

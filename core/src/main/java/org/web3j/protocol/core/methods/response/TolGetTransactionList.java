@@ -16,7 +16,7 @@ import java.util.List;
 
 import org.web3j.protocol.core.Response;
 
-public class GetTransactionList extends Response<GetTransactionList.TransactionList> {
+public class TolGetTransactionList extends Response<TolGetTransactionList.TransactionList> {
 
     public List<Transaction> getTransactionList() {
         return getResult().getTransactions();

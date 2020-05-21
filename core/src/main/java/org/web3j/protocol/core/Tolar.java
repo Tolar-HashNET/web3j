@@ -173,6 +173,8 @@ public interface Tolar {
 
     Request<?, MasterNodeCount> netMasterNodeCount();
 
-    Request<?, GetTransactionList> tolGetTransactionList(
+    Request<?, TolGetTransactionList> tolGetTransactionList(
             List<String> addresses, long limit, long skip);
+
+    Request<?, TolGetLatestBalance> tolGetLatestBalance(String address);
 }

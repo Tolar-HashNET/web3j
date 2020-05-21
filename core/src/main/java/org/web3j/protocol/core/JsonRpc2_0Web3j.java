@@ -606,12 +606,21 @@ public class JsonRpc2_0Web3j implements Web3j {
     }
 
     @Override
-    public Request<?, GetTransactionList> tolGetTransactionList(
+    public Request<?, TolGetTransactionList> tolGetTransactionList(
             List<String> addresses, long limit, long skip) {
         return new Request<>(
                 "tol_getTransactionList",
                 Arrays.asList(addresses, limit, skip),
                 web3jService,
-                GetTransactionList.class);
+                TolGetTransactionList.class);
+    }
+
+    @Override
+    public Request<?, TolGetLatestBalance> tolGetLatestBalance(String address) {
+        return new Request<>(
+                "tol_getLatestBalance",
+                Collections.singletonList(address),
+                web3jService,
+                TolGetLatestBalance.class);
     }
 }
