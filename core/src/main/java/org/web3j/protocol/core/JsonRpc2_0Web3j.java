@@ -650,4 +650,13 @@ public class JsonRpc2_0Web3j implements Web3j {
                 web3jService,
                 AccountOpen.class);
     }
+
+    @Override
+    public Request<?, AccountVerifyAddress> accountVerifyAddress(String address) {
+        return new Request<>(
+                "account_verifyAddress",
+                Collections.singletonList(address),
+                web3jService,
+                AccountVerifyAddress.class);
+    }
 }

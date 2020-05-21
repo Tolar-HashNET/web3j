@@ -53,7 +53,6 @@ class TolarTest {
     @Test
     public void testTolGetBlockCount() throws IOException {
         TolGetBlockCount response = web3j.tolGetBlockCount().send();
-
         System.out.println("Block count: " + response.getBlockCount());
     }
 
@@ -80,21 +79,18 @@ class TolarTest {
     @Test
     public void testNetIsMasterNode() throws IOException {
         IsMasterNode response = web3j.netIsMasterNode().send();
-
         System.out.println("Is master node: " + response.isMasterNode());
     }
 
     @Test
     public void testNetMaxPeerCount() throws IOException {
         MaxPeerCount response = web3j.netMaxPeerCount().send();
-
         System.out.println("Max peer count: " + response.getMaxPeerCount());
     }
 
     @Test
     public void testNetMasterNodeCount() throws IOException {
         MasterNodeCount response = web3j.netMasterNodeCount().send();
-
         System.out.println("Master node count: " + response.getMasterNodeCount());
     }
 
@@ -134,14 +130,20 @@ class TolarTest {
     @Test
     public void testAccountCreate() throws IOException {
         AccountCreate response = web3j.accountCreate("password").send();
-
         System.out.println("Is account created: " + response.isCreated());
     }
 
     @Test
     public void testAccountOpen() throws IOException {
         AccountOpen response = web3j.accountOpen("password").send();
-
         System.out.println("Is account opened: " + response.isOpened());
+    }
+
+    @Test
+    public void testAccountVerifyAddress() throws IOException {
+        AccountVerifyAddress response =
+                web3j.accountVerifyAddress("5484c512b1cf3d45e7506a772b7358375acc571b2930d27deb")
+                        .send();
+        Assertions.assertTrue(response.isVerified());
     }
 }
