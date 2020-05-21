@@ -669,4 +669,13 @@ public class JsonRpc2_0Web3j implements Web3j {
                 web3jService,
                 AccountCreateNewAddress.class);
     }
+
+    @Override
+    public Request<?, AccountExportKeyFile> accountExportKeyFile(String address) {
+        return new Request<>(
+                "account_exportKeyFile",
+                Collections.singletonList(address),
+                web3jService,
+                AccountExportKeyFile.class);
+    }
 }

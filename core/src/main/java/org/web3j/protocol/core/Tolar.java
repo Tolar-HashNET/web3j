@@ -188,4 +188,6 @@ public interface Tolar {
 
     Request<?, AccountCreateNewAddress> accountCreateNewAddress(
             String name, String lockPassword, String lockHint);
+
+    Request<?, AccountExportKeyFile> accountExportKeyFile(String address);
 }

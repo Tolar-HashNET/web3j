@@ -153,4 +153,13 @@ class TolarTest {
                 web3j.accountCreateNewAddress("name", "Password123", "hint").send();
         System.out.println("Created address: " + response.getAddress());
     }
+
+    @Test
+    public void testExportKeyFile() throws IOException {
+        AccountExportKeyFile response =
+                web3j.accountExportKeyFile("5484c512b1cf3d45e7506a772b7358375acc571b2930d27deb")
+                        .send();
+
+        System.out.println("Key file: " + response.getKeyFile());
+    }
 }
