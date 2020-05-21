@@ -97,7 +97,7 @@ public class JsonRpc2_0Rx {
         return ethPendingTransactionHashFlowable(pollingInterval)
                 .flatMap(
                         transactionHash ->
-                                web3j.ethGetTransactionByHash(transactionHash).flowable())
+                                web3j.tolGetTransaction(transactionHash).flowable())
                 .filter(ethTransaction -> ethTransaction.getTransaction().isPresent())
                 .map(ethTransaction -> ethTransaction.getTransaction().get());
     }

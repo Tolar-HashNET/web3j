@@ -93,7 +93,7 @@ public interface Tolar {
 
     Request<?, TolBlock> tolGetBlockByIndex(DefaultBlockParameter defaultBlockParameter);
 
-    Request<?, EthTransaction> ethGetTransactionByHash(String transactionHash);
+    Request<?, EthTransaction> tolGetTransaction(String transactionHash);
 
     Request<?, EthTransaction> ethGetTransactionByBlockHashAndIndex(
             String blockHash, BigInteger transactionIndex);

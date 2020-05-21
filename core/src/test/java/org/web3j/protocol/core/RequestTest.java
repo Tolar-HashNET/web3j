@@ -330,7 +330,7 @@ public class RequestTest extends RequestTester {
 
     @Test
     public void testEthGetTransactionByHash() throws Exception {
-        web3j.ethGetTransactionByHash(
+        web3j.tolGetTransaction(
                         "0xb903239f8543d04b5dc1ba6579132b143087c68db1b2168786408fcbce568238")
                 .send();
 

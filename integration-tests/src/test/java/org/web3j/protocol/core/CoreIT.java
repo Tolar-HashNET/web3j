@@ -283,7 +283,7 @@ public class CoreIT {
     @Test
     public void testEthGetTransactionByHash() throws Exception {
         EthTransaction ethTransaction =
-                web3j.ethGetTransactionByHash(config.validTransactionHash()).send();
+                web3j.tolGetTransaction(config.validTransactionHash()).send();
         assertTrue(ethTransaction.getTransaction().isPresent());
         Transaction transaction = ethTransaction.getTransaction().get();
         assertEquals(transaction.getBlockHash(), (config.validBlockHash()));
