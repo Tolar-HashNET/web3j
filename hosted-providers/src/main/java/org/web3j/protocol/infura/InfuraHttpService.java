@@ -21,7 +21,7 @@ import org.web3j.protocol.http.HttpService;
 public class InfuraHttpService extends HttpService {
 
     private static final String INFURA_ETHEREUM_PREFERRED_CLIENT =
-            "Infura-Ethereum-Preferred-Client";
+            "Infura-Tolar-Preferred-Client";
 
     private final Map<String, String> clientVersionHeader;
 

@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-/** Sign transaction using Ethereum node. */
+/** Sign transaction using Tolar node. */
 public class SignTransactionIT extends Scenario {
 
     @Test

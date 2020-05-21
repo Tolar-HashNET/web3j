@@ -291,7 +291,7 @@ public class TruffleJsonFunctionWrapperGenerator extends FunctionWrapperGenerato
         /**
          * Convenience method to get the deployed address of the contract.
          *
-         * @param network the contract's address on this Ethereum network
+         * @param network the contract's address on this Tolar network
          * @return the contract's address or <code>null</code> if there isn't one known.
          */
         public String getAddress(Network network) {

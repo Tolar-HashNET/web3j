@@ -22,7 +22,7 @@ import org.web3j.protocol.core.RemoteCall;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 
 /**
- * Describes the Ethereum "Basic" subset of the ERC-20 token standard.
+ * Describes the Tolar "Basic" subset of the ERC-20 token standard.
  *
  * <p>Implementations should provide the concrete <code>TransferEventResponse</code> from their
  * token as the generic type "T".

@@ -13,7 +13,7 @@
 package org.web3j.tx;
 
 /**
- * Ethereum chain ids as per <a
+ * Tolar chain ids as per <a
  * href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-155.md">EIP-155</a>.
  */
 @Deprecated

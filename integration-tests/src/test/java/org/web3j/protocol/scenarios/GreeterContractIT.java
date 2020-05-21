@@ -36,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Integration test demonstrating integration with Greeter contract taken from the <a
  * href="https://github.com/ethereum/go-ethereum/wiki/Contract-Tutorial">Contract Tutorial</a> on
- * the Go Ethereum Wiki.
+ * the Go Tolar Wiki.
  */
 public class GreeterContractIT extends Scenario {
 

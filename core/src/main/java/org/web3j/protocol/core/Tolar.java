@@ -19,8 +19,8 @@ import org.web3j.protocol.core.methods.response.*;
 import org.web3j.protocol.core.methods.response.admin.AdminNodeInfo;
 import org.web3j.protocol.core.methods.response.admin.AdminPeers;
 
-/** Core Ethereum JSON-RPC API. */
-public interface Ethereum {
+/** Core Tolar JSON-RPC API. */
+public interface Tolar {
     Request<?, Web3ClientVersion> web3ClientVersion();
 
     Request<?, Web3Sha3> web3Sha3(String data);
