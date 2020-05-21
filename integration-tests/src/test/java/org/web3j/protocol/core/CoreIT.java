@@ -257,7 +257,7 @@ public class CoreIT {
     @Test
     public void testEthGetBlockByNumberReturnHashObjects() throws Exception {
         TolBlock tolBlock =
-                web3j.ethGetBlockByNumber(DefaultBlockParameter.valueOf(config.validBlock()), false)
+                web3j.tolGetBlockByIndex(DefaultBlockParameter.valueOf(config.validBlock()), false)
                         .send();
 
         TolBlock.Block block = tolBlock.getBlock();
@@ -270,7 +270,7 @@ public class CoreIT {
     @Test
     public void testEthGetBlockByNumberReturnTransactionObjects() throws Exception {
         TolBlock tolBlock =
-                web3j.ethGetBlockByNumber(DefaultBlockParameter.valueOf(config.validBlock()), true)
+                web3j.tolGetBlockByIndex(DefaultBlockParameter.valueOf(config.validBlock()), true)
                         .send();
 
         TolBlock.Block block = tolBlock.getBlock();

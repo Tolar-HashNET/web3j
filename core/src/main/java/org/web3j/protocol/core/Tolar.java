@@ -91,7 +91,7 @@ public interface Tolar {
 
     Request<?, TolBlock> tolGetBlockByHash(String blockHash);
 
-    Request<?, TolBlock> ethGetBlockByNumber(
+    Request<?, TolBlock> tolGetBlockByIndex(
             DefaultBlockParameter defaultBlockParameter, boolean returnFullTransactionObjects);
 
     Request<?, EthTransaction> ethGetTransactionByHash(String transactionHash);

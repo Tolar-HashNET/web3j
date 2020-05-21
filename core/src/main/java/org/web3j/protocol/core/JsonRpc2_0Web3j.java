@@ -258,7 +258,7 @@ public class JsonRpc2_0Web3j implements Web3j {
 
     // TODO: This method is in Tolar API
     @Override
-    public Request<?, TolBlock> ethGetBlockByNumber(
+    public Request<?, TolBlock> tolGetBlockByIndex(
             DefaultBlockParameter defaultBlockParameter, boolean returnFullTransactionObjects) {
         return new Request<>(
                 "tol_getBlockByIndex",

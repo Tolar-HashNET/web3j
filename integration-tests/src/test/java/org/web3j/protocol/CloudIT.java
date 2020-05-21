@@ -25,7 +25,7 @@ public class CloudIT {
     public void testWeb3jCloudIsFunctional() throws Exception {
         Web3j web3j = Web3j.build();
         String netVersion =
-                web3j.ethGetBlockByNumber(DefaultBlockParameter.valueOf("latest"), false)
+                web3j.tolGetBlockByIndex(DefaultBlockParameter.valueOf("latest"), false)
                         .send()
                         .getBlock()
                         .getHash();

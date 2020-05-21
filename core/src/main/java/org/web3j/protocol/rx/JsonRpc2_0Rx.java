@@ -151,7 +151,7 @@ public class JsonRpc2_0Rx {
             return Flowables.range(startBlockNumber, endBlockNumber)
                     .flatMap(
                             i ->
-                                    web3j.ethGetBlockByNumber(
+                                    web3j.tolGetBlockByIndex(
                                                     new DefaultBlockParameterNumber(i),
                                                     fullTransactionObjects)
                                             .flowable());
@@ -159,7 +159,7 @@ public class JsonRpc2_0Rx {
             return Flowables.range(startBlockNumber, endBlockNumber, false)
                     .flatMap(
                             i ->
-                                    web3j.ethGetBlockByNumber(
+                                    web3j.tolGetBlockByIndex(
                                                     new DefaultBlockParameterNumber(i),
                                                     fullTransactionObjects)
                                             .flowable());
@@ -248,8 +248,7 @@ public class JsonRpc2_0Rx {
         if (defaultBlockParameter instanceof DefaultBlockParameterNumber) {
             return ((DefaultBlockParameterNumber) defaultBlockParameter).getBlockNumber();
         } else {
-            TolBlock latestTolBlock =
-                    web3j.ethGetBlockByNumber(defaultBlockParameter, false).send();
+            TolBlock latestTolBlock = web3j.tolGetBlockByIndex(defaultBlockParameter, false).send();
             return latestTolBlock.getBlock().getBlockIndex();
         }
     }

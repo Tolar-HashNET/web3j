@@ -76,7 +76,7 @@ public class FlowableIT {
     @Test
     public void testReplayPastAndFutureBlocksFlowable() throws Exception {
         TolBlock tolBlock =
-                web3j.ethGetBlockByNumber(DefaultBlockParameterName.LATEST, false).send();
+                web3j.tolGetBlockByIndex(DefaultBlockParameterName.LATEST, false).send();
         BigInteger latestBlockNumber = tolBlock.getBlock().getNumber();
         run(
                 web3j.replayPastAndFutureBlocksFlowable(

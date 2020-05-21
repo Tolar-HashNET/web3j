@@ -327,7 +327,7 @@ public class RequestTest extends RequestTester {
 
     @Test
     public void testEthGetBlockByNumber() throws Exception {
-        web3j.ethGetBlockByNumber(DefaultBlockParameter.valueOf(Numeric.toBigInt("0x1b4")), true)
+        web3j.tolGetBlockByIndex(DefaultBlockParameter.valueOf(Numeric.toBigInt("0x1b4")), true)
                 .send();
 
         verifyResult(
