@@ -108,35 +108,24 @@ public class JsonRpc2_0Rx {
     }
 
     public Flowable<TolBlock> replayBlocksFlowable(
-            DefaultBlockParameter startBlock,
-            DefaultBlockParameter endBlock,
-            boolean fullTransactionObjects) {
-        return replayBlocksFlowable(startBlock, endBlock, fullTransactionObjects, true);
+            DefaultBlockParameter startBlock, DefaultBlockParameter endBlock) {
+        return replayBlocksFlowable(startBlock, endBlock, true);
     }
 
     public Flowable<TolBlock> replayBlocksFlowable(
-            DefaultBlockParameter startBlock,
-            DefaultBlockParameter endBlock,
-            boolean fullTransactionObjects,
-            boolean ascending) {
+            DefaultBlockParameter startBlock, DefaultBlockParameter endBlock, boolean ascending) {
         // We use a scheduler to ensure this Flowable runs asynchronously for users to be
         // consistent with the other Flowables
-        return replayBlocksFlowableSync(startBlock, endBlock, fullTransactionObjects, ascending)
-                .subscribeOn(scheduler);
+        return replayBlocksFlowableSync(startBlock, endBlock, ascending).subscribeOn(scheduler);
     }
 
     private Flowable<TolBlock> replayBlocksFlowableSync(
-            DefaultBlockParameter startBlock,
-            DefaultBlockParameter endBlock,
-            boolean fullTransactionObjects) {
-        return replayBlocksFlowableSync(startBlock, endBlock, fullTransactionObjects, true);
+            DefaultBlockParameter startBlock, DefaultBlockParameter endBlock) {
+        return replayBlocksFlowableSync(startBlock, endBlock, true);
     }
 
     private Flowable<TolBlock> replayBlocksFlowableSync(
-            DefaultBlockParameter startBlock,
-            DefaultBlockParameter endBlock,
-            boolean fullTransactionObjects,
-            boolean ascending) {
+            DefaultBlockParameter startBlock, DefaultBlockParameter endBlock, boolean ascending) {
 
         BigInteger startBlockNumber = null;
         BigInteger endBlockNumber = null;
@@ -151,17 +140,13 @@ public class JsonRpc2_0Rx {
             return Flowables.range(startBlockNumber, endBlockNumber)
                     .flatMap(
                             i ->
-                                    web3j.tolGetBlockByIndex(
-                                                    new DefaultBlockParameterNumber(i),
-                                                    fullTransactionObjects)
+                                    web3j.tolGetBlockByIndex(new DefaultBlockParameterNumber(i))
                                             .flowable());
         } else {
             return Flowables.range(startBlockNumber, endBlockNumber, false)
                     .flatMap(
                             i ->
-                                    web3j.tolGetBlockByIndex(
-                                                    new DefaultBlockParameterNumber(i),
-                                                    fullTransactionObjects)
+                                    web3j.tolGetBlockByIndex(new DefaultBlockParameterNumber(i))
                                             .flowable());
         }
     }
@@ -173,24 +158,18 @@ public class JsonRpc2_0Rx {
     }
 
     public Flowable<TolBlock> replayPastBlocksFlowable(
-            DefaultBlockParameter startBlock,
-            boolean fullTransactionObjects,
-            Flowable<TolBlock> onCompleteFlowable) {
+            DefaultBlockParameter startBlock, Flowable<TolBlock> onCompleteFlowable) {
         // We use a scheduler to ensure this Flowable runs asynchronously for users to be
         // consistent with the other Flowables
-        return replayPastBlocksFlowableSync(startBlock, fullTransactionObjects, onCompleteFlowable)
-                .subscribeOn(scheduler);
+        return replayPastBlocksFlowableSync(startBlock, onCompleteFlowable).subscribeOn(scheduler);
     }
 
-    public Flowable<TolBlock> replayPastBlocksFlowable(
-            DefaultBlockParameter startBlock, boolean fullTransactionObjects) {
-        return replayPastBlocksFlowable(startBlock, fullTransactionObjects, Flowable.empty());
+    public Flowable<TolBlock> replayPastBlocksFlowable(DefaultBlockParameter startBlock) {
+        return replayPastBlocksFlowable(startBlock, Flowable.empty());
     }
 
     private Flowable<TolBlock> replayPastBlocksFlowableSync(
-            DefaultBlockParameter startBlock,
-            boolean fullTransactionObjects,
-            Flowable<TolBlock> onCompleteFlowable) {
+            DefaultBlockParameter startBlock, Flowable<TolBlock> onCompleteFlowable) {
 
         BigInteger startBlockNumber;
         BigInteger latestBlockNumber;
@@ -207,35 +186,30 @@ public class JsonRpc2_0Rx {
             return Flowable.concat(
                     replayBlocksFlowableSync(
                             new DefaultBlockParameterNumber(startBlockNumber),
-                            new DefaultBlockParameterNumber(latestBlockNumber),
-                            fullTransactionObjects),
+                            new DefaultBlockParameterNumber(latestBlockNumber)),
                     Flowable.defer(
                             () ->
                                     replayPastBlocksFlowableSync(
                                             new DefaultBlockParameterNumber(
                                                     latestBlockNumber.add(BigInteger.ONE)),
-                                            fullTransactionObjects,
                                             onCompleteFlowable)));
         }
     }
 
     public Flowable<Transaction> replayPastTransactionsFlowable(DefaultBlockParameter startBlock) {
-        return replayPastBlocksFlowable(startBlock, true, Flowable.empty())
+        return replayPastBlocksFlowable(startBlock, Flowable.empty())
                 .flatMapIterable(JsonRpc2_0Rx::toTransactions);
     }
 
     public Flowable<TolBlock> replayPastAndFutureBlocksFlowable(
-            DefaultBlockParameter startBlock,
-            boolean fullTransactionObjects,
-            long pollingInterval) {
+            DefaultBlockParameter startBlock, long pollingInterval) {
 
-        return replayPastBlocksFlowable(
-                startBlock, fullTransactionObjects, blockFlowable(pollingInterval));
+        return replayPastBlocksFlowable(startBlock, blockFlowable(pollingInterval));
     }
 
     public Flowable<Transaction> replayPastAndFutureTransactionsFlowable(
             DefaultBlockParameter startBlock, long pollingInterval) {
-        return replayPastAndFutureBlocksFlowable(startBlock, true, pollingInterval)
+        return replayPastAndFutureBlocksFlowable(startBlock, pollingInterval)
                 .flatMapIterable(JsonRpc2_0Rx::toTransactions);
     }
 
@@ -248,7 +222,7 @@ public class JsonRpc2_0Rx {
         if (defaultBlockParameter instanceof DefaultBlockParameterNumber) {
             return ((DefaultBlockParameterNumber) defaultBlockParameter).getBlockNumber();
         } else {
-            TolBlock latestTolBlock = web3j.tolGetBlockByIndex(defaultBlockParameter, false).send();
+            TolBlock latestTolBlock = web3j.tolGetBlockByIndex(defaultBlockParameter).send();
             return latestTolBlock.getBlock().getBlockIndex();
         }
     }

@@ -258,11 +258,10 @@ public class JsonRpc2_0Web3j implements Web3j {
 
     // TODO: This method is in Tolar API
     @Override
-    public Request<?, TolBlock> tolGetBlockByIndex(
-            DefaultBlockParameter defaultBlockParameter, boolean returnFullTransactionObjects) {
+    public Request<?, TolBlock> tolGetBlockByIndex(DefaultBlockParameter defaultBlockParameter) {
         return new Request<>(
                 "tol_getBlockByIndex",
-                Arrays.asList(defaultBlockParameter.getValue(), returnFullTransactionObjects),
+                Arrays.asList(defaultBlockParameter.getValue()),
                 web3jService,
                 TolBlock.class);
     }
@@ -514,7 +513,7 @@ public class JsonRpc2_0Web3j implements Web3j {
             DefaultBlockParameter startBlock,
             DefaultBlockParameter endBlock,
             boolean fullTransactionObjects) {
-        return web3jRx.replayBlocksFlowable(startBlock, endBlock, fullTransactionObjects);
+        return web3jRx.replayBlocksFlowable(startBlock, endBlock);
     }
 
     @Override
@@ -523,8 +522,7 @@ public class JsonRpc2_0Web3j implements Web3j {
             DefaultBlockParameter endBlock,
             boolean fullTransactionObjects,
             boolean ascending) {
-        return web3jRx.replayBlocksFlowable(
-                startBlock, endBlock, fullTransactionObjects, ascending);
+        return web3jRx.replayBlocksFlowable(startBlock, endBlock, ascending);
     }
 
     @Override
@@ -532,14 +530,13 @@ public class JsonRpc2_0Web3j implements Web3j {
             DefaultBlockParameter startBlock,
             boolean fullTransactionObjects,
             Flowable<TolBlock> onCompleteFlowable) {
-        return web3jRx.replayPastBlocksFlowable(
-                startBlock, fullTransactionObjects, onCompleteFlowable);
+        return web3jRx.replayPastBlocksFlowable(startBlock, onCompleteFlowable);
     }
 
     @Override
     public Flowable<TolBlock> replayPastBlocksFlowable(
             DefaultBlockParameter startBlock, boolean fullTransactionObjects) {
-        return web3jRx.replayPastBlocksFlowable(startBlock, fullTransactionObjects);
+        return web3jRx.replayPastBlocksFlowable(startBlock);
     }
 
     @Override
@@ -558,8 +555,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     @Override
     public Flowable<TolBlock> replayPastAndFutureBlocksFlowable(
             DefaultBlockParameter startBlock, boolean fullTransactionObjects) {
-        return web3jRx.replayPastAndFutureBlocksFlowable(
-                startBlock, fullTransactionObjects, blockTime);
+        return web3jRx.replayPastAndFutureBlocksFlowable(startBlock, blockTime);
     }
 
     @Override
