@@ -24,6 +24,7 @@ import org.junit.platform.commons.logging.LoggerFactory;
 
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.methods.response.*;
+import org.web3j.protocol.exceptions.ClientConnectionException;
 import org.web3j.protocol.http.HttpService;
 
 class TolarTest {
@@ -210,5 +211,12 @@ class TolarTest {
                                                 + t.getBalance()
                                                 + "\n Name: "
                                                 + t.getAddressName()));
+    }
+
+    @Test
+    public void testAccountChangePassword() {
+        Assertions.assertThrows(
+                ClientConnectionException.class,
+                () -> web3j.accountChangePassword("oldPassword123", "newPassword123").send());
     }
 }

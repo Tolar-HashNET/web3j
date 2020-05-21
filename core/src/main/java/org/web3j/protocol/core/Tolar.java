@@ -195,4 +195,7 @@ public interface Tolar {
             String keyFile, String name, String lockPassword, String lockHint);
 
     Request<?, AccountListBalancePerAddress> accountListBalancePerAddress();
+
+    Request<?, AccountChangePassword> accountChangePassword(
+            String oldMasterPassword, String newMasterPassword);
 }
