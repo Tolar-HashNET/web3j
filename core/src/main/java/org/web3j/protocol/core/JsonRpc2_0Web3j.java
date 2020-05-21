@@ -707,4 +707,14 @@ public class JsonRpc2_0Web3j implements Web3j {
                 web3jService,
                 AccountChangePassword.class);
     }
+
+    @Override
+    public Request<?, AccountChangeAddressPassword> accountChangeAddressPassword(
+            String address, String oldPassword, String newPassword) {
+        return new Request<>(
+                "account_changeAddressPassword",
+                Arrays.asList(address, oldPassword, newPassword),
+                web3jService,
+                AccountChangeAddressPassword.class);
+    }
 }

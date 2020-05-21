@@ -198,4 +198,7 @@ public interface Tolar {
 
     Request<?, AccountChangePassword> accountChangePassword(
             String oldMasterPassword, String newMasterPassword);
+
+    Request<?, AccountChangeAddressPassword> accountChangeAddressPassword(
+            String address, String oldPassword, String newPassword);
 }

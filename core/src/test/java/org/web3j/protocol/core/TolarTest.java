@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.util.Collections;
 
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -149,6 +150,7 @@ class TolarTest {
     }
 
     @Test
+    @Ignore
     public void testAccountCreateNewAddress() throws IOException {
         AccountCreateNewAddress response =
                 web3j.accountCreateNewAddress("name", "Password123", "hint").send();
@@ -218,5 +220,17 @@ class TolarTest {
         Assertions.assertThrows(
                 ClientConnectionException.class,
                 () -> web3j.accountChangePassword("oldPassword123", "newPassword123").send());
+    }
+
+    @Test
+    @Ignore
+    public void testAccountChangeAddressPassword() throws IOException {
+        AccountChangeAddressPassword response =
+                web3j.accountChangeAddressPassword(
+                                "54b24647dc5a34b858eae00a1977b7263c66f1af121f461ddf",
+                                "Password123",
+                                "Password1234")
+                        .send();
+        Assertions.assertTrue(response.isSuccessful());
     }
 }
