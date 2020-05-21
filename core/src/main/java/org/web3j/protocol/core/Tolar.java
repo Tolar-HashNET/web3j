@@ -169,4 +169,6 @@ public interface Tolar {
     Request<?, IsMasterNode> netIsMasterNode();
 
     Request<?, MaxPeerCount> netMaxPeerCount();
+
+    Request<?, MasterNodeCount> netMasterNodeCount();
 }
