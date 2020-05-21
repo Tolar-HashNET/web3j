@@ -181,4 +181,6 @@ public interface Tolar {
     Request<?, TolGetBlockchainInfo> tolGetBlockchainInfo();
 
     Request<?, AccountCreate> accountCreate(String masterPassword);
+
+    Request<?, AccountOpen> accountOpen(String masterPassword);
 }

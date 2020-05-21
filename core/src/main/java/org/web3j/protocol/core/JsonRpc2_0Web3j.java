@@ -641,4 +641,13 @@ public class JsonRpc2_0Web3j implements Web3j {
                 web3jService,
                 AccountCreate.class);
     }
+
+    @Override
+    public Request<?, AccountOpen> accountOpen(String masterPassword) {
+        return new Request<>(
+                "account_open",
+                Collections.singletonList(masterPassword),
+                web3jService,
+                AccountOpen.class);
+    }
 }

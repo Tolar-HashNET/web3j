@@ -137,4 +137,11 @@ class TolarTest {
 
         System.out.println("Is account created: " + response.isCreated());
     }
+
+    @Test
+    public void testAccountOpen() throws IOException {
+        AccountOpen response = web3j.accountOpen("password").send();
+
+        System.out.println("Is account opened: " + response.isOpened());
+    }
 }
