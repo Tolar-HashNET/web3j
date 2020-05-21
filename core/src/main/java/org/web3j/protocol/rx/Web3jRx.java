@@ -70,12 +70,10 @@ public interface Web3jRx {
     /**
      * Create an {@link Flowable} instance that emits newly created blocks on the blockchain.
      *
-     * @param fullTransactionObjects if true, provides transactions embedded in blocks, otherwise
-     *     transaction hashes
      * @return a {@link Flowable} instance that emits all new blocks as they are added to the
      *     blockchain
      */
-    Flowable<TolBlock> blockFlowable(boolean fullTransactionObjects);
+    Flowable<TolBlock> blockFlowable();
 
     /**
      * Create an {@link Flowable} instance that emits all blocks from the blockchain contained

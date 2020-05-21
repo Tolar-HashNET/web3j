@@ -90,7 +90,7 @@ public class JsonRpc2_0Rx {
     }
 
     public Flowable<Transaction> transactionFlowable(long pollingInterval) {
-        return blockFlowable(true, pollingInterval).flatMapIterable(JsonRpc2_0Rx::toTransactions);
+        return blockFlowable(pollingInterval).flatMapIterable(JsonRpc2_0Rx::toTransactions);
     }
 
     public Flowable<Transaction> pendingTransactionFlowable(long pollingInterval) {
@@ -102,12 +102,9 @@ public class JsonRpc2_0Rx {
                 .map(ethTransaction -> ethTransaction.getTransaction().get());
     }
 
-    public Flowable<TolBlock> blockFlowable(boolean fullTransactionObjects, long pollingInterval) {
+    public Flowable<TolBlock> blockFlowable(long pollingInterval) {
         return ethBlockHashFlowable(pollingInterval)
-                .flatMap(
-                        blockHash ->
-                                web3j.ethGetBlockByHash(blockHash, fullTransactionObjects)
-                                        .flowable());
+                .flatMap(blockHash -> web3j.tolGetBlockByHash(blockHash).flowable());
     }
 
     public Flowable<TolBlock> replayBlocksFlowable(
@@ -233,9 +230,7 @@ public class JsonRpc2_0Rx {
             long pollingInterval) {
 
         return replayPastBlocksFlowable(
-                startBlock,
-                fullTransactionObjects,
-                blockFlowable(fullTransactionObjects, pollingInterval));
+                startBlock, fullTransactionObjects, blockFlowable(pollingInterval));
     }
 
     public Flowable<Transaction> replayPastAndFutureTransactionsFlowable(
