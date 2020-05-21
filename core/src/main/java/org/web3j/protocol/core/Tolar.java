@@ -190,4 +190,7 @@ public interface Tolar {
             String name, String lockPassword, String lockHint);
 
     Request<?, AccountExportKeyFile> accountExportKeyFile(String address);
+
+    Request<?, AccountImportKeyFile> accountImportKeyFile(
+            String keyFile, String name, String lockPassword, String lockHint);
 }

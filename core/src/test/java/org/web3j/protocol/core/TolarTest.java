@@ -162,4 +162,37 @@ class TolarTest {
 
         System.out.println("Key file: " + response.getKeyFile());
     }
+
+    @Test
+    public void testImportKeyFile() throws IOException {
+        AccountImportKeyFile response =
+                web3j.accountImportKeyFile(
+                                "Key file: {\n"
+                                        + "    \"address\" : \"84c512b1cf3d45e7506a772b7358375acc571b29\",\n"
+                                        + "    \"crypto\" : {\n"
+                                        + "        \"cipher\" : \"aes-128-ctr\",\n"
+                                        + "        \"cipherparams\" : {\n"
+                                        + "            \"iv\" : \"26cdcb58f5057c4f3f04468ae9d9b7b1\"\n"
+                                        + "        },\n"
+                                        + "        \"ciphertext\" : \"9177eba69ff70349d52a4c96b6e98eec2717e5e0218d5f4da143b894111681a9\",\n"
+                                        + "        \"kdf\" : \"scrypt\",\n"
+                                        + "        \"kdfparams\" : {\n"
+                                        + "            \"dklen\" : 32,\n"
+                                        + "            \"n\" : 262144,\n"
+                                        + "            \"p\" : 1,\n"
+                                        + "            \"r\" : 8,\n"
+                                        + "            \"salt\" : \"21f0d2c7eb0cf00d96461bacd023a741ebacfd446fba01b9849399ce32d9a416\"\n"
+                                        + "        },\n"
+                                        + "        \"mac\" : \"963d2541fc26e05b5ff80272632e62060e5394e980b6a31affbaa6f6d09683c4\"\n"
+                                        + "    },\n"
+                                        + "    \"id\" : \"d90f9e3d-9b1c-cd85-99b7-5161379c97b1\",\n"
+                                        + "    \"version\" : 3\n"
+                                        + "}",
+                                "name",
+                                "Password123",
+                                "hint")
+                        .send();
+
+        Assertions.assertFalse(response.isSuccessful());
+    }
 }
