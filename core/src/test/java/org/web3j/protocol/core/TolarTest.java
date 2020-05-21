@@ -146,4 +146,11 @@ class TolarTest {
                         .send();
         Assertions.assertTrue(response.isVerified());
     }
+
+    @Test
+    public void testAccountCreateNewAddress() throws IOException {
+        AccountCreateNewAddress response =
+                web3j.accountCreateNewAddress("name", "Password123", "hint").send();
+        System.out.println("Created address: " + response.getAddress());
+    }
 }

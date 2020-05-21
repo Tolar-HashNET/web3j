@@ -659,4 +659,14 @@ public class JsonRpc2_0Web3j implements Web3j {
                 web3jService,
                 AccountVerifyAddress.class);
     }
+
+    @Override
+    public Request<?, AccountCreateNewAddress> accountCreateNewAddress(
+            String name, String lockPassword, String lockHint) {
+        return new Request<>(
+                "account_createNewAddress",
+                Arrays.asList(name, lockPassword, lockHint),
+                web3jService,
+                AccountCreateNewAddress.class);
+    }
 }

@@ -185,4 +185,7 @@ public interface Tolar {
     Request<?, AccountOpen> accountOpen(String masterPassword);
 
     Request<?, AccountVerifyAddress> accountVerifyAddress(String address);
+
+    Request<?, AccountCreateNewAddress> accountCreateNewAddress(
+            String name, String lockPassword, String lockHint);
 }
