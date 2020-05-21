@@ -589,4 +589,10 @@ public class JsonRpc2_0Web3j implements Web3j {
         return new Request<>(
                 "net_isMasterNode", Collections.emptyList(), web3jService, IsMasterNode.class);
     }
+
+    @Override
+    public Request<?, MaxPeerCount> netMaxPeerCount() {
+        return new Request<>(
+                "net_maxPeerCount", Collections.emptyList(), web3jService, MaxPeerCount.class);
+    }
 }

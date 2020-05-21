@@ -82,4 +82,11 @@ class TolarTest {
 
         System.out.println("Is master node: " + response.isMasterNode());
     }
+
+    @Test
+    public void testNetMaxPeerCount() throws IOException {
+        MaxPeerCount response = web3j.netMaxPeerCount().send();
+
+        System.out.println("Max peer count: " + response.getMaxPeerCount());
+    }
 }

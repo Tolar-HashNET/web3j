@@ -167,4 +167,6 @@ public interface Tolar {
     Request<?, ShhMessages> shhGetMessages(BigInteger filterId);
 
     Request<?, IsMasterNode> netIsMasterNode();
+
+    Request<?, MaxPeerCount> netMaxPeerCount();
 }
