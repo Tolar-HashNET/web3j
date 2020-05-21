@@ -326,14 +326,7 @@ public class RequestTest extends RequestTester {
     public void testEthGetBlockByHash() {}
 
     @Test
-    public void testEthGetBlockByNumber() throws Exception {
-        web3j.tolGetBlockByIndex(DefaultBlockParameter.valueOf(Numeric.toBigInt("0x1b4")), true)
-                .send();
-
-        verifyResult(
-                "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockByNumber\","
-                        + "\"params\":[\"0x1b4\",true],\"id\":1}");
-    }
+    public void testEthGetBlockByNumber() {}
 
     @Test
     public void testEthGetTransactionByHash() throws Exception {
