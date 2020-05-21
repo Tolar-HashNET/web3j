@@ -193,4 +193,6 @@ public interface Tolar {
 
     Request<?, AccountImportKeyFile> accountImportKeyFile(
             String keyFile, String name, String lockPassword, String lockHint);
+
+    Request<?, AccountListBalancePerAddress> accountListBalancePerAddress();
 }

@@ -195,4 +195,20 @@ class TolarTest {
 
         Assertions.assertFalse(response.isSuccessful());
     }
+
+    @Test
+    public void testListBalancePerAddress() throws IOException {
+        AccountListBalancePerAddress response = web3j.accountListBalancePerAddress().send();
+
+        response.getListBalancePerAddress()
+                .forEach(
+                        t ->
+                                System.out.println(
+                                        "Address: "
+                                                + t.getAddress()
+                                                + "\n Balance: "
+                                                + t.getBalance()
+                                                + "\n Name: "
+                                                + t.getAddressName()));
+    }
 }

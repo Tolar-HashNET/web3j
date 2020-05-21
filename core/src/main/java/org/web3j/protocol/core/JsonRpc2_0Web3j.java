@@ -688,4 +688,13 @@ public class JsonRpc2_0Web3j implements Web3j {
                 web3jService,
                 AccountImportKeyFile.class);
     }
+
+    @Override
+    public Request<?, AccountListBalancePerAddress> accountListBalancePerAddress() {
+        return new Request<>(
+                "account_listBalancePerAddress",
+                Collections.emptyList(),
+                web3jService,
+                AccountListBalancePerAddress.class);
+    }
 }
