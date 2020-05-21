@@ -34,7 +34,7 @@ public class DefaultBlockParameterNumber implements DefaultBlockParameter {
     @Override
     @JsonValue
     public String getValue() {
-        return Numeric.encodeQuantity(blockNumber);
+        return String.valueOf(blockNumber);
     }
 
     public BigInteger getBlockNumber() {
