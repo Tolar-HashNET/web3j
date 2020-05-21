@@ -13,7 +13,6 @@
 package org.web3j.ens;
 
 import java.io.IOException;
-import java.math.BigInteger;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,12 +22,10 @@ import org.web3j.abi.datatypes.Utf8String;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.Web3jService;
 import org.web3j.protocol.core.Request;
-import org.web3j.protocol.core.methods.response.EthBlock;
 import org.web3j.protocol.core.methods.response.EthCall;
 import org.web3j.protocol.core.methods.response.EthSyncing;
 import org.web3j.protocol.core.methods.response.NetVersion;
 import org.web3j.tx.ChainIdLong;
-import org.web3j.utils.Numeric;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -146,14 +143,7 @@ public class EnsResolverTest {
         when(web3jService.send(any(Request.class), eq(EthSyncing.class))).thenReturn(ethSyncing);
     }
 
-    private void configureLatestBlock(long timestamp) throws IOException {
-        EthBlock.Block block = new EthBlock.Block();
-        block.setTimestamp(Numeric.encodeQuantity(BigInteger.valueOf(timestamp)));
-        EthBlock ethBlock = new EthBlock();
-        ethBlock.setResult(block);
-
-        when(web3jService.send(any(Request.class), eq(EthBlock.class))).thenReturn(ethBlock);
-    }
+    private void configureLatestBlock(long timestamp) throws IOException {}
 
     @Test
     public void testIsEnsName() {

@@ -100,7 +100,13 @@ class TolarTest {
 
     @Test
     public void testGetTransactionList() throws IOException {
-        GetTransactionList response = web3j.tolGetTransactionList(Collections.singletonList("5484c512b1cf3d45e7506a772b7358375acc571b2930d27deb"), 2, 0).send();
+        GetTransactionList response =
+                web3j.tolGetTransactionList(
+                                Collections.singletonList(
+                                        "5484c512b1cf3d45e7506a772b7358375acc571b2930d27deb"),
+                                2,
+                                0)
+                        .send();
 
         System.out.println("Transaction list:");
         response.getTransactionList().forEach(t -> System.out.println(t.getBlockHash()));

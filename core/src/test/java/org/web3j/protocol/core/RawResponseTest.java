@@ -15,7 +15,7 @@ package org.web3j.protocol.core;
 import org.junit.jupiter.api.Test;
 
 import org.web3j.protocol.ResponseTester;
-import org.web3j.protocol.core.methods.response.EthBlock;
+import org.web3j.protocol.core.methods.response.TolBlock;
 import org.web3j.protocol.core.methods.response.Web3ClientVersion;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -46,9 +46,9 @@ public class RawResponseTest extends ResponseTester {
 
         buildResponse(LARGE_RAW_RESPONSE);
 
-        EthBlock ethBlock = deserialiseResponse(EthBlock.class);
+        TolBlock tolBlock = deserialiseResponse(TolBlock.class);
 
-        assertEquals(ethBlock.getRawResponse(), (LARGE_RAW_RESPONSE));
+        assertEquals(tolBlock.getRawResponse(), (LARGE_RAW_RESPONSE));
     }
 
     @Test
