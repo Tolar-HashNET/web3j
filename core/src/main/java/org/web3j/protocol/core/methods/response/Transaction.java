@@ -12,90 +12,81 @@
  */
 package org.web3j.protocol.core.methods.response;
 
-import java.math.BigInteger;
+import java.util.Objects;
 
-import org.web3j.utils.Numeric;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-/** Transaction object used by both {@link EthTransaction} and {@link EthBlock}. */
+/** Transaction object used by both {@link EthTransaction} and {@link TolBlock}. */
 public class Transaction {
-    private static final int CHAIN_ID_INC = 35;
-    private static final int LOWER_REAL_V = 27;
-
-    private String hash;
-    private String nonce;
+    @JsonProperty("block_hash")
     private String blockHash;
-    private String blockNumber;
+
+    @JsonProperty("transaction_index")
     private String transactionIndex;
-    private String from;
-    private String to;
+
+    @JsonProperty("sender_address")
+    private String senderAddress;
+
+    @JsonProperty("receiver_address")
+    private String receiverAddress;
+
     private String value;
-    private String gasPrice;
     private String gas;
-    private String input;
-    private String creates;
-    private String publicKey;
-    private String raw;
-    private String r;
-    private String s;
-    private long v; // see https://github.com/web3j/web3j/issues/44
+
+    @JsonProperty("gas_price")
+    private String gasPrice;
+
+    private String data;
+    private String nonce;
+
+    @JsonProperty("gas_used")
+    private String gasUsed;
+
+    @JsonProperty("gas_refunded")
+    private String gasRefunded;
+
+    @JsonProperty("new_address")
+    private String newAddress;
+
+    private String output;
+    private boolean excepted;
+
+    @JsonProperty("confirmation_timestamp")
+    private long confirmationTimestamp;
 
     public Transaction() {}
 
     public Transaction(
-            String hash,
-            String nonce,
             String blockHash,
-            String blockNumber,
             String transactionIndex,
-            String from,
-            String to,
+            String senderAddress,
+            String receiverAddress,
             String value,
             String gas,
             String gasPrice,
-            String input,
-            String creates,
-            String publicKey,
-            String raw,
-            String r,
-            String s,
-            long v) {
-        this.hash = hash;
-        this.nonce = nonce;
+            String data,
+            String nonce,
+            String gasUsed,
+            String gasRefunded,
+            String newAddress,
+            String output,
+            boolean excepted,
+            long confirmationTimestamp) {
         this.blockHash = blockHash;
-        this.blockNumber = blockNumber;
         this.transactionIndex = transactionIndex;
-        this.from = from;
-        this.to = to;
+        this.senderAddress = senderAddress;
+        this.receiverAddress = receiverAddress;
         this.value = value;
-        this.gasPrice = gasPrice;
         this.gas = gas;
-        this.input = input;
-        this.creates = creates;
-        this.publicKey = publicKey;
-        this.raw = raw;
-        this.r = r;
-        this.s = s;
-        this.v = v;
-    }
-
-    public String getHash() {
-        return hash;
-    }
-
-    public void setHash(String hash) {
-        this.hash = hash;
-    }
-
-    public BigInteger getNonce() {
-        return Numeric.decodeQuantity(nonce);
-    }
-
-    public String getNonceRaw() {
-        return nonce;
-    }
-
-    public void setNonce(String nonce) {
+        this.gasPrice = gasPrice;
+        this.data = data;
         this.nonce = nonce;
+        this.gasUsed = gasUsed;
+        this.gasRefunded = gasRefunded;
+        this.newAddress = newAddress;
+        this.output = output;
+        this.excepted = excepted;
+        this.confirmationTimestamp = confirmationTimestamp;
     }
 
     public String getBlockHash() {
@@ -106,23 +97,7 @@ public class Transaction {
         this.blockHash = blockHash;
     }
 
-    public BigInteger getBlockNumber() {
-        return Numeric.decodeQuantity(blockNumber);
-    }
-
-    public String getBlockNumberRaw() {
-        return blockNumber;
-    }
-
-    public void setBlockNumber(String blockNumber) {
-        this.blockNumber = blockNumber;
-    }
-
-    public BigInteger getTransactionIndex() {
-        return Numeric.decodeQuantity(transactionIndex);
-    }
-
-    public String getTransactionIndexRaw() {
+    public String getTransactionIndex() {
         return transactionIndex;
     }
 
@@ -130,27 +105,23 @@ public class Transaction {
         this.transactionIndex = transactionIndex;
     }
 
-    public String getFrom() {
-        return from;
+    public String getSenderAddress() {
+        return senderAddress;
     }
 
-    public void setFrom(String from) {
-        this.from = from;
+    public void setSenderAddress(String senderAddress) {
+        this.senderAddress = senderAddress;
     }
 
-    public String getTo() {
-        return to;
+    public String getReceiverAddress() {
+        return receiverAddress;
     }
 
-    public void setTo(String to) {
-        this.to = to;
+    public void setReceiverAddress(String receiverAddress) {
+        this.receiverAddress = receiverAddress;
     }
 
-    public BigInteger getValue() {
-        return Numeric.decodeQuantity(value);
-    }
-
-    public String getValueRaw() {
+    public String getValue() {
         return value;
     }
 
@@ -158,23 +129,7 @@ public class Transaction {
         this.value = value;
     }
 
-    public BigInteger getGasPrice() {
-        return Numeric.decodeQuantity(gasPrice);
-    }
-
-    public String getGasPriceRaw() {
-        return gasPrice;
-    }
-
-    public void setGasPrice(String gasPrice) {
-        this.gasPrice = gasPrice;
-    }
-
-    public BigInteger getGas() {
-        return Numeric.decodeQuantity(gas);
-    }
-
-    public String getGasRaw() {
+    public String getGas() {
         return gas;
     }
 
@@ -182,186 +137,117 @@ public class Transaction {
         this.gas = gas;
     }
 
-    public String getInput() {
-        return input;
+    public String getGasPrice() {
+        return gasPrice;
     }
 
-    public void setInput(String input) {
-        this.input = input;
+    public void setGasPrice(String gasPrice) {
+        this.gasPrice = gasPrice;
     }
 
-    public String getCreates() {
-        return creates;
+    public String getData() {
+        return data;
     }
 
-    public void setCreates(String creates) {
-        this.creates = creates;
+    public void setData(String data) {
+        this.data = data;
     }
 
-    public String getPublicKey() {
-        return publicKey;
+    public String getNonce() {
+        return nonce;
     }
 
-    public void setPublicKey(String publicKey) {
-        this.publicKey = publicKey;
+    public void setNonce(String nonce) {
+        this.nonce = nonce;
     }
 
-    public String getRaw() {
-        return raw;
+    public String getGasUsed() {
+        return gasUsed;
     }
 
-    public void setRaw(String raw) {
-        this.raw = raw;
+    public void setGasUsed(String gasUsed) {
+        this.gasUsed = gasUsed;
     }
 
-    public String getR() {
-        return r;
+    public String getGasRefunded() {
+        return gasRefunded;
     }
 
-    public void setR(String r) {
-        this.r = r;
+    public void setGasRefunded(String gasRefunded) {
+        this.gasRefunded = gasRefunded;
     }
 
-    public String getS() {
-        return s;
+    public String getNewAddress() {
+        return newAddress;
     }
 
-    public void setS(String s) {
-        this.s = s;
+    public void setNewAddress(String newAddress) {
+        this.newAddress = newAddress;
     }
 
-    public long getV() {
-        return v;
+    public String getOutput() {
+        return output;
     }
 
-    public Long getChainId() {
-        if (v == LOWER_REAL_V || v == (LOWER_REAL_V + 1)) {
-            return null;
-        }
-        Long chainId = (v - CHAIN_ID_INC) / 2;
-        return chainId;
+    public void setOutput(String output) {
+        this.output = output;
     }
 
-    // public void setV(byte v) {
-    //     this.v = v;
-    // }
+    public boolean isExcepted() {
+        return excepted;
+    }
 
-    // Workaround until Geth & Parity return consistent values. At present
-    // Parity returns a byte value, Geth returns a hex-encoded string
-    // https://github.com/ethereum/go-ethereum/issues/3339
-    public void setV(Object v) {
-        if (v instanceof String) {
-            this.v = Numeric.toBigInt((String) v).longValueExact();
-        } else if (v instanceof Integer) {
-            this.v = ((Integer) v).longValue();
-        } else {
-            this.v = (Long) v;
-        }
+    public void setExcepted(boolean excepted) {
+        this.excepted = excepted;
+    }
+
+    public long getConfirmationTimestamp() {
+        return confirmationTimestamp;
+    }
+
+    public void setConfirmationTimestamp(long confirmationTimestamp) {
+        this.confirmationTimestamp = confirmationTimestamp;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof Transaction)) {
-            return false;
-        }
-
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         Transaction that = (Transaction) o;
-
-        if (getV() != that.getV()) {
-            return false;
-        }
-        if (getHash() != null ? !getHash().equals(that.getHash()) : that.getHash() != null) {
-            return false;
-        }
-        if (getNonceRaw() != null
-                ? !getNonceRaw().equals(that.getNonceRaw())
-                : that.getNonceRaw() != null) {
-            return false;
-        }
-        if (getBlockHash() != null
-                ? !getBlockHash().equals(that.getBlockHash())
-                : that.getBlockHash() != null) {
-            return false;
-        }
-        if (getBlockNumberRaw() != null
-                ? !getBlockNumberRaw().equals(that.getBlockNumberRaw())
-                : that.getBlockNumberRaw() != null) {
-            return false;
-        }
-        if (getTransactionIndexRaw() != null
-                ? !getTransactionIndexRaw().equals(that.getTransactionIndexRaw())
-                : that.getTransactionIndexRaw() != null) {
-            return false;
-        }
-        if (getFrom() != null ? !getFrom().equals(that.getFrom()) : that.getFrom() != null) {
-            return false;
-        }
-        if (getTo() != null ? !getTo().equals(that.getTo()) : that.getTo() != null) {
-            return false;
-        }
-        if (getValueRaw() != null
-                ? !getValueRaw().equals(that.getValueRaw())
-                : that.getValueRaw() != null) {
-            return false;
-        }
-        if (getGasPriceRaw() != null
-                ? !getGasPriceRaw().equals(that.getGasPriceRaw())
-                : that.getGasPriceRaw() != null) {
-            return false;
-        }
-        if (getGasRaw() != null
-                ? !getGasRaw().equals(that.getGasRaw())
-                : that.getGasRaw() != null) {
-            return false;
-        }
-        if (getInput() != null ? !getInput().equals(that.getInput()) : that.getInput() != null) {
-            return false;
-        }
-        if (getCreates() != null
-                ? !getCreates().equals(that.getCreates())
-                : that.getCreates() != null) {
-            return false;
-        }
-        if (getPublicKey() != null
-                ? !getPublicKey().equals(that.getPublicKey())
-                : that.getPublicKey() != null) {
-            return false;
-        }
-        if (getRaw() != null ? !getRaw().equals(that.getRaw()) : that.getRaw() != null) {
-            return false;
-        }
-        if (getR() != null ? !getR().equals(that.getR()) : that.getR() != null) {
-            return false;
-        }
-        return getS() != null ? getS().equals(that.getS()) : that.getS() == null;
+        return excepted == that.excepted
+                && confirmationTimestamp == that.confirmationTimestamp
+                && Objects.equals(blockHash, that.blockHash)
+                && Objects.equals(transactionIndex, that.transactionIndex)
+                && Objects.equals(senderAddress, that.senderAddress)
+                && Objects.equals(receiverAddress, that.receiverAddress)
+                && Objects.equals(value, that.value)
+                && Objects.equals(gas, that.gas)
+                && Objects.equals(gasPrice, that.gasPrice)
+                && Objects.equals(data, that.data)
+                && Objects.equals(nonce, that.nonce)
+                && Objects.equals(gasUsed, that.gasUsed)
+                && Objects.equals(gasRefunded, that.gasRefunded)
+                && Objects.equals(newAddress, that.newAddress)
+                && Objects.equals(output, that.output);
     }
 
     @Override
     public int hashCode() {
-        int result = getHash() != null ? getHash().hashCode() : 0;
-        result = 31 * result + (getNonceRaw() != null ? getNonceRaw().hashCode() : 0);
-        result = 31 * result + (getBlockHash() != null ? getBlockHash().hashCode() : 0);
-        result = 31 * result + (getBlockNumberRaw() != null ? getBlockNumberRaw().hashCode() : 0);
-        result =
-                31 * result
-                        + (getTransactionIndexRaw() != null
-                                ? getTransactionIndexRaw().hashCode()
-                                : 0);
-        result = 31 * result + (getFrom() != null ? getFrom().hashCode() : 0);
-        result = 31 * result + (getTo() != null ? getTo().hashCode() : 0);
-        result = 31 * result + (getValueRaw() != null ? getValueRaw().hashCode() : 0);
-        result = 31 * result + (getGasPriceRaw() != null ? getGasPriceRaw().hashCode() : 0);
-        result = 31 * result + (getGasRaw() != null ? getGasRaw().hashCode() : 0);
-        result = 31 * result + (getInput() != null ? getInput().hashCode() : 0);
-        result = 31 * result + (getCreates() != null ? getCreates().hashCode() : 0);
-        result = 31 * result + (getPublicKey() != null ? getPublicKey().hashCode() : 0);
-        result = 31 * result + (getRaw() != null ? getRaw().hashCode() : 0);
-        result = 31 * result + (getR() != null ? getR().hashCode() : 0);
-        result = 31 * result + (getS() != null ? getS().hashCode() : 0);
-        result = 31 * result + BigInteger.valueOf(getV()).hashCode();
-        return result;
+        return Objects.hash(
+                blockHash,
+                transactionIndex,
+                senderAddress,
+                receiverAddress,
+                value,
+                gas,
+                gasPrice,
+                data,
+                nonce,
+                gasUsed,
+                gasRefunded,
+                newAddress,
+                output,
+                excepted,
+                confirmationTimestamp);
     }
 }
