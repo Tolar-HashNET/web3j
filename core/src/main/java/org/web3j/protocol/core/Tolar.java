@@ -83,8 +83,7 @@ public interface Tolar {
             String signedTransactionData);
 
     Request<?, org.web3j.protocol.core.methods.response.EthCall> tolTryCallTransaction(
-            org.web3j.protocol.core.methods.request.Transaction transaction,
-            DefaultBlockParameter defaultBlockParameter);
+            org.web3j.protocol.core.methods.request.Transaction transaction);
 
     Request<?, TolGetGasEstimate> tolGetGasEstimate(
             org.web3j.protocol.core.methods.request.Transaction transaction);

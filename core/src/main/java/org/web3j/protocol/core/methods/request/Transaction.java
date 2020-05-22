@@ -44,13 +44,13 @@ public class Transaction {
             String senderAddress,
             BigInteger nonce,
             BigInteger gasPrice,
-            BigInteger gasLimit,
+            BigInteger gas,
             String receiverAddress,
             BigInteger amount,
             String data) {
         this.senderAddress = senderAddress;
         this.receiverAddress = receiverAddress;
-        this.gas = gasLimit;
+        this.gas = gas;
         this.gasPrice = gasPrice;
         this.amount = amount;
 

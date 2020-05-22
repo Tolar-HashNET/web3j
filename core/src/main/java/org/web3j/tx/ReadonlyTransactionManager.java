@@ -51,8 +51,7 @@ public class ReadonlyTransactionManager extends TransactionManager {
             throws IOException {
         EthCall ethCall =
                 web3j.tolTryCallTransaction(
-                                Transaction.createEthCallTransaction(fromAddress, to, data),
-                                defaultBlockParameter)
+                                Transaction.createEthCallTransaction(fromAddress, to, data))
                         .send();
 
         assertCallNotReverted(ethCall);

@@ -126,8 +126,7 @@ public class RawTransactionManager extends TransactionManager {
             throws IOException {
         EthCall ethCall =
                 web3j.tolTryCallTransaction(
-                                Transaction.createEthCallTransaction(getFromAddress(), to, data),
-                                defaultBlockParameter)
+                                Transaction.createEthCallTransaction(getFromAddress(), to, data))
                         .send();
 
         assertCallNotReverted(ethCall);

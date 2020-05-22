@@ -15,7 +15,6 @@ package org.web3j.utils;
 import java.io.IOException;
 
 import org.web3j.protocol.Web3j;
-import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 
@@ -70,8 +69,7 @@ public class RevertReasonExtractor {
         }
         return web3j.tolTryCallTransaction(
                         Transaction.createEthCallTransaction(
-                                transactionReceipt.getFrom(), transactionReceipt.getTo(), data),
-                        DefaultBlockParameter.valueOf(transactionReceipt.getBlockNumber()))
+                                transactionReceipt.getFrom(), transactionReceipt.getTo(), data))
                 .send()
                 .getRevertReason();
     }
