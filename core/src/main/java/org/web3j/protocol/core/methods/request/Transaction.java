@@ -30,7 +30,6 @@ import org.web3j.utils.Numeric;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Transaction {
-    // default as per https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_sendtransaction
     public static final BigInteger DEFAULT_GAS = BigInteger.valueOf(9000);
 
     @JsonProperty("sender_address")
@@ -46,7 +45,9 @@ public class Transaction {
 
     private BigInteger amount;
     private String data;
-    private BigInteger nonce; // nonce field is not present on eth_call/eth_estimateGas
+    private BigInteger nonce;
+
+    private String senderAddressPassword;
 
     public Transaction(
             String senderAddress,
@@ -67,6 +68,25 @@ public class Transaction {
         }
 
         this.nonce = nonce;
+    }
+
+    public Transaction(
+            String senderAddress,
+            BigInteger nonce,
+            BigInteger gasPrice,
+            BigInteger gas,
+            String receiverAddress,
+            BigInteger amount,
+            String data,
+            String senderAddressPassword) {
+        this.senderAddress = senderAddress;
+        this.receiverAddress = receiverAddress;
+        this.gas = gas;
+        this.gasPrice = gasPrice;
+        this.amount = amount;
+        this.data = data;
+        this.nonce = nonce;
+        this.senderAddressPassword = senderAddressPassword;
     }
 
     public static Transaction createContractTransaction(
@@ -151,5 +171,9 @@ public class Transaction {
 
     public BigInteger getNonce() {
         return nonce;
+    }
+
+    public String getSenderAddressPassword() {
+        return senderAddressPassword;
     }
 }

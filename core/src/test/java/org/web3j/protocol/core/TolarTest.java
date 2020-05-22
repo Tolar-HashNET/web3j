@@ -341,7 +341,7 @@ class TolarTest {
     }
 
     @Test
-    public void testTolGetGasEstimate() throws IOException {
+    public void testTolGetGasEstimate() {
         org.web3j.protocol.core.methods.request.Transaction transaction =
                 new org.web3j.protocol.core.methods.request.Transaction(
                         "5484c512b1cf3d45e7506a772b7358375acc571b2930d27deb",
@@ -351,6 +351,25 @@ class TolarTest {
                         "5457c2d11f05725f4fa5c0cd119b75415b95cd40d059dfc2d5",
                         BigInteger.valueOf(0L),
                         "0xcfae3217");
-        TolGetGasEstimate response = web3j.tolGetGasEstimate(transaction).send();
+        Assertions.assertThrows(
+                ClientConnectionException.class, () -> web3j.tolGetGasEstimate(transaction).send());
+    }
+
+    @Test
+    @Ignore
+    public void testAccountSendRawTransaction() throws IOException {
+        org.web3j.protocol.core.methods.request.Transaction transaction =
+                new org.web3j.protocol.core.methods.request.Transaction(
+                        "5484c512b1cf3d45e7506a772b7358375acc571b2930d27deb",
+                        BigInteger.valueOf(33L),
+                        BigInteger.valueOf(1L),
+                        BigInteger.valueOf(6000000L),
+                        "5457c2d11f05725f4fa5c0cd119b75415b95cd40d059dfc2d5",
+                        BigInteger.valueOf(0L),
+                        "0xcfae3217",
+                        "Password123");
+
+        EthSendTransaction response = web3j.accountSendRawTransaction(transaction).send();
+        System.out.println("Transaction hash: " + response.getTransactionHash());
     }
 }
