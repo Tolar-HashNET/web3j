@@ -272,8 +272,7 @@ public class ContractTest extends ManagedTransactionTester {
         Request<?, EthCall> request = mock(Request.class);
         when(request.send()).thenReturn(ethCall);
 
-        when(web3j.tolTryCallTransaction(any(Transaction.class), any(DefaultBlockParameter.class)))
-                .thenReturn((Request) request);
+        when(web3j.tolTryCallTransaction(any(Transaction.class))).thenReturn((Request) request);
     }
 
     @Test
