@@ -321,5 +321,9 @@ class TolarTest {
                         BigInteger.valueOf(0L),
                         "0xcfae3217");
         TolTryCallTransaction response = web3j.tolTryCallTransaction(transaction).send();
+        Assertions.assertFalse(response.isExcepted());
+        Assertions.assertEquals(
+                response.getOutput(),
+                "00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000007506f7a6472617600000000000000000000000000000000000000000000000000");
     }
 }
