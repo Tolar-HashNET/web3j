@@ -208,7 +208,7 @@ public class CoreIT {
     @Test
     public void testEthSendTransaction() throws Exception {
         EthSendTransaction ethSendTransaction =
-                web3j.ethSendTransaction(config.buildTransaction()).send();
+                web3j.accountSendRawTransaction(config.buildTransaction()).send();
         assertFalse(ethSendTransaction.getTransactionHash().isEmpty());
     }
 

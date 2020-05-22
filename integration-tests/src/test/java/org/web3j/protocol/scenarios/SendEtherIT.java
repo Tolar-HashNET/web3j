@@ -41,7 +41,7 @@ public class SendEtherIT extends Scenario {
                         ALICE.getAddress(), nonce, GAS_PRICE, GAS_LIMIT, BOB.getAddress(), value);
 
         EthSendTransaction ethSendTransaction =
-                web3j.ethSendTransaction(transaction).sendAsync().get();
+                web3j.accountSendRawTransaction(transaction).sendAsync().get();
 
         String transactionHash = ethSendTransaction.getTransactionHash();
 

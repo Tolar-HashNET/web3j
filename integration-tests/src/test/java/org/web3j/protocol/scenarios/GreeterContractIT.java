@@ -90,7 +90,7 @@ public class GreeterContractIT extends Scenario {
                         getGreeterSolidityBinary() + encodedConstructor);
 
         org.web3j.protocol.core.methods.response.EthSendTransaction transactionResponse =
-                web3j.ethSendTransaction(transaction).sendAsync().get();
+                web3j.accountSendRawTransaction(transaction).sendAsync().get();
 
         return transactionResponse.getTransactionHash();
     }

@@ -76,7 +76,7 @@ public interface Tolar {
 
     Request<?, EthSign> ethSign(String address, String sha3HashOfDataToSign);
 
-    Request<?, org.web3j.protocol.core.methods.response.EthSendTransaction> ethSendTransaction(
+    Request<?, org.web3j.protocol.core.methods.response.EthSendTransaction> accountSendRawTransaction(
             org.web3j.protocol.core.methods.request.Transaction transaction);
 
     Request<?, org.web3j.protocol.core.methods.response.EthSendTransaction> ethSendRawTransaction(

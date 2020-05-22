@@ -64,7 +64,7 @@ public class ClientTransactionManager extends TransactionManager {
         Transaction transaction =
                 new Transaction(getFromAddress(), null, gasPrice, gasLimit, to, value, data);
 
-        return web3j.ethSendTransaction(transaction).send();
+        return web3j.accountSendRawTransaction(transaction).send();
     }
 
     @Override

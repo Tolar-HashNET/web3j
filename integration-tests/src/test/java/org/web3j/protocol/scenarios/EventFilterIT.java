@@ -117,7 +117,7 @@ public class EventFilterIT extends Scenario {
                         encodedFunction);
 
         org.web3j.protocol.core.methods.response.EthSendTransaction transactionResponse =
-                web3j.ethSendTransaction(transaction).sendAsync().get();
+                web3j.accountSendRawTransaction(transaction).sendAsync().get();
 
         assertFalse(transactionResponse.hasError());
 

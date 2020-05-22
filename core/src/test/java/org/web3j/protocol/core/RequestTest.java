@@ -246,7 +246,7 @@ public class RequestTest extends RequestTester {
 
     @Test
     public void testEthSendTransaction() throws Exception {
-        web3j.ethSendTransaction(
+        web3j.accountSendRawTransaction(
                         new Transaction(
                                 "0xb60e8dd61c5d32be8058bb8eb970870f07233155",
                                 BigInteger.ONE,

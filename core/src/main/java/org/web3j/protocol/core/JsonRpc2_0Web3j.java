@@ -211,7 +211,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     // TODO: This method is in Tolar API
     @Override
     public Request<?, org.web3j.protocol.core.methods.response.EthSendTransaction>
-            ethSendTransaction(Transaction transaction) {
+    accountSendRawTransaction(Transaction transaction) {
         return new Request<>(
                 "account_sendRawTransaction",
                 Arrays.asList(transaction),
@@ -718,4 +718,5 @@ public class JsonRpc2_0Web3j implements Web3j {
                 web3jService,
                 AccountChangeAddressPassword.class);
     }
+
 }
