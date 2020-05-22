@@ -32,8 +32,8 @@ public class Transaction {
     // default as per https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_sendtransaction
     public static final BigInteger DEFAULT_GAS = BigInteger.valueOf(9000);
 
-    private String from;
-    private String to;
+    private String senderAddress;
+    private String receiverAddress;
     private BigInteger gas;
     private BigInteger gasPrice;
     private BigInteger value;
@@ -41,15 +41,15 @@ public class Transaction {
     private BigInteger nonce; // nonce field is not present on eth_call/eth_estimateGas
 
     public Transaction(
-            String from,
+            String senderAddress,
             BigInteger nonce,
             BigInteger gasPrice,
             BigInteger gasLimit,
-            String to,
+            String receiverAddress,
             BigInteger value,
             String data) {
-        this.from = from;
-        this.to = to;
+        this.senderAddress = senderAddress;
+        this.receiverAddress = receiverAddress;
         this.gas = gasLimit;
         this.gasPrice = gasPrice;
         this.value = value;
@@ -117,12 +117,12 @@ public class Transaction {
         return new Transaction(from, null, null, null, to, null, data);
     }
 
-    public String getFrom() {
-        return from;
+    public String getSenderAddress() {
+        return senderAddress;
     }
 
-    public String getTo() {
-        return to;
+    public String getReceiverAddress() {
+        return receiverAddress;
     }
 
     public String getGas() {

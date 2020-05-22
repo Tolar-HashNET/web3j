@@ -229,7 +229,7 @@ public class CoreIT {
     @Test
     public void testEthEstimateGas() throws Exception {
         TolGetGasEstimate tolGetGasEstimate = web3j.tolGetGasEstimate(config.buildTransaction()).send();
-        assertTrue(tolGetGasEstimate.getAmountUsed().signum() == 1);
+        assertTrue(tolGetGasEstimate.getGasEstimate().signum() == 1);
     }
 
     @Test

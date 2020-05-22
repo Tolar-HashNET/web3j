@@ -241,7 +241,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     public Request<?, TolGetGasEstimate> tolGetGasEstimate(Transaction transaction) {
         return new Request<>(
                 "tol_getGasEstimate",
-                Arrays.asList(transaction),
+                Collections.singletonList(transaction),
                 web3jService,
                 TolGetGasEstimate.class);
     }

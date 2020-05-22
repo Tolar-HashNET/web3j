@@ -100,7 +100,7 @@ public class EventFilterIT extends Scenario {
                         .get();
         // this was coming back as 50,000,000 which is > the block gas limit of 4,712,388
         // see eth.getBlock("latest")
-        return tolGetGasEstimate.getAmountUsed().divide(BigInteger.valueOf(100));
+        return tolGetGasEstimate.getGasEstimate().divide(BigInteger.valueOf(100));
     }
 
     private String sendTransaction(

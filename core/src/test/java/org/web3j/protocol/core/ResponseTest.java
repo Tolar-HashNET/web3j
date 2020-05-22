@@ -536,7 +536,7 @@ public class ResponseTest extends ResponseTester {
                         + "}");
 
         TolGetGasEstimate tolGetGasEstimate = deserialiseResponse(TolGetGasEstimate.class);
-        assertEquals(tolGetGasEstimate.getAmountUsed(), (BigInteger.valueOf(21000)));
+        assertEquals(tolGetGasEstimate.getGasEstimate(), (BigInteger.valueOf(21000)));
     }
 
     @Test
