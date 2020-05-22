@@ -72,7 +72,7 @@ public class EthCallIT extends Scenario {
                         Collections.emptyList());
         String encodedFunction = FunctionEncoder.encode(function);
 
-        return web3j.ethCall(
+        return web3j.tolTryCallTransaction(
                         Transaction.createEthCallTransaction(
                                 ALICE.getAddress(), contract.getContractAddress(), encodedFunction),
                         DefaultBlockParameterName.LATEST)

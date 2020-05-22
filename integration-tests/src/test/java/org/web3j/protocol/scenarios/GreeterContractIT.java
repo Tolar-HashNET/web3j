@@ -100,7 +100,7 @@ public class GreeterContractIT extends Scenario {
         String encodedFunction = FunctionEncoder.encode(function);
 
         org.web3j.protocol.core.methods.response.EthCall response =
-                web3j.ethCall(
+                web3j.tolTryCallTransaction(
                                 Transaction.createEthCallTransaction(
                                         ALICE.getAddress(), contractAddress, encodedFunction),
                                 DefaultBlockParameterName.LATEST)

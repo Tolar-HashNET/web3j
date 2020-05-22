@@ -227,7 +227,7 @@ public class JsonRpc2_0Web3j implements Web3j {
 
     // TODO: This method is in Tolar API
     @Override
-    public Request<?, org.web3j.protocol.core.methods.response.EthCall> ethCall(
+    public Request<?, org.web3j.protocol.core.methods.response.EthCall> tolTryCallTransaction(
             Transaction transaction, DefaultBlockParameter defaultBlockParameter) {
         return new Request<>(
                 "tol_tryCallTransaction",

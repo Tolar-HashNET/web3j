@@ -68,7 +68,7 @@ public class RevertReasonExtractor {
         if (transactionReceipt.getBlockNumber() == null) {
             return null;
         }
-        return web3j.ethCall(
+        return web3j.tolTryCallTransaction(
                         Transaction.createEthCallTransaction(
                                 transactionReceipt.getFrom(), transactionReceipt.getTo(), data),
                         DefaultBlockParameter.valueOf(transactionReceipt.getBlockNumber()))

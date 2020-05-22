@@ -50,7 +50,7 @@ public class ReadonlyTransactionManager extends TransactionManager {
     public String sendCall(String to, String data, DefaultBlockParameter defaultBlockParameter)
             throws IOException {
         EthCall ethCall =
-                web3j.ethCall(
+                web3j.tolTryCallTransaction(
                                 Transaction.createEthCallTransaction(fromAddress, to, data),
                                 defaultBlockParameter)
                         .send();
