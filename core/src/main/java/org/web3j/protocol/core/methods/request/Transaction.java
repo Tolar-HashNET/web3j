@@ -36,7 +36,7 @@ public class Transaction {
     private String receiverAddress;
     private BigInteger gas;
     private BigInteger gasPrice;
-    private BigInteger value;
+    private BigInteger amount;
     private String data;
     private BigInteger nonce; // nonce field is not present on eth_call/eth_estimateGas
 
@@ -46,13 +46,13 @@ public class Transaction {
             BigInteger gasPrice,
             BigInteger gasLimit,
             String receiverAddress,
-            BigInteger value,
+            BigInteger amount,
             String data) {
         this.senderAddress = senderAddress;
         this.receiverAddress = receiverAddress;
         this.gas = gasLimit;
         this.gasPrice = gasPrice;
-        this.value = value;
+        this.amount = amount;
 
         if (data != null) {
             this.data = Numeric.prependHexPrefix(data);
@@ -133,8 +133,8 @@ public class Transaction {
         return convert(gasPrice);
     }
 
-    public String getValue() {
-        return convert(value);
+    public String getAmount() {
+        return convert(amount);
     }
 
     public String getData() {
