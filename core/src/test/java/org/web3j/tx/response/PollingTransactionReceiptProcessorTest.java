@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.Request;
 import org.web3j.protocol.core.Response;
-import org.web3j.protocol.core.methods.response.EthGetTransactionReceipt;
+import org.web3j.protocol.core.methods.response.TolGetTransactionReceipt;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.exceptions.TransactionException;
 
@@ -83,8 +83,8 @@ public class PollingTransactionReceiptProcessorTest {
         return request;
     }
 
-    private static EthGetTransactionReceipt response(TransactionReceipt transactionReceipt) {
-        EthGetTransactionReceipt response = new EthGetTransactionReceipt();
+    private static TolGetTransactionReceipt response(TransactionReceipt transactionReceipt) {
+        TolGetTransactionReceipt response = new TolGetTransactionReceipt();
         response.setResult(transactionReceipt);
         return response;
     }

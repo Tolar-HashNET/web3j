@@ -18,7 +18,7 @@ import java.util.List;
 import org.web3j.utils.Numeric;
 
 /**
- * Log object used by {@link EthLog} and {@link EthGetTransactionReceipt}.
+ * Log object used by {@link EthLog} and {@link TolGetTransactionReceipt}.
  *
  * <p>It's not clear in the <a
  * href="https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_newfilter">docs</a> If only a list of

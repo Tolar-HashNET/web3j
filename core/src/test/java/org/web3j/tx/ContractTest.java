@@ -38,9 +38,9 @@ import org.web3j.crypto.SampleKeys;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.*;
 import org.web3j.protocol.core.methods.response.EthGetCode;
-import org.web3j.protocol.core.methods.response.EthGetTransactionReceipt;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.core.methods.response.Log;
+import org.web3j.protocol.core.methods.response.TolGetTransactionReceipt;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.exceptions.TransactionException;
 import org.web3j.tx.exceptions.ContractCallException;
@@ -439,12 +439,12 @@ public class ContractTest extends ManagedTransactionTester {
         prepareNonceRequest();
         prepareTransactionRequest();
 
-        EthGetTransactionReceipt ethGetTransactionReceipt = new EthGetTransactionReceipt();
-        ethGetTransactionReceipt.setError(new Response.Error(1, "Invalid transaction receipt"));
+        TolGetTransactionReceipt tolGetTransactionReceipt = new TolGetTransactionReceipt();
+        tolGetTransactionReceipt.setError(new Response.Error(1, "Invalid transaction receipt"));
 
-        Request<?, EthGetTransactionReceipt> getTransactionReceiptRequest = mock(Request.class);
+        Request<?, TolGetTransactionReceipt> getTransactionReceiptRequest = mock(Request.class);
         when(getTransactionReceiptRequest.sendAsync())
-                .thenReturn(Async.run(() -> ethGetTransactionReceipt));
+                .thenReturn(Async.run(() -> tolGetTransactionReceipt));
         when(web3j.tolGetTransactionReceipt(TRANSACTION_HASH))
                 .thenReturn((Request) getTransactionReceiptRequest);
         assertThrows(RuntimeException.class, this::testErrorScenario);

@@ -85,11 +85,11 @@ public abstract class ManagedTransactionTester {
 
     @SuppressWarnings("unchecked")
     void prepareTransactionReceipt(TransactionReceipt transactionReceipt) throws IOException {
-        EthGetTransactionReceipt ethGetTransactionReceipt = new EthGetTransactionReceipt();
-        ethGetTransactionReceipt.setResult(transactionReceipt);
+        TolGetTransactionReceipt tolGetTransactionReceipt = new TolGetTransactionReceipt();
+        tolGetTransactionReceipt.setResult(transactionReceipt);
 
-        Request<?, EthGetTransactionReceipt> getTransactionReceiptRequest = mock(Request.class);
-        when(getTransactionReceiptRequest.send()).thenReturn(ethGetTransactionReceipt);
+        Request<?, TolGetTransactionReceipt> getTransactionReceiptRequest = mock(Request.class);
+        when(getTransactionReceiptRequest.send()).thenReturn(tolGetTransactionReceipt);
         when(web3j.tolGetTransactionReceipt(TRANSACTION_HASH))
                 .thenReturn((Request) getTransactionReceiptRequest);
     }

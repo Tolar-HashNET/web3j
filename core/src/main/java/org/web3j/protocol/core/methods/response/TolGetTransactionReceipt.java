@@ -25,7 +25,7 @@ import org.web3j.protocol.ObjectMapperFactory;
 import org.web3j.protocol.core.Response;
 
 /** eth_getTransactionReceipt. */
-public class EthGetTransactionReceipt extends Response<TransactionReceipt> {
+public class TolGetTransactionReceipt extends Response<TransactionReceipt> {
 
     public Optional<TransactionReceipt> getTransactionReceipt() {
         return Optional.ofNullable(getResult());

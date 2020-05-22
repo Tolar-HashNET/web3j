@@ -31,7 +31,7 @@ import org.web3j.protocol.admin.Admin;
 import org.web3j.protocol.admin.methods.response.PersonalUnlockAccount;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.TolGetNonce;
-import org.web3j.protocol.core.methods.response.EthGetTransactionReceipt;
+import org.web3j.protocol.core.methods.response.TolGetTransactionReceipt;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.gas.StaticGasProvider;
@@ -120,7 +120,7 @@ public class Scenario {
 
     private Optional<TransactionReceipt> sendTransactionReceiptRequest(String transactionHash)
             throws Exception {
-        EthGetTransactionReceipt transactionReceipt =
+        TolGetTransactionReceipt transactionReceipt =
                 web3j.tolGetTransactionReceipt(transactionHash).sendAsync().get();
 
         return transactionReceipt.getTransactionReceipt();

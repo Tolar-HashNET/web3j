@@ -100,7 +100,7 @@ public interface Tolar {
     Request<?, TolTransaction> ethGetTransactionByBlockNumberAndIndex(
             DefaultBlockParameter defaultBlockParameter, BigInteger transactionIndex);
 
-    Request<?, EthGetTransactionReceipt> tolGetTransactionReceipt(String transactionHash);
+    Request<?, TolGetTransactionReceipt> tolGetTransactionReceipt(String transactionHash);
 
     Request<?, TolBlock> ethGetUncleByBlockHashAndIndex(
             String blockHash, BigInteger transactionIndex);

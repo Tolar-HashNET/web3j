@@ -317,11 +317,11 @@ public class CoreIT {
 
     @Test
     public void testEthGetTransactionReceipt() throws Exception {
-        EthGetTransactionReceipt ethGetTransactionReceipt =
+        TolGetTransactionReceipt tolGetTransactionReceipt =
                 web3j.tolGetTransactionReceipt(config.validTransactionHash()).send();
-        assertTrue(ethGetTransactionReceipt.getTransactionReceipt().isPresent());
+        assertTrue(tolGetTransactionReceipt.getTransactionReceipt().isPresent());
         TransactionReceipt transactionReceipt =
-                ethGetTransactionReceipt.getTransactionReceipt().get();
+                tolGetTransactionReceipt.getTransactionReceipt().get();
         assertEquals(transactionReceipt.getTransactionHash(), (config.validTransactionHash()));
     }
 
