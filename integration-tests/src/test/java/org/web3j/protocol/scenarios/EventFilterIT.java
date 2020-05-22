@@ -30,7 +30,7 @@ import org.web3j.crypto.Credentials;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.request.EthFilter;
 import org.web3j.protocol.core.methods.request.Transaction;
-import org.web3j.protocol.core.methods.response.EthEstimateGas;
+import org.web3j.protocol.core.methods.response.TolGetGasEstimate;
 import org.web3j.protocol.core.methods.response.EthLog;
 import org.web3j.protocol.core.methods.response.Log;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
@@ -92,7 +92,7 @@ public class EventFilterIT extends Scenario {
     }
 
     private BigInteger estimateGas(String encodedFunction) throws Exception {
-        EthEstimateGas ethEstimateGas =
+        TolGetGasEstimate tolGetGasEstimate =
                 web3j.tolGetGasEstimate(
                                 Transaction.createEthCallTransaction(
                                         ALICE.getAddress(), null, encodedFunction))
@@ -100,7 +100,7 @@ public class EventFilterIT extends Scenario {
                         .get();
         // this was coming back as 50,000,000 which is > the block gas limit of 4,712,388
         // see eth.getBlock("latest")
-        return ethEstimateGas.getAmountUsed().divide(BigInteger.valueOf(100));
+        return tolGetGasEstimate.getAmountUsed().divide(BigInteger.valueOf(100));
     }
 
     private String sendTransaction(

@@ -238,12 +238,12 @@ public class JsonRpc2_0Web3j implements Web3j {
 
     // TODO: This method is in Tolar API
     @Override
-    public Request<?, EthEstimateGas> tolGetGasEstimate(Transaction transaction) {
+    public Request<?, TolGetGasEstimate> tolGetGasEstimate(Transaction transaction) {
         return new Request<>(
                 "tol_getGasEstimate",
                 Arrays.asList(transaction),
                 web3jService,
-                EthEstimateGas.class);
+                TolGetGasEstimate.class);
     }
 
     // TODO: This method is in Tolar API

@@ -535,8 +535,8 @@ public class ResponseTest extends ResponseTester {
                         + "  \"result\": \"0x5208\"\n"
                         + "}");
 
-        EthEstimateGas ethEstimateGas = deserialiseResponse(EthEstimateGas.class);
-        assertEquals(ethEstimateGas.getAmountUsed(), (BigInteger.valueOf(21000)));
+        TolGetGasEstimate tolGetGasEstimate = deserialiseResponse(TolGetGasEstimate.class);
+        assertEquals(tolGetGasEstimate.getAmountUsed(), (BigInteger.valueOf(21000)));
     }
 
     @Test
