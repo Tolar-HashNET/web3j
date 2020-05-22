@@ -364,7 +364,7 @@ public class RequestTest extends RequestTester {
 
     @Test
     public void testEthGetTransactionReceipt() throws Exception {
-        web3j.ethGetTransactionReceipt(
+        web3j.tolGetTransactionReceipt(
                         "0xb903239f8543d04b5dc1ba6579132b143087c68db1b2168786408fcbce568238")
                 .send();
 

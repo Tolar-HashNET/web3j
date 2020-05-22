@@ -290,7 +290,7 @@ public class JsonRpc2_0Web3j implements Web3j {
 
     // TODO: This method is in Tolar API
     @Override
-    public Request<?, EthGetTransactionReceipt> ethGetTransactionReceipt(String transactionHash) {
+    public Request<?, EthGetTransactionReceipt> tolGetTransactionReceipt(String transactionHash) {
         return new Request<>(
                 "tol_getTransactionReceipt",
                 Arrays.asList(transactionHash),

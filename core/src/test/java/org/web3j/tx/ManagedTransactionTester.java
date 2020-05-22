@@ -90,7 +90,7 @@ public abstract class ManagedTransactionTester {
 
         Request<?, EthGetTransactionReceipt> getTransactionReceiptRequest = mock(Request.class);
         when(getTransactionReceiptRequest.send()).thenReturn(ethGetTransactionReceipt);
-        when(web3j.ethGetTransactionReceipt(TRANSACTION_HASH))
+        when(web3j.tolGetTransactionReceipt(TRANSACTION_HASH))
                 .thenReturn((Request) getTransactionReceiptRequest);
     }
 

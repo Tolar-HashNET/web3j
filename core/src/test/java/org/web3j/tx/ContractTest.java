@@ -456,7 +456,7 @@ public class ContractTest extends ManagedTransactionTester {
         Request<?, EthGetTransactionReceipt> getTransactionReceiptRequest = mock(Request.class);
         when(getTransactionReceiptRequest.sendAsync())
                 .thenReturn(Async.run(() -> ethGetTransactionReceipt));
-        when(web3j.ethGetTransactionReceipt(TRANSACTION_HASH))
+        when(web3j.tolGetTransactionReceipt(TRANSACTION_HASH))
                 .thenReturn((Request) getTransactionReceiptRequest);
         assertThrows(RuntimeException.class, this::testErrorScenario);
     }

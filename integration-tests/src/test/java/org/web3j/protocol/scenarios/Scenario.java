@@ -121,7 +121,7 @@ public class Scenario {
     private Optional<TransactionReceipt> sendTransactionReceiptRequest(String transactionHash)
             throws Exception {
         EthGetTransactionReceipt transactionReceipt =
-                web3j.ethGetTransactionReceipt(transactionHash).sendAsync().get();
+                web3j.tolGetTransactionReceipt(transactionHash).sendAsync().get();
 
         return transactionReceipt.getTransactionReceipt();
     }
