@@ -67,7 +67,7 @@ public class DeployContractIT extends Scenario {
         BigInteger nonce = getNonce(ALICE.getAddress());
 
         Transaction transaction =
-                Transaction.createContractTransaction(
+                Transaction.createDeployContractTransaction(
                         ALICE.getAddress(),
                         nonce,
                         GAS_PRICE,

@@ -89,7 +89,7 @@ public class Transaction {
         this.senderAddressPassword = senderAddressPassword;
     }
 
-    public static Transaction createContractTransaction(
+    public static Transaction createDeployContractTransaction(
             String from,
             BigInteger nonce,
             BigInteger gasPrice,
@@ -100,10 +100,10 @@ public class Transaction {
         return new Transaction(from, nonce, gasPrice, gasLimit, null, value, init);
     }
 
-    public static Transaction createContractTransaction(
+    public static Transaction createDeployContractTransaction(
             String from, BigInteger nonce, BigInteger gasPrice, String init) {
 
-        return createContractTransaction(from, nonce, gasPrice, null, null, init);
+        return createDeployContractTransaction(from, nonce, gasPrice, null, null, init);
     }
 
     public static Transaction createEtherTransaction(

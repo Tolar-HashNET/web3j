@@ -70,7 +70,7 @@ public class TestnetConfig implements IntegrationTestConfig {
 
     @Override
     public Transaction buildTransaction() {
-        return Transaction.createContractTransaction(
+        return Transaction.createDeployContractTransaction(
                 validAccount(),
                 BigInteger.ZERO, // nonce
                 Transaction.DEFAULT_GAS,

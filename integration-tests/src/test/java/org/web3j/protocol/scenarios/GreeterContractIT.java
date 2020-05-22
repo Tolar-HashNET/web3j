@@ -81,7 +81,7 @@ public class GreeterContractIT extends Scenario {
                 FunctionEncoder.encodeConstructor(Collections.singletonList(new Utf8String(VALUE)));
 
         Transaction transaction =
-                Transaction.createContractTransaction(
+                Transaction.createDeployContractTransaction(
                         ALICE.getAddress(),
                         nonce,
                         GAS_PRICE,
