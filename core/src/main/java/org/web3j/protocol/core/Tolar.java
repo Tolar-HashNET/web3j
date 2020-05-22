@@ -82,7 +82,7 @@ public interface Tolar {
     Request<?, org.web3j.protocol.core.methods.response.EthSendTransaction> ethSendRawTransaction(
             String signedTransactionData);
 
-    Request<?, org.web3j.protocol.core.methods.response.EthCall> tolTryCallTransaction(
+    Request<?, TolTryCallTransaction> tolTryCallTransaction(
             org.web3j.protocol.core.methods.request.Transaction transaction);
 
     Request<?, TolGetGasEstimate> tolGetGasEstimate(

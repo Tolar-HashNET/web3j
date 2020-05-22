@@ -18,9 +18,9 @@ import java.math.BigInteger;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.methods.request.Transaction;
-import org.web3j.protocol.core.methods.response.EthCall;
 import org.web3j.protocol.core.methods.response.EthGetCode;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
+import org.web3j.protocol.core.methods.response.TolTryCallTransaction;
 import org.web3j.tx.response.TransactionReceiptProcessor;
 
 /**
@@ -70,13 +70,13 @@ public class ClientTransactionManager extends TransactionManager {
     @Override
     public String sendCall(String to, String data, DefaultBlockParameter defaultBlockParameter)
             throws IOException {
-        EthCall ethCall =
+        TolTryCallTransaction tolTryCallTransaction =
                 web3j.tolTryCallTransaction(
                                 Transaction.createEthCallTransaction(getFromAddress(), to, data))
                         .send();
 
-        assertCallNotReverted(ethCall);
-        return ethCall.getValue();
+        assertCallNotReverted(tolTryCallTransaction);
+        return tolTryCallTransaction.getValue();
     }
 
     @Override

@@ -24,13 +24,13 @@ import org.web3j.abi.datatypes.generated.Uint256;
 import org.web3j.generated.Revert;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.request.Transaction;
-import org.web3j.protocol.core.methods.response.EthCall;
+import org.web3j.protocol.core.methods.response.TolTryCallTransaction;
 import org.web3j.tx.gas.DefaultGasProvider;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class EthCallIT extends Scenario {
+public class TolTryCallTransactionIT extends Scenario {
 
     private Revert contract;
 
@@ -43,28 +43,28 @@ public class EthCallIT extends Scenario {
 
     @Test
     public void testWithoutRevert() throws Exception {
-        EthCall ethCall = ethCall(BigInteger.valueOf(0L));
+        TolTryCallTransaction tolTryCallTransaction = ethCall(BigInteger.valueOf(0L));
 
-        assertFalse(ethCall.isReverted());
+        assertFalse(tolTryCallTransaction.isReverted());
     }
 
     @Test
     public void testRevertWithoutMessage() throws Exception {
-        EthCall ethCall = ethCall(BigInteger.valueOf(1L));
+        TolTryCallTransaction tolTryCallTransaction = ethCall(BigInteger.valueOf(1L));
 
-        assertTrue(ethCall.isReverted());
-        assertTrue(ethCall.getRevertReason().endsWith("revert"));
+        assertTrue(tolTryCallTransaction.isReverted());
+        assertTrue(tolTryCallTransaction.getRevertReason().endsWith("revert"));
     }
 
     @Test
     public void testRevertWithMessage() throws Exception {
-        EthCall ethCall = ethCall(BigInteger.valueOf(2L));
+        TolTryCallTransaction tolTryCallTransaction = ethCall(BigInteger.valueOf(2L));
 
-        assertTrue(ethCall.isReverted());
-        assertTrue(ethCall.getRevertReason().endsWith("revert The reason for revert"));
+        assertTrue(tolTryCallTransaction.isReverted());
+        assertTrue(tolTryCallTransaction.getRevertReason().endsWith("revert The reason for revert"));
     }
 
-    private EthCall ethCall(BigInteger value) throws java.io.IOException {
+    private TolTryCallTransaction ethCall(BigInteger value) throws java.io.IOException {
         final Function function =
                 new Function(
                         Revert.FUNC_SET,

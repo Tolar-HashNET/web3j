@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.Web3jService;
 import org.web3j.protocol.core.DefaultBlockParameter;
-import org.web3j.protocol.core.methods.response.EthCall;
+import org.web3j.protocol.core.methods.response.TolTryCallTransaction;
 import org.web3j.tx.exceptions.ContractCallException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -38,7 +38,7 @@ public class ReadonlyTransactionManagerTest {
     Web3jService service = mock(Web3jService.class);
     Web3j web3j = Web3j.build(service);
     DefaultBlockParameter defaultBlockParameter = mock(DefaultBlockParameter.class);
-    EthCall response = mock(EthCall.class);
+    TolTryCallTransaction response = mock(TolTryCallTransaction.class);
 
     @Test
     public void sendCallTest() throws IOException {

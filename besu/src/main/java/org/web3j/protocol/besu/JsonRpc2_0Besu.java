@@ -38,7 +38,7 @@ import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.Request;
 import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.protocol.core.methods.response.TolAddresses;
-import org.web3j.protocol.core.methods.response.EthCall;
+import org.web3j.protocol.core.methods.response.TolTryCallTransaction;
 import org.web3j.protocol.core.methods.response.EthGetCode;
 import org.web3j.protocol.core.methods.response.TolGetNonce;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
@@ -335,7 +335,7 @@ public class JsonRpc2_0Besu extends JsonRpc2_0Eea implements Besu {
     }
 
     @Override
-    public Request<?, EthCall> privCall(
+    public Request<?, TolTryCallTransaction> privCall(
             final Transaction transaction,
             final DefaultBlockParameter defaultBlockParameter,
             String privacyGroupId) {
@@ -343,6 +343,6 @@ public class JsonRpc2_0Besu extends JsonRpc2_0Eea implements Besu {
                 "priv_call",
                 Arrays.asList(transaction, defaultBlockParameter, privacyGroupId),
                 web3jService,
-                org.web3j.protocol.core.methods.response.EthCall.class);
+                TolTryCallTransaction.class);
     }
 }

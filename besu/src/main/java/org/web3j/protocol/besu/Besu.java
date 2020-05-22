@@ -28,11 +28,7 @@ import org.web3j.protocol.besu.response.privacy.PrivGetPrivateTransaction;
 import org.web3j.protocol.besu.response.privacy.PrivGetTransactionReceipt;
 import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.Request;
-import org.web3j.protocol.core.methods.response.TolAddresses;
-import org.web3j.protocol.core.methods.response.EthGetCode;
-import org.web3j.protocol.core.methods.response.TolGetNonce;
-import org.web3j.protocol.core.methods.response.EthSendTransaction;
-import org.web3j.protocol.core.methods.response.MinerStartResponse;
+import org.web3j.protocol.core.methods.response.*;
 import org.web3j.protocol.eea.Eea;
 import org.web3j.protocol.exceptions.TransactionException;
 import org.web3j.utils.Base64String;
@@ -109,7 +105,7 @@ public interface Besu extends Eea {
     Request<?, EthGetCode> privGetCode(
             String privacyGroupId, String address, DefaultBlockParameter defaultBlockParameter);
 
-    Request<?, org.web3j.protocol.core.methods.response.EthCall> privCall(
+    Request<?, TolTryCallTransaction> privCall(
             org.web3j.protocol.core.methods.request.Transaction transaction,
             DefaultBlockParameter defaultBlockParameter,
             String privacyGroupId);

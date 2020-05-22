@@ -22,9 +22,9 @@ import org.web3j.abi.datatypes.Utf8String;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.Web3jService;
 import org.web3j.protocol.core.Request;
-import org.web3j.protocol.core.methods.response.EthCall;
 import org.web3j.protocol.core.methods.response.EthSyncing;
 import org.web3j.protocol.core.methods.response.NetVersion;
+import org.web3j.protocol.core.methods.response.TolTryCallTransaction;
 import org.web3j.tx.ChainIdLong;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -63,16 +63,16 @@ public class EnsResolverTest {
         String contractAddress =
                 "0x00000000000000000000000019e03255f667bdfd50a32722df860b1eeaf4d635";
 
-        EthCall resolverAddressResponse = new EthCall();
+        TolTryCallTransaction resolverAddressResponse = new TolTryCallTransaction();
         resolverAddressResponse.setResult(resolverAddress);
 
-        EthCall contractAddressResponse = new EthCall();
+        TolTryCallTransaction contractAddressResponse = new TolTryCallTransaction();
         contractAddressResponse.setResult(contractAddress);
 
         when(web3jService.send(any(Request.class), eq(NetVersion.class))).thenReturn(netVersion);
-        when(web3jService.send(any(Request.class), eq(EthCall.class)))
+        when(web3jService.send(any(Request.class), eq(TolTryCallTransaction.class)))
                 .thenReturn(resolverAddressResponse);
-        when(web3jService.send(any(Request.class), eq(EthCall.class)))
+        when(web3jService.send(any(Request.class), eq(TolTryCallTransaction.class)))
                 .thenReturn(contractAddressResponse);
 
         assertEquals(
@@ -94,16 +94,16 @@ public class EnsResolverTest {
                         + TypeEncoder.encode(new Utf8String("web3j.eth"));
         System.err.println(contractName);
 
-        EthCall resolverAddressResponse = new EthCall();
+        TolTryCallTransaction resolverAddressResponse = new TolTryCallTransaction();
         resolverAddressResponse.setResult(resolverAddress);
 
-        EthCall contractNameResponse = new EthCall();
+        TolTryCallTransaction contractNameResponse = new TolTryCallTransaction();
         contractNameResponse.setResult(contractName);
 
         when(web3jService.send(any(Request.class), eq(NetVersion.class))).thenReturn(netVersion);
-        when(web3jService.send(any(Request.class), eq(EthCall.class)))
+        when(web3jService.send(any(Request.class), eq(TolTryCallTransaction.class)))
                 .thenReturn(resolverAddressResponse);
-        when(web3jService.send(any(Request.class), eq(EthCall.class)))
+        when(web3jService.send(any(Request.class), eq(TolTryCallTransaction.class)))
                 .thenReturn(contractNameResponse);
 
         assertEquals(

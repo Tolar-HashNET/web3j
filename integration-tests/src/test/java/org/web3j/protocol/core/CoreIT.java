@@ -218,12 +218,12 @@ public class CoreIT {
 
     @Test
     public void testEthCall() throws Exception {
-        EthCall ethCall =
+        TolTryCallTransaction tolTryCallTransaction =
                 web3j.tolTryCallTransaction(config.buildTransaction(), DefaultBlockParameter.valueOf("latest"))
                         .send();
 
         assertEquals(DefaultBlockParameterName.LATEST.getValue(), ("latest"));
-        assertEquals(ethCall.getValue(), ("0x"));
+        assertEquals(tolTryCallTransaction.getValue(), ("0x"));
     }
 
     @Test

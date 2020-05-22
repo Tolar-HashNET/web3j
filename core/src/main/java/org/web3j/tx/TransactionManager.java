@@ -17,9 +17,9 @@ import java.math.BigInteger;
 
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameter;
-import org.web3j.protocol.core.methods.response.EthCall;
 import org.web3j.protocol.core.methods.response.EthGetCode;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
+import org.web3j.protocol.core.methods.response.TolTryCallTransaction;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.exceptions.TransactionException;
 import org.web3j.tx.exceptions.ContractCallException;
@@ -119,10 +119,10 @@ public abstract class TransactionManager {
         return transactionReceiptProcessor.waitForTransactionReceipt(transactionHash);
     }
 
-    static void assertCallNotReverted(EthCall ethCall) {
-        if (ethCall.isReverted()) {
+    static void assertCallNotReverted(TolTryCallTransaction tolTryCallTransaction) {
+        if (tolTryCallTransaction.isReverted()) {
             throw new ContractCallException(
-                    String.format(REVERT_ERR_STR, ethCall.getRevertReason()));
+                    String.format(REVERT_ERR_STR, tolTryCallTransaction.getRevertReason()));
         }
     }
 }

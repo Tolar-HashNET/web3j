@@ -489,10 +489,11 @@ public class ResponseTest extends ResponseTester {
                         + "  \"result\": \"0x\"\n"
                         + "}");
 
-        EthCall ethCall = deserialiseResponse(EthCall.class);
-        assertEquals(ethCall.getValue(), ("0x"));
-        assertFalse(ethCall.isReverted());
-        assertNull(ethCall.getRevertReason());
+        TolTryCallTransaction tolTryCallTransaction =
+                deserialiseResponse(TolTryCallTransaction.class);
+        assertEquals(tolTryCallTransaction.getValue(), ("0x"));
+        assertFalse(tolTryCallTransaction.isReverted());
+        assertNull(tolTryCallTransaction.getRevertReason());
     }
 
     @Test
@@ -514,10 +515,11 @@ public class ResponseTest extends ResponseTester {
                         + "6e616c20636f6e7472616374732e000000000000000000000000000000000000\"\n"
                         + "}");
 
-        EthCall ethCall = deserialiseResponse(EthCall.class);
-        assertTrue(ethCall.isReverted());
+        TolTryCallTransaction tolTryCallTransaction =
+                deserialiseResponse(TolTryCallTransaction.class);
+        assertTrue(tolTryCallTransaction.isReverted());
         assertEquals(
-                ethCall.getRevertReason(),
+                tolTryCallTransaction.getRevertReason(),
                 ("Solidity uses state-reverting exceptions to "
                         + "handle errors. The require function should be "
                         + "used to ensure valid conditions, such as inputs, "

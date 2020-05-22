@@ -320,6 +320,6 @@ class TolarTest {
                         "5457c2d11f05725f4fa5c0cd119b75415b95cd40d059dfc2d5",
                         BigInteger.valueOf(0L),
                         "0xcfae3217");
-        EthCall response = web3j.tolTryCallTransaction(transaction).send();
+        TolTryCallTransaction response = web3j.tolTryCallTransaction(transaction).send();
     }
 }
