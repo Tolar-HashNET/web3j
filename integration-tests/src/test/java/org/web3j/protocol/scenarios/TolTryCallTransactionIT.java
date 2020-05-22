@@ -73,7 +73,7 @@ public class TolTryCallTransactionIT extends Scenario {
         String encodedFunction = FunctionEncoder.encode(function);
 
         return web3j.tolTryCallTransaction(
-                        Transaction.createEthCallTransaction(
+                        Transaction.createTryCallTransaction(
                                 ALICE.getAddress(), contract.getContractAddress(), encodedFunction),
                         DefaultBlockParameterName.LATEST)
                 .send();

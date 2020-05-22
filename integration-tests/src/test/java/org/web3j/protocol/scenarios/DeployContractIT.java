@@ -88,7 +88,7 @@ public class DeployContractIT extends Scenario {
 
         TolTryCallTransaction response =
                 web3j.tolTryCallTransaction(
-                                Transaction.createEthCallTransaction(
+                                Transaction.createTryCallTransaction(
                                         ALICE.getAddress(), contractAddress, encodedFunction),
                                 DefaultBlockParameterName.LATEST)
                         .sendAsync()

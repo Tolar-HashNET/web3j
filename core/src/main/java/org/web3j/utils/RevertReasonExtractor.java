@@ -69,7 +69,7 @@ public class RevertReasonExtractor {
             return null;
         }
         return web3j.tolTryCallTransaction(
-                        Transaction.createEthCallTransaction(
+                        Transaction.createTryCallTransaction(
                                 transactionReceipt.getSenderAddress(),
                                 transactionReceipt.getReceiverAddress(),
                                 data))

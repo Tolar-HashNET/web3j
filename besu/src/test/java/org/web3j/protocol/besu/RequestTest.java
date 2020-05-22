@@ -216,7 +216,7 @@ public class RequestTest extends RequestTester {
     @Test
     public void testEthCall() throws Exception {
         web3j.privCall(
-                        Transaction.createEthCallTransaction(
+                        Transaction.createTryCallTransaction(
                                 "0xa70e8dd61c5d32be8058bb8eb970870f07233155",
                                 "0xb60e8dd61c5d32be8058bb8eb970870f07233155",
                                 "0x0"),

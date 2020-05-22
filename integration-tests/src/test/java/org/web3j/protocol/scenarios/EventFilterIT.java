@@ -94,7 +94,7 @@ public class EventFilterIT extends Scenario {
     private BigInteger estimateGas(String encodedFunction) throws Exception {
         TolGetGasEstimate tolGetGasEstimate =
                 web3j.tolGetGasEstimate(
-                                Transaction.createEthCallTransaction(
+                                Transaction.createTryCallTransaction(
                                         ALICE.getAddress(), null, encodedFunction))
                         .sendAsync()
                         .get();

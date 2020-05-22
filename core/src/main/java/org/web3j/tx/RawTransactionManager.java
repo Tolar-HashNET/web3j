@@ -126,7 +126,7 @@ public class RawTransactionManager extends TransactionManager {
             throws IOException {
         TolTryCallTransaction tolTryCallTransaction =
                 web3j.tolTryCallTransaction(
-                                Transaction.createEthCallTransaction(getFromAddress(), to, data))
+                                Transaction.createTryCallTransaction(getFromAddress(), to, data))
                         .send();
 
         assertCallNotReverted(tolTryCallTransaction);

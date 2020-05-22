@@ -102,7 +102,7 @@ public class GreeterContractIT extends Scenario {
 
         TolTryCallTransaction response =
                 web3j.tolTryCallTransaction(
-                                Transaction.createEthCallTransaction(
+                                Transaction.createTryCallTransaction(
                                         ALICE.getAddress(), contractAddress, encodedFunction),
                                 DefaultBlockParameterName.LATEST)
                         .sendAsync()

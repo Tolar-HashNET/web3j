@@ -51,7 +51,7 @@ public class ReadonlyTransactionManager extends TransactionManager {
             throws IOException {
         TolTryCallTransaction tolTryCallTransaction =
                 web3j.tolTryCallTransaction(
-                                Transaction.createEthCallTransaction(fromAddress, to, data))
+                                Transaction.createTryCallTransaction(fromAddress, to, data))
                         .send();
 
         assertCallNotReverted(tolTryCallTransaction);
