@@ -164,7 +164,7 @@ public class HumanStandardTokenIT extends Scenario {
                                 new Utf8String("w3j$")));
 
         RawTransaction rawTransaction =
-                RawTransaction.createContractTransaction(
+                RawTransaction.createDeployContractTransaction(
                         nonce,
                         GAS_PRICE,
                         GAS_LIMIT,

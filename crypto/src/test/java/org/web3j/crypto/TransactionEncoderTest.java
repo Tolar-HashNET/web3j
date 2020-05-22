@@ -93,7 +93,7 @@ public class TransactionEncoderTest {
     }
 
     static RawTransaction createContractTransaction() {
-        return RawTransaction.createContractTransaction(
+        return RawTransaction.createDeployContractTransaction(
                 BigInteger.ZERO,
                 BigInteger.ONE,
                 BigInteger.TEN,

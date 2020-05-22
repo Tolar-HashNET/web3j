@@ -45,7 +45,7 @@ public class RawTransaction {
         this.data = data != null ? Numeric.cleanHexPrefix(data) : null;
     }
 
-    public static RawTransaction createContractTransaction(
+    public static RawTransaction createDeployContractTransaction(
             BigInteger nonce,
             BigInteger gasPrice,
             BigInteger gasLimit,
