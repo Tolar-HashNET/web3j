@@ -74,11 +74,11 @@ public abstract class ManagedTransactionTester {
 
     @SuppressWarnings("unchecked")
     void prepareTransactionRequest() throws IOException {
-        EthSendTransaction ethSendTransaction = new EthSendTransaction();
-        ethSendTransaction.setResult(TRANSACTION_HASH);
+        AccountSendRawTransaction accountSendRawTransaction = new AccountSendRawTransaction();
+        accountSendRawTransaction.setResult(TRANSACTION_HASH);
 
-        Request<?, EthSendTransaction> rawTransactionRequest = mock(Request.class);
-        when(rawTransactionRequest.send()).thenReturn(ethSendTransaction);
+        Request<?, AccountSendRawTransaction> rawTransactionRequest = mock(Request.class);
+        when(rawTransactionRequest.send()).thenReturn(accountSendRawTransaction);
         when(web3j.ethSendRawTransaction(any(String.class)))
                 .thenReturn((Request) rawTransactionRequest);
     }

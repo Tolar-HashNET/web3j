@@ -17,7 +17,7 @@ import java.util.Collections;
 import org.web3j.protocol.Web3jService;
 import org.web3j.protocol.core.JsonRpc2_0Web3j;
 import org.web3j.protocol.core.Request;
-import org.web3j.protocol.core.methods.response.EthSendTransaction;
+import org.web3j.protocol.core.methods.response.AccountSendRawTransaction;
 
 public class JsonRpc2_0Eea extends JsonRpc2_0Web3j implements Eea {
     public JsonRpc2_0Eea(Web3jService web3jService) {
@@ -25,12 +25,12 @@ public class JsonRpc2_0Eea extends JsonRpc2_0Web3j implements Eea {
     }
 
     @Override
-    public Request<?, EthSendTransaction> eeaSendRawTransaction(
+    public Request<?, AccountSendRawTransaction> eeaSendRawTransaction(
             final String signedTransactionData) {
         return new Request<>(
                 "eea_sendRawTransaction",
                 Collections.singletonList(signedTransactionData),
                 web3jService,
-                EthSendTransaction.class);
+                AccountSendRawTransaction.class);
     }
 }

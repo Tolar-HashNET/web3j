@@ -207,9 +207,9 @@ public class CoreIT {
     @Disabled // TODO: Once account unlock functionality is available
     @Test
     public void testEthSendTransaction() throws Exception {
-        EthSendTransaction ethSendTransaction =
+        AccountSendRawTransaction accountSendRawTransaction =
                 web3j.accountSendRawTransaction(config.buildTransaction()).send();
-        assertFalse(ethSendTransaction.getTransactionHash().isEmpty());
+        assertFalse(accountSendRawTransaction.getTransactionHash().isEmpty());
     }
 
     @Disabled // TODO: Once account unlock functionality is available

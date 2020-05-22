@@ -18,7 +18,7 @@ import java.math.BigInteger;
 import org.junit.jupiter.api.Test;
 
 import org.web3j.protocol.core.methods.request.Transaction;
-import org.web3j.protocol.core.methods.response.EthSendTransaction;
+import org.web3j.protocol.core.methods.response.AccountSendRawTransaction;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.tx.Transfer;
 import org.web3j.utils.Convert;
@@ -40,10 +40,10 @@ public class SendEtherIT extends Scenario {
                 Transaction.createFundTransferTransaction(
                         ALICE.getAddress(), nonce, GAS_PRICE, GAS_LIMIT, BOB.getAddress(), value);
 
-        EthSendTransaction ethSendTransaction =
+        AccountSendRawTransaction accountSendRawTransaction =
                 web3j.accountSendRawTransaction(transaction).sendAsync().get();
 
-        String transactionHash = ethSendTransaction.getTransactionHash();
+        String transactionHash = accountSendRawTransaction.getTransactionHash();
 
         assertFalse(transactionHash.isEmpty());
 

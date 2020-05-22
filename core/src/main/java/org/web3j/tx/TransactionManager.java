@@ -17,8 +17,8 @@ import java.math.BigInteger;
 
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameter;
+import org.web3j.protocol.core.methods.response.AccountSendRawTransaction;
 import org.web3j.protocol.core.methods.response.EthGetCode;
-import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.core.methods.response.TolTryCallTransaction;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.exceptions.TransactionException;
@@ -76,18 +76,18 @@ public abstract class TransactionManager {
             boolean constructor)
             throws IOException, TransactionException {
 
-        EthSendTransaction ethSendTransaction =
+        AccountSendRawTransaction accountSendRawTransaction =
                 sendTransaction(gasPrice, gasLimit, to, data, value, constructor);
-        return processResponse(ethSendTransaction);
+        return processResponse(accountSendRawTransaction);
     }
 
-    public EthSendTransaction sendTransaction(
+    public AccountSendRawTransaction sendTransaction(
             BigInteger gasPrice, BigInteger gasLimit, String to, String data, BigInteger value)
             throws IOException {
         return sendTransaction(gasPrice, gasLimit, to, data, value, false);
     }
 
-    public abstract EthSendTransaction sendTransaction(
+    public abstract AccountSendRawTransaction sendTransaction(
             BigInteger gasPrice,
             BigInteger gasLimit,
             String to,
@@ -106,7 +106,7 @@ public abstract class TransactionManager {
         return fromAddress;
     }
 
-    private TransactionReceipt processResponse(EthSendTransaction transactionResponse)
+    private TransactionReceipt processResponse(AccountSendRawTransaction transactionResponse)
             throws IOException, TransactionException {
         if (transactionResponse.hasError()) {
             throw new RuntimeException(

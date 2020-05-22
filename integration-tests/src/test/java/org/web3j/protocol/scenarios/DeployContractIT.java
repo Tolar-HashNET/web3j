@@ -23,6 +23,7 @@ import org.web3j.abi.datatypes.Function;
 import org.web3j.abi.datatypes.Type;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.request.Transaction;
+import org.web3j.protocol.core.methods.response.AccountSendRawTransaction;
 import org.web3j.protocol.core.methods.response.TolTryCallTransaction;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 
@@ -75,7 +76,7 @@ public class DeployContractIT extends Scenario {
                         BigInteger.ZERO,
                         getFibonacciSolidityBinary());
 
-        org.web3j.protocol.core.methods.response.EthSendTransaction transactionResponse =
+        AccountSendRawTransaction transactionResponse =
                 web3j.accountSendRawTransaction(transaction).sendAsync().get();
 
         return transactionResponse.getTransactionHash();

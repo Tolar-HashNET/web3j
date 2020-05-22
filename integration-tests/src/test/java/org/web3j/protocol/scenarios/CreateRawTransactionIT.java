@@ -20,7 +20,7 @@ import org.web3j.crypto.RawTransaction;
 import org.web3j.crypto.TransactionEncoder;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.TolGetNonce;
-import org.web3j.protocol.core.methods.response.EthSendTransaction;
+import org.web3j.protocol.core.methods.response.AccountSendRawTransaction;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.utils.Convert;
 import org.web3j.utils.Numeric;
@@ -39,9 +39,9 @@ public class CreateRawTransactionIT extends Scenario {
         byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, ALICE);
         String hexValue = Numeric.toHexString(signedMessage);
 
-        EthSendTransaction ethSendTransaction =
+        AccountSendRawTransaction accountSendRawTransaction =
                 web3j.ethSendRawTransaction(hexValue).sendAsync().get();
-        String transactionHash = ethSendTransaction.getTransactionHash();
+        String transactionHash = accountSendRawTransaction.getTransactionHash();
 
         assertFalse(transactionHash.isEmpty());
 
@@ -58,9 +58,9 @@ public class CreateRawTransactionIT extends Scenario {
         byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, ALICE);
         String hexValue = Numeric.toHexString(signedMessage);
 
-        EthSendTransaction ethSendTransaction =
+        AccountSendRawTransaction accountSendRawTransaction =
                 web3j.ethSendRawTransaction(hexValue).sendAsync().get();
-        String transactionHash = ethSendTransaction.getTransactionHash();
+        String transactionHash = accountSendRawTransaction.getTransactionHash();
 
         assertFalse(transactionHash.isEmpty());
 

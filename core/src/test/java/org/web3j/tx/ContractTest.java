@@ -37,11 +37,8 @@ import org.web3j.crypto.Credentials;
 import org.web3j.crypto.SampleKeys;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.*;
-import org.web3j.protocol.core.methods.response.EthGetCode;
-import org.web3j.protocol.core.methods.response.EthSendTransaction;
-import org.web3j.protocol.core.methods.response.Log;
-import org.web3j.protocol.core.methods.response.TolGetTransactionReceipt;
-import org.web3j.protocol.core.methods.response.TransactionReceipt;
+import org.web3j.protocol.core.methods.response.*;
+import org.web3j.protocol.core.methods.response.AccountSendRawTransaction;
 import org.web3j.protocol.exceptions.TransactionException;
 import org.web3j.tx.exceptions.ContractCallException;
 import org.web3j.tx.gas.ContractGasProvider;
@@ -372,11 +369,11 @@ public class ContractTest extends ManagedTransactionTester {
     public void testInvalidTransactionResponse() throws IOException {
         prepareNonceRequest();
 
-        EthSendTransaction ethSendTransaction = new EthSendTransaction();
-        ethSendTransaction.setError(new Response.Error(1, "Invalid transaction"));
+        AccountSendRawTransaction accountSendRawTransaction = new AccountSendRawTransaction();
+        accountSendRawTransaction.setError(new Response.Error(1, "Invalid transaction"));
 
-        Request<?, EthSendTransaction> rawTransactionRequest = mock(Request.class);
-        when(rawTransactionRequest.sendAsync()).thenReturn(Async.run(() -> ethSendTransaction));
+        Request<?, AccountSendRawTransaction> rawTransactionRequest = mock(Request.class);
+        when(rawTransactionRequest.sendAsync()).thenReturn(Async.run(() -> accountSendRawTransaction));
         when(web3j.ethSendRawTransaction(any(String.class)))
                 .thenReturn((Request) rawTransactionRequest);
         assertThrows(RuntimeException.class, this::testErrorScenario);

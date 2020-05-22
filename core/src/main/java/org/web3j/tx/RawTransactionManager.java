@@ -22,8 +22,8 @@ import org.web3j.crypto.TransactionEncoder;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.methods.request.Transaction;
+import org.web3j.protocol.core.methods.response.AccountSendRawTransaction;
 import org.web3j.protocol.core.methods.response.EthGetCode;
-import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.core.methods.response.TolGetNonce;
 import org.web3j.protocol.core.methods.response.TolTryCallTransaction;
 import org.web3j.tx.exceptions.TxHashMismatchException;
@@ -104,7 +104,7 @@ public class RawTransactionManager extends TransactionManager {
     }
 
     @Override
-    public EthSendTransaction sendTransaction(
+    public AccountSendRawTransaction sendTransaction(
             BigInteger gasPrice,
             BigInteger gasLimit,
             String to,
@@ -157,18 +157,18 @@ public class RawTransactionManager extends TransactionManager {
         return Numeric.toHexString(signedMessage);
     }
 
-    public EthSendTransaction signAndSend(RawTransaction rawTransaction) throws IOException {
+    public AccountSendRawTransaction signAndSend(RawTransaction rawTransaction) throws IOException {
         String hexValue = sign(rawTransaction);
-        EthSendTransaction ethSendTransaction = web3j.ethSendRawTransaction(hexValue).send();
+        AccountSendRawTransaction accountSendRawTransaction = web3j.ethSendRawTransaction(hexValue).send();
 
-        if (ethSendTransaction != null && !ethSendTransaction.hasError()) {
+        if (accountSendRawTransaction != null && !accountSendRawTransaction.hasError()) {
             String txHashLocal = Hash.sha3(hexValue);
-            String txHashRemote = ethSendTransaction.getTransactionHash();
+            String txHashRemote = accountSendRawTransaction.getTransactionHash();
             if (!txHashVerifier.verify(txHashLocal, txHashRemote)) {
                 throw new TxHashMismatchException(txHashLocal, txHashRemote);
             }
         }
 
-        return ethSendTransaction;
+        return accountSendRawTransaction;
     }
 }

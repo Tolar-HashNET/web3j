@@ -33,7 +33,7 @@ import org.web3j.protocol.core.Response;
  *   <li>eth_getTransactionByBlockNumberAndIndex
  * </ul>
  *
- * <p>This differs slightly from the request {@link EthSendTransaction} Transaction object.
+ * <p>This differs slightly from the request {@link AccountSendRawTransaction} Transaction object.
  *
  * <p>See <a href="https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gettransactionbyhash">docs</a>
  * for further details.

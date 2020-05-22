@@ -37,12 +37,8 @@ import org.web3j.protocol.besu.response.privacy.PrivateTransactionReceipt;
 import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.Request;
 import org.web3j.protocol.core.methods.request.Transaction;
-import org.web3j.protocol.core.methods.response.TolAddresses;
-import org.web3j.protocol.core.methods.response.TolTryCallTransaction;
-import org.web3j.protocol.core.methods.response.EthGetCode;
-import org.web3j.protocol.core.methods.response.TolGetNonce;
-import org.web3j.protocol.core.methods.response.EthSendTransaction;
-import org.web3j.protocol.core.methods.response.MinerStartResponse;
+import org.web3j.protocol.core.methods.response.*;
+import org.web3j.protocol.core.methods.response.AccountSendRawTransaction;
 import org.web3j.protocol.eea.JsonRpc2_0Eea;
 import org.web3j.protocol.exceptions.TransactionException;
 import org.web3j.tx.response.PollingPrivateTransactionReceiptProcessor;
@@ -163,7 +159,7 @@ public class JsonRpc2_0Besu extends JsonRpc2_0Eea implements Besu {
                 PrivCreatePrivacyGroup.class);
     }
 
-    public Request<?, EthSendTransaction> privOnChainSetGroupLockState(
+    public Request<?, AccountSendRawTransaction> privOnChainSetGroupLockState(
             final Base64String privacyGroupId,
             final Credentials credentials,
             final Base64String enclaveKey,
@@ -189,7 +185,7 @@ public class JsonRpc2_0Besu extends JsonRpc2_0Eea implements Besu {
     }
 
     @Override
-    public Request<?, EthSendTransaction> privOnChainAddToPrivacyGroup(
+    public Request<?, AccountSendRawTransaction> privOnChainAddToPrivacyGroup(
             Base64String privacyGroupId,
             Credentials credentials,
             Base64String enclaveKey,
@@ -231,7 +227,7 @@ public class JsonRpc2_0Besu extends JsonRpc2_0Eea implements Besu {
     }
 
     @Override
-    public Request<?, EthSendTransaction> privOnChainCreatePrivacyGroup(
+    public Request<?, AccountSendRawTransaction> privOnChainCreatePrivacyGroup(
             final Base64String privacyGroupId,
             final Credentials credentials,
             final Base64String enclaveKey,
@@ -259,7 +255,7 @@ public class JsonRpc2_0Besu extends JsonRpc2_0Eea implements Besu {
     }
 
     @Override
-    public Request<?, EthSendTransaction> privOnChainRemoveFromPrivacyGroup(
+    public Request<?, AccountSendRawTransaction> privOnChainRemoveFromPrivacyGroup(
             final Base64String privacyGroupId,
             final Credentials credentials,
             final Base64String enclaveKey,

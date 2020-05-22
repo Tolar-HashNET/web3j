@@ -76,11 +76,11 @@ public interface Tolar {
 
     Request<?, EthSign> ethSign(String address, String sha3HashOfDataToSign);
 
-    Request<?, org.web3j.protocol.core.methods.response.EthSendTransaction>
+    Request<?, AccountSendRawTransaction>
             accountSendRawTransaction(
                     org.web3j.protocol.core.methods.request.Transaction transaction);
 
-    Request<?, org.web3j.protocol.core.methods.response.EthSendTransaction> ethSendRawTransaction(
+    Request<?, AccountSendRawTransaction> ethSendRawTransaction(
             String signedTransactionData);
 
     Request<?, TolTryCallTransaction> tolTryCallTransaction(

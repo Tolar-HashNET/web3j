@@ -26,6 +26,7 @@ import org.web3j.abi.datatypes.Type;
 import org.web3j.abi.datatypes.Utf8String;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.request.Transaction;
+import org.web3j.protocol.core.methods.response.AccountSendRawTransaction;
 import org.web3j.protocol.core.methods.response.TolTryCallTransaction;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 
@@ -89,7 +90,7 @@ public class GreeterContractIT extends Scenario {
                         BigInteger.ZERO,
                         getGreeterSolidityBinary() + encodedConstructor);
 
-        org.web3j.protocol.core.methods.response.EthSendTransaction transactionResponse =
+        AccountSendRawTransaction transactionResponse =
                 web3j.accountSendRawTransaction(transaction).sendAsync().get();
 
         return transactionResponse.getTransactionHash();

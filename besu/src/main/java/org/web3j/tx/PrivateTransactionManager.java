@@ -23,8 +23,8 @@ import org.web3j.crypto.Credentials;
 import org.web3j.protocol.besu.Besu;
 import org.web3j.protocol.besu.response.privacy.PrivateTransactionReceipt;
 import org.web3j.protocol.core.DefaultBlockParameter;
+import org.web3j.protocol.core.methods.response.AccountSendRawTransaction;
 import org.web3j.protocol.core.methods.response.EthGetCode;
-import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.eea.crypto.PrivateTransactionEncoder;
 import org.web3j.protocol.eea.crypto.RawPrivateTransaction;
@@ -104,9 +104,9 @@ public abstract class PrivateTransactionManager extends TransactionManager {
             BigInteger gasPrice, BigInteger gasLimit, String to, String data, BigInteger value)
             throws IOException, TransactionException {
 
-        EthSendTransaction ethSendTransaction =
+        AccountSendRawTransaction accountSendRawTransaction =
                 sendTransaction(gasPrice, gasLimit, to, data, value);
-        return processResponse(ethSendTransaction);
+        return processResponse(accountSendRawTransaction);
     }
 
     public Base64String getPrivateFrom() {
@@ -119,7 +119,7 @@ public abstract class PrivateTransactionManager extends TransactionManager {
 
     @SuppressWarnings("unchecked")
     @Override
-    public EthSendTransaction sendTransaction(
+    public AccountSendRawTransaction sendTransaction(
             final BigInteger gasPrice,
             final BigInteger gasLimit,
             final String to,
@@ -172,7 +172,7 @@ public abstract class PrivateTransactionManager extends TransactionManager {
             final String to, final String data, final DefaultBlockParameter defaultBlockParameter)
             throws IOException {
         try {
-            EthSendTransaction est =
+            AccountSendRawTransaction est =
                     sendTransaction(
                             gasProvider.getGasPrice(),
                             gasProvider.getGasLimit(),
@@ -192,7 +192,7 @@ public abstract class PrivateTransactionManager extends TransactionManager {
         }
     }
 
-    private TransactionReceipt processResponse(final EthSendTransaction transactionResponse)
+    private TransactionReceipt processResponse(final AccountSendRawTransaction transactionResponse)
             throws IOException, TransactionException {
         if (transactionResponse.hasError()) {
             throw new RuntimeException(

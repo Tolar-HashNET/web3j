@@ -65,28 +65,28 @@ public interface Besu extends Eea {
     Request<?, PrivCreatePrivacyGroup> privCreatePrivacyGroup(
             final List<Base64String> addresses, final String name, final String description);
 
-    Request<?, EthSendTransaction> privOnChainSetGroupLockState(
+    Request<?, AccountSendRawTransaction> privOnChainSetGroupLockState(
             final Base64String privacyGroupId,
             final Credentials credentials,
             final Base64String enclaveKey,
             final Boolean lock)
             throws IOException;
 
-    Request<?, EthSendTransaction> privOnChainAddToPrivacyGroup(
+    Request<?, AccountSendRawTransaction> privOnChainAddToPrivacyGroup(
             Base64String privacyGroupId,
             Credentials credentials,
             Base64String enclaveKey,
             List<Base64String> participants)
             throws IOException, TransactionException;
 
-    Request<?, EthSendTransaction> privOnChainCreatePrivacyGroup(
+    Request<?, AccountSendRawTransaction> privOnChainCreatePrivacyGroup(
             Base64String privacyGroupId,
             Credentials credentials,
             Base64String enclaveKey,
             List<Base64String> participants)
             throws IOException;
 
-    Request<?, EthSendTransaction> privOnChainRemoveFromPrivacyGroup(
+    Request<?, AccountSendRawTransaction> privOnChainRemoveFromPrivacyGroup(
             final Base64String privacyGroupId,
             final Credentials credentials,
             final Base64String enclaveKey,

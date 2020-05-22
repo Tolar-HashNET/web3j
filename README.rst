@@ -437,7 +437,7 @@ Or if you wish to create your own custom transaction:
    // sign & send our transaction
    byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
    String hexValue = Numeric.toHexString(signedMessage);
-   EthSendTransaction ethSendTransaction = web3j.ethSendRawTransaction(hexValue).send();
+   EthSendTransaction accountSendRawTransaction = web3j.ethSendRawTransaction(hexValue).send();
    // ...
 
 Although it's far simpler using web3j's `Transfer <https://github.com/web3j/web3j/blob/master/core/src/main/java/org/web3j/tx/Transfer.java>`_

@@ -22,7 +22,7 @@ import org.web3j.protocol.admin.methods.response.PersonalListAccounts;
 import org.web3j.protocol.admin.methods.response.PersonalUnlockAccount;
 import org.web3j.protocol.core.Request;
 import org.web3j.protocol.core.methods.request.Transaction;
-import org.web3j.protocol.core.methods.response.EthSendTransaction;
+import org.web3j.protocol.core.methods.response.AccountSendRawTransaction;
 
 /** JSON-RPC Request object building factory for common Parity and Geth. */
 public interface Admin extends Web3j {
@@ -48,6 +48,6 @@ public interface Admin extends Web3j {
     public Request<?, PersonalUnlockAccount> personalUnlockAccount(
             String address, String passphrase);
 
-    public Request<?, EthSendTransaction> personalSendTransaction(
+    public Request<?, AccountSendRawTransaction> personalSendTransaction(
             Transaction transaction, String password);
 }

@@ -36,7 +36,7 @@ import org.web3j.crypto.RawTransaction;
 import org.web3j.crypto.TransactionEncoder;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.request.Transaction;
-import org.web3j.protocol.core.methods.response.EthSendTransaction;
+import org.web3j.protocol.core.methods.response.AccountSendRawTransaction;
 import org.web3j.protocol.core.methods.response.Log;
 import org.web3j.protocol.core.methods.response.TolTryCallTransaction;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
@@ -175,7 +175,7 @@ public class HumanStandardTokenIT extends Scenario {
         byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
         String hexValue = Numeric.toHexString(signedMessage);
 
-        EthSendTransaction transactionResponse =
+        AccountSendRawTransaction transactionResponse =
                 web3j.ethSendRawTransaction(hexValue).sendAsync().get();
 
         return transactionResponse.getTransactionHash();
@@ -296,7 +296,7 @@ public class HumanStandardTokenIT extends Scenario {
         byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
         String hexValue = Numeric.toHexString(signedMessage);
 
-        EthSendTransaction transactionResponse =
+        AccountSendRawTransaction transactionResponse =
                 web3j.ethSendRawTransaction(hexValue).sendAsync().get();
 
         return transactionResponse.getTransactionHash();

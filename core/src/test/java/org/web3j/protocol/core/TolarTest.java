@@ -369,7 +369,7 @@ class TolarTest {
                         "0xcfae3217",
                         "Password123");
 
-        EthSendTransaction response = web3j.accountSendRawTransaction(transaction).send();
+        AccountSendRawTransaction response = web3j.accountSendRawTransaction(transaction).send();
         System.out.println("Transaction hash: " + response.getTransactionHash());
     }
 }

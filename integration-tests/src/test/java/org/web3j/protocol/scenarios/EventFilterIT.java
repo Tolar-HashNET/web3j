@@ -30,10 +30,7 @@ import org.web3j.crypto.Credentials;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.request.EthFilter;
 import org.web3j.protocol.core.methods.request.Transaction;
-import org.web3j.protocol.core.methods.response.TolGetGasEstimate;
-import org.web3j.protocol.core.methods.response.EthLog;
-import org.web3j.protocol.core.methods.response.Log;
-import org.web3j.protocol.core.methods.response.TransactionReceipt;
+import org.web3j.protocol.core.methods.response.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -116,7 +113,7 @@ public class EventFilterIT extends Scenario {
                         contractAddress,
                         encodedFunction);
 
-        org.web3j.protocol.core.methods.response.EthSendTransaction transactionResponse =
+        AccountSendRawTransaction transactionResponse =
                 web3j.accountSendRawTransaction(transaction).sendAsync().get();
 
         assertFalse(transactionResponse.hasError());
