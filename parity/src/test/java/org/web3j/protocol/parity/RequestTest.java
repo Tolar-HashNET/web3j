@@ -380,7 +380,7 @@ public class RequestTest extends RequestTester {
     @Test
     public void testTraceCall() throws Exception {
         Transaction transaction =
-                Transaction.createFunctionCallTransaction(
+                Transaction.createExecuteFunctionTransaction(
                         "0xc171033d5cbff7175f29dfd3a63dda3d6f8f385e",
                         BigInteger.ONE,
                         Numeric.toBigInt("0x9184e72a000"),

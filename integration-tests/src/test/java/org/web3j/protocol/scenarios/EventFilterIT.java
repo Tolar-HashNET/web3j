@@ -108,7 +108,7 @@ public class EventFilterIT extends Scenario {
             throws Exception {
         BigInteger nonce = getNonce(credentials.getAddress());
         Transaction transaction =
-                Transaction.createFunctionCallTransaction(
+                Transaction.createExecuteFunctionTransaction(
                         credentials.getAddress(),
                         nonce,
                         Transaction.DEFAULT_GAS,

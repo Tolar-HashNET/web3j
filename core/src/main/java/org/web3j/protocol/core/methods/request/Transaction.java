@@ -117,7 +117,7 @@ public class Transaction {
         return new Transaction(from, nonce, gasPrice, gasLimit, to, value, null);
     }
 
-    public static Transaction createFunctionCallTransaction(
+    public static Transaction createExecuteFunctionTransaction(
             String from,
             BigInteger nonce,
             BigInteger gasPrice,
@@ -129,7 +129,7 @@ public class Transaction {
         return new Transaction(from, nonce, gasPrice, gasLimit, to, value, data);
     }
 
-    public static Transaction createFunctionCallTransaction(
+    public static Transaction createExecuteFunctionTransaction(
             String from,
             BigInteger nonce,
             BigInteger gasPrice,
