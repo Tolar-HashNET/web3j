@@ -125,14 +125,35 @@ public class Transaction {
     }
 
     public static Transaction createFundTransferTransaction(
-            String from,
-            BigInteger nonce,
+            String senderAddress,
+            String receiverAddress,
+            BigInteger amount,
+            String senderAddressPassword,
+            BigInteger gas,
             BigInteger gasPrice,
-            BigInteger gasLimit,
-            String to,
-            BigInteger value) {
+            BigInteger nonce) {
 
-        return new Transaction(from, nonce, gasPrice, gasLimit, to, value, null);
+        return new Transaction(
+                senderAddress,
+                nonce,
+                gasPrice,
+                gas,
+                receiverAddress,
+                amount,
+                null,
+                senderAddressPassword);
+    }
+
+    public static Transaction createFundTransferTransaction(
+            String senderAddress,
+            String receiverAddress,
+            BigInteger amount,
+            BigInteger gas,
+            BigInteger gasPrice,
+            BigInteger nonce) {
+
+        return createFundTransferTransaction(
+                senderAddress, receiverAddress, amount, "", gas, gasPrice, nonce);
     }
 
     public static Transaction createExecuteFunctionTransaction(
