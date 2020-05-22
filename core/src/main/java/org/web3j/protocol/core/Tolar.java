@@ -86,7 +86,7 @@ public interface Tolar {
             org.web3j.protocol.core.methods.request.Transaction transaction,
             DefaultBlockParameter defaultBlockParameter);
 
-    Request<?, EthEstimateGas> ethEstimateGas(
+    Request<?, EthEstimateGas> tolGetGasEstimate(
             org.web3j.protocol.core.methods.request.Transaction transaction);
 
     Request<?, TolBlock> tolGetBlockByHash(String blockHash);

@@ -228,7 +228,7 @@ public class CoreIT {
 
     @Test
     public void testEthEstimateGas() throws Exception {
-        EthEstimateGas ethEstimateGas = web3j.ethEstimateGas(config.buildTransaction()).send();
+        EthEstimateGas ethEstimateGas = web3j.tolGetGasEstimate(config.buildTransaction()).send();
         assertTrue(ethEstimateGas.getAmountUsed().signum() == 1);
     }
 

@@ -292,7 +292,7 @@ public class RequestTest extends RequestTester {
 
     @Test
     public void testEthEstimateGas() throws Exception {
-        web3j.ethEstimateGas(
+        web3j.tolGetGasEstimate(
                         Transaction.createEthCallTransaction(
                                 "0xa70e8dd61c5d32be8058bb8eb970870f07233155",
                                 "0x52b93c80364dc2dd4444c146d73b9836bbbb2b3f",
@@ -308,7 +308,7 @@ public class RequestTest extends RequestTester {
 
     @Test
     public void testEthEstimateGasContractCreation() throws Exception {
-        web3j.ethEstimateGas(
+        web3j.tolGetGasEstimate(
                         Transaction.createContractTransaction(
                                 "0x52b93c80364dc2dd4444c146d73b9836bbbb2b3f",
                                 BigInteger.ONE,
