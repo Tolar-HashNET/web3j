@@ -111,7 +111,7 @@ public class Transaction {
             BigInteger nonce) {
 
         return createDeployContractTransaction(
-                senderAddress, null, senderAddressPassword, gas, gasPrice, data, nonce);
+                senderAddress, BigInteger.ZERO, senderAddressPassword, gas, gasPrice, data, nonce);
     }
 
     public static Transaction createDeployContractTransaction(
@@ -121,8 +121,7 @@ public class Transaction {
             String data,
             BigInteger nonce) {
 
-        return createDeployContractTransaction(
-                senderAddress, null, null, gas, gasPrice, data, nonce);
+        return createDeployContractTransaction(senderAddress, "", gas, gasPrice, data, nonce);
     }
 
     public static Transaction createFundTransferTransaction(
