@@ -23,85 +23,110 @@ import org.web3j.utils.Numeric;
  */
 public class RawTransaction {
 
-    private BigInteger nonce;
+    private String senderAddress;
+    private String receiverAddress;
+    private BigInteger amount;
+    private String senderAddressPassword;
+    private BigInteger gas;
     private BigInteger gasPrice;
-    private BigInteger gasLimit;
-    private String to;
-    private BigInteger value;
     private String data;
+    private BigInteger nonce;
 
-    protected RawTransaction(
-            BigInteger nonce,
-            BigInteger gasPrice,
-            BigInteger gasLimit,
-            String to,
-            BigInteger value,
-            String data) {
-        this.nonce = nonce;
+    protected RawTransaction(String senderAddress, String receiverAddress, BigInteger amount, String senderAddressPassword, BigInteger gas, BigInteger gasPrice, String data, BigInteger nonce) {
+        this.senderAddress = senderAddress;
+        this.receiverAddress = receiverAddress;
+        this.amount = amount;
+        this.senderAddressPassword = senderAddressPassword;
+        this.gas = gas;
         this.gasPrice = gasPrice;
-        this.gasLimit = gasLimit;
-        this.to = to;
-        this.value = value;
-        this.data = data != null ? Numeric.cleanHexPrefix(data) : null;
+        this.data = data;
+        this.nonce = nonce;
     }
 
     public static RawTransaction createDeployContractTransaction(
-            BigInteger nonce,
+            String senderAddress,
+            BigInteger amount,
+            String senderAddressPassword,
+            BigInteger gas,
             BigInteger gasPrice,
-            BigInteger gasLimit,
-            BigInteger value,
-            String init) {
+            String data,
+            BigInteger nonce) {
 
-        return new RawTransaction(nonce, gasPrice, gasLimit, "", value, init);
+        return new RawTransaction(
+                senderAddress, null, amount, senderAddressPassword, gas, gasPrice, data, nonce);
     }
 
-    public static RawTransaction createEtherTransaction(
-            BigInteger nonce,
+    public static RawTransaction createFundTransferTransaction(
+            String senderAddress,
+            String receiverAddress,
+            BigInteger amount,
+            String senderAddressPassword,
+            BigInteger gas,
             BigInteger gasPrice,
-            BigInteger gasLimit,
-            String to,
-            BigInteger value) {
+            BigInteger nonce) {
 
-        return new RawTransaction(nonce, gasPrice, gasLimit, to, value, "");
+        return new RawTransaction(
+                senderAddress,
+                receiverAddress,
+                amount,
+                senderAddressPassword,
+                gas,
+                gasPrice,
+                null,
+                nonce);
+    }
+
+    public static RawTransaction createTransaction(String senderAddress, String receiverAddress, String senderAddressPassword, BigInteger gas, BigInteger gasPrice,
+            String data, BigInteger nonce) {
+        return createTransaction(senderAddress, receiverAddress, BigInteger.ZERO, senderAddressPassword, gas, gasPrice, data, nonce);
     }
 
     public static RawTransaction createTransaction(
-            BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String to, String data) {
-        return createTransaction(nonce, gasPrice, gasLimit, to, BigInteger.ZERO, data);
-    }
-
-    public static RawTransaction createTransaction(
-            BigInteger nonce,
+            String senderAddress,
+            String receiverAddress,
+            BigInteger amount,
+            String senderAddressPassword,
+            BigInteger gas,
             BigInteger gasPrice,
-            BigInteger gasLimit,
-            String to,
-            BigInteger value,
-            String data) {
+            String data,
+            BigInteger nonce) {
 
-        return new RawTransaction(nonce, gasPrice, gasLimit, to, value, data);
+        return new RawTransaction(senderAddress, receiverAddress, amount, senderAddressPassword, gas, gasPrice, data, nonce);
     }
 
-    public BigInteger getNonce() {
-        return nonce;
+    public static RawTransaction createTransaction(String receiverAddress, BigInteger amount, BigInteger gas, BigInteger gasPrice, String data, BigInteger nonce) {
+        return createTransaction(null, receiverAddress, amount, "", gas, gasPrice, data, nonce);
+    }
+
+    public String getSenderAddress() {
+        return senderAddress;
+    }
+
+    public String getReceiverAddress() {
+        return receiverAddress;
+    }
+
+    public BigInteger getAmount() {
+        return amount;
+    }
+
+    public String getSenderAddressPassword() {
+        return senderAddressPassword;
+    }
+
+    public BigInteger getGas() {
+        return gas;
     }
 
     public BigInteger getGasPrice() {
         return gasPrice;
     }
 
-    public BigInteger getGasLimit() {
-        return gasLimit;
-    }
-
-    public String getTo() {
-        return to;
-    }
-
-    public BigInteger getValue() {
-        return value;
-    }
-
     public String getData() {
         return data;
+    }
+
+    public BigInteger getNonce() {
+        return nonce;
     }
 }

@@ -74,8 +74,8 @@ public class RawPrivateTransaction extends RawTransaction {
         this(
                 rawTransaction.getNonce(),
                 rawTransaction.getGasPrice(),
-                rawTransaction.getGasLimit(),
-                rawTransaction.getTo(),
+                rawTransaction.getGas(),
+                rawTransaction.getReceiverAddress(),
                 rawTransaction.getData(),
                 privateFrom,
                 privateFor,
@@ -171,6 +171,6 @@ public class RawPrivateTransaction extends RawTransaction {
 
     RawTransaction asRawTransaction() {
         return RawTransaction.createTransaction(
-                getNonce(), getGasPrice(), getGasLimit(), getTo(), BigInteger.ZERO, getData());
+                getNonce(), getGasPrice(), getGas(), getReceiverAddress(), BigInteger.ZERO, getData());
     }
 }

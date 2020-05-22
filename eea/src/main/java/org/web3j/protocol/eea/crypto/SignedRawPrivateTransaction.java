@@ -75,8 +75,8 @@ public class SignedRawPrivateTransaction extends RawPrivateTransaction
         this(
                 signedRawTransaction.getNonce(),
                 signedRawTransaction.getGasPrice(),
-                signedRawTransaction.getGasLimit(),
-                signedRawTransaction.getTo(),
+                signedRawTransaction.getGas(),
+                signedRawTransaction.getReceiverAddress(),
                 signedRawTransaction.getData(),
                 signedRawTransaction.getSignatureData(),
                 privateFrom,

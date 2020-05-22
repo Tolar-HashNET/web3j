@@ -106,17 +106,18 @@ public class RawTransactionManager extends TransactionManager {
     @Override
     public AccountSendRawTransaction sendTransaction(
             BigInteger gasPrice,
-            BigInteger gasLimit,
-            String to,
+            BigInteger gas,
+            String receiverAddress,
             String data,
-            BigInteger value,
+            BigInteger amount,
             boolean constructor)
             throws IOException {
 
         BigInteger nonce = getNonce();
 
         RawTransaction rawTransaction =
-                RawTransaction.createTransaction(nonce, gasPrice, gasLimit, to, value, data);
+                RawTransaction.createTransaction(
+                        receiverAddress, amount, gas, gasPrice, data, nonce);
 
         return signAndSend(rawTransaction);
     }

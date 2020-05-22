@@ -106,10 +106,10 @@ public class TransactionEncoder {
 
         result.add(RlpString.create(rawTransaction.getNonce()));
         result.add(RlpString.create(rawTransaction.getGasPrice()));
-        result.add(RlpString.create(rawTransaction.getGasLimit()));
+        result.add(RlpString.create(rawTransaction.getGas()));
 
         // an empty to address (contract creation) should not be encoded as a numeric 0 value
-        String to = rawTransaction.getTo();
+        String to = rawTransaction.getReceiverAddress();
         if (to != null && to.length() > 0) {
             // addresses that start with zeros should be encoded with the zeros included, not
             // as numeric values
@@ -118,7 +118,7 @@ public class TransactionEncoder {
             result.add(RlpString.create(""));
         }
 
-        result.add(RlpString.create(rawTransaction.getValue()));
+        result.add(RlpString.create(rawTransaction.getAmount()));
 
         // value field will already be hex encoded, so we need to convert into binary first
         byte[] data = Numeric.hexStringToByteArray(rawTransaction.getData());

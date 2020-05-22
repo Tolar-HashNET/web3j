@@ -30,7 +30,7 @@ import org.web3j.utils.Numeric;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Transaction {
-    public static final BigInteger DEFAULT_GAS = BigInteger.valueOf(9000);
+    public static final BigInteger DEFAULT_GAS = BigInteger.valueOf(210000);
 
     @JsonProperty("sender_address")
     private String senderAddress;

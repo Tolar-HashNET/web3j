@@ -27,9 +27,9 @@ public class TransactionDecoder {
         final RlpList values = (RlpList) rlpList.getValues().get(0);
         final BigInteger nonce = ((RlpString) values.getValues().get(0)).asPositiveBigInteger();
         final BigInteger gasPrice = ((RlpString) values.getValues().get(1)).asPositiveBigInteger();
-        final BigInteger gasLimit = ((RlpString) values.getValues().get(2)).asPositiveBigInteger();
-        final String to = ((RlpString) values.getValues().get(3)).asString();
-        final BigInteger value = ((RlpString) values.getValues().get(4)).asPositiveBigInteger();
+        final BigInteger gas = ((RlpString) values.getValues().get(2)).asPositiveBigInteger();
+        final String receiverAddress = ((RlpString) values.getValues().get(3)).asString();
+        final BigInteger amount = ((RlpString) values.getValues().get(4)).asPositiveBigInteger();
         final String data = ((RlpString) values.getValues().get(5)).asString();
         if (values.getValues().size() == 6
                 || (values.getValues().size() == 8
@@ -38,7 +38,7 @@ public class TransactionDecoder {
                         && ((RlpString) values.getValues().get(8)).getBytes().length == 10)) {
             // the 8th or 9nth element is the hex
             // representation of "restricted" for private transactions
-            return RawTransaction.createTransaction(nonce, gasPrice, gasLimit, to, value, data);
+            return RawTransaction.createTransaction(receiverAddress, amount, gas, gasPrice, data, nonce);
         } else {
             final byte[] v = ((RlpString) values.getValues().get(6)).getBytes();
             final byte[] r =
@@ -50,8 +50,7 @@ public class TransactionDecoder {
                             Numeric.toBigInt(((RlpString) values.getValues().get(8)).getBytes()),
                             32);
             final Sign.SignatureData signatureData = new Sign.SignatureData(v, r, s);
-            return new SignedRawTransaction(
-                    nonce, gasPrice, gasLimit, to, value, data, signatureData);
+            return new SignedRawTransaction(receiverAddress,amount,gas, gasPrice, data, nonce, signatureData);
         }
     }
 }
