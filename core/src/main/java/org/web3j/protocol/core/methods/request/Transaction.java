@@ -106,7 +106,7 @@ public class Transaction {
         return createDeployContractTransaction(from, nonce, gasPrice, null, null, init);
     }
 
-    public static Transaction createEtherTransaction(
+    public static Transaction createFundTransferTransaction(
             String from,
             BigInteger nonce,
             BigInteger gasPrice,

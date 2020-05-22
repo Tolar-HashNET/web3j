@@ -37,7 +37,7 @@ public class SendEtherIT extends Scenario {
         BigInteger value = Convert.toWei("0.5", Convert.Unit.ETHER).toBigInteger();
 
         Transaction transaction =
-                Transaction.createEtherTransaction(
+                Transaction.createFundTransferTransaction(
                         ALICE.getAddress(), nonce, GAS_PRICE, GAS_LIMIT, BOB.getAddress(), value);
 
         EthSendTransaction ethSendTransaction =
