@@ -766,7 +766,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     public Request<?, AccountSendRawTransaction> accountSendFundTransferTransaction(
             Transaction transaction) {
         return new Request<>(
-                "account_sendExecuteFunctionTransaction",
+                "account_sendFundTransferTransaction",
                 Arrays.asList(
                         transaction.getSenderAddress(),
                         transaction.getReceiverAddress(),
