@@ -55,7 +55,7 @@ public class ReadonlyTransactionManager extends TransactionManager {
                         .send();
 
         assertCallNotReverted(tolTryCallTransaction);
-        return tolTryCallTransaction.getValue();
+        return tolTryCallTransaction.getOutput();
     }
 
     @Override

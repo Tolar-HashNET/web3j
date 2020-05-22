@@ -12,53 +12,52 @@
  */
 package org.web3j.protocol.core.methods.response;
 
-import java.util.Collections;
-import java.util.List;
-
-import org.web3j.abi.FunctionReturnDecoder;
-import org.web3j.abi.TypeReference;
-import org.web3j.abi.datatypes.AbiTypes;
-import org.web3j.abi.datatypes.Type;
-import org.web3j.abi.datatypes.Utf8String;
 import org.web3j.protocol.core.Response;
 
 /** eth_call. */
-public class TolTryCallTransaction extends Response<String> {
+public class TolTryCallTransaction extends Response<TolTryCallTransaction.TryTransactionResult> {
 
-    // Numeric.toHexString(Hash.sha3("Error(string)".getBytes())).substring(0, 10)
-    private static final String errorMethodId = "0x08c379a0";
-
-    @SuppressWarnings("unchecked")
-    private static final List<TypeReference<Type>> revertReasonType =
-            Collections.singletonList(
-                    TypeReference.create((Class<Type>) AbiTypes.getType("string")));
-
-    public String getValue() {
-        return getResult();
+    public String getOutput() {
+        return getResult().getOutput();
     }
 
-    public boolean isReverted() {
-        return hasError() || isErrorInResult();
-    }
-
-    @Deprecated
-    public boolean reverts() {
-        return isReverted();
-    }
-
-    private boolean isErrorInResult() {
-        return getValue() != null && getValue().startsWith(errorMethodId);
+    public boolean isExcepted() {
+        return getResult().isExcepted();
     }
 
     public String getRevertReason() {
-        if (isErrorInResult()) {
-            String hexRevertReason = getValue().substring(errorMethodId.length());
-            List<Type> decoded = FunctionReturnDecoder.decode(hexRevertReason, revertReasonType);
-            Utf8String decodedRevertReason = (Utf8String) decoded.get(0);
-            return decodedRevertReason.getValue();
-        } else if (hasError()) {
-            return getError().getMessage();
+        return getError().getMessage();
+    }
+
+    public boolean isReverted() {
+        return hasError() || isExcepted();
+    }
+
+    public static class TryTransactionResult {
+        private String output;
+        private boolean excepted;
+
+        public TryTransactionResult() {}
+
+        public TryTransactionResult(String output, boolean excepted) {
+            this.output = output;
+            this.excepted = excepted;
         }
-        return null;
+
+        public String getOutput() {
+            return output;
+        }
+
+        public void setOutput(String output) {
+            this.output = output;
+        }
+
+        public boolean isExcepted() {
+            return excepted;
+        }
+
+        public void setExcepted(boolean excepted) {
+            this.excepted = excepted;
+        }
     }
 }

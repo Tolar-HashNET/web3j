@@ -121,8 +121,11 @@ public abstract class TransactionManager {
 
     static void assertCallNotReverted(TolTryCallTransaction tolTryCallTransaction) {
         if (tolTryCallTransaction.isReverted()) {
-            throw new ContractCallException(
-                    String.format(REVERT_ERR_STR, tolTryCallTransaction.getRevertReason()));
+            throw new ContractCallException("Transaction is excepted.");
+        }
+
+        if (tolTryCallTransaction.hasError()) {
+            throw new ContractCallException(tolTryCallTransaction.getError().getMessage());
         }
     }
 }

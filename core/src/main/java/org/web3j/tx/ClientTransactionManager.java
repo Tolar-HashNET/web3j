@@ -76,7 +76,7 @@ public class ClientTransactionManager extends TransactionManager {
                         .send();
 
         assertCallNotReverted(tolTryCallTransaction);
-        return tolTryCallTransaction.getValue();
+        return tolTryCallTransaction.getOutput();
     }
 
     @Override
