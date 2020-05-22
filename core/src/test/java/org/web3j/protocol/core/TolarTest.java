@@ -464,4 +464,39 @@ class TolarTest {
                 web3j.accountSendExecuteFunctionTransaction(transaction).send();
         System.out.println("Transaction hash: " + response.getTransactionHash());
     }
+
+    @Test
+    @Ignore
+    public void testAccountSendFundTransferTransaction() throws IOException {
+        org.web3j.protocol.core.methods.request.Transaction transaction =
+                org.web3j.protocol.core.methods.request.Transaction.createFundTransferTransaction(
+                        "5484c512b1cf3d45e7506a772b7358375acc571b2930d27deb",
+                        "5457c2d11f05725f4fa5c0cd119b75415b95cd40d059dfc2d5",
+                        BigInteger.valueOf(500000L),
+                        "Password123",
+                        BigInteger.valueOf(6000000L),
+                        BigInteger.valueOf(1L),
+                        BigInteger.valueOf(38L));
+
+        AccountSendRawTransaction response =
+                web3j.accountSendFundTransferTransaction(transaction).send();
+        System.out.println("Transaction hash: " + response.getTransactionHash());
+    }
+
+    @Test
+    @Ignore
+    public void testAccountSendFundTransferTransactionWithoutPassword() throws IOException {
+        org.web3j.protocol.core.methods.request.Transaction transaction =
+                org.web3j.protocol.core.methods.request.Transaction.createFundTransferTransaction(
+                        "5484c512b1cf3d45e7506a772b7358375acc571b2930d27deb",
+                        "5457c2d11f05725f4fa5c0cd119b75415b95cd40d059dfc2d5",
+                        BigInteger.valueOf(500000L),
+                        BigInteger.valueOf(6000000L),
+                        BigInteger.valueOf(1L),
+                        BigInteger.valueOf(38L));
+
+        AccountSendRawTransaction response =
+                web3j.accountSendFundTransferTransaction(transaction).send();
+        System.out.println("Transaction hash: " + response.getTransactionHash());
+    }
 }
