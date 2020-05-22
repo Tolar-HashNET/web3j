@@ -182,20 +182,20 @@ public class TolBlock extends Response<TolBlock.Block> {
 
         public TransactionObject(
                 String blockHash,
-                String transactionIndex,
+                BigInteger transactionIndex,
                 String senderAddress,
                 String receiverAddress,
-                String value,
-                String gas,
-                String gasPrice,
+                BigInteger value,
+                BigInteger gas,
+                BigInteger gasPrice,
                 String data,
-                String nonce,
-                String gasUsed,
-                String gasRefunded,
+                BigInteger nonce,
+                BigInteger gasUsed,
+                BigInteger gasRefunded,
                 String newAddress,
                 String output,
                 boolean excepted,
-                long confirmationTimestamp) {
+                BigInteger confirmationTimestamp) {
             super(
                     blockHash,
                     transactionIndex,

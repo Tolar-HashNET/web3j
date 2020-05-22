@@ -12,6 +12,7 @@
  */
 package org.web3j.protocol.core.methods.response;
 
+import java.math.BigInteger;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -22,7 +23,7 @@ public class Transaction {
     private String blockHash;
 
     @JsonProperty("transaction_index")
-    private String transactionIndex;
+    private BigInteger transactionIndex;
 
     @JsonProperty("sender_address")
     private String senderAddress;
@@ -30,20 +31,20 @@ public class Transaction {
     @JsonProperty("receiver_address")
     private String receiverAddress;
 
-    private String value;
-    private String gas;
+    private BigInteger value;
+    private BigInteger gas;
 
     @JsonProperty("gas_price")
-    private String gasPrice;
+    private BigInteger gasPrice;
 
     private String data;
-    private String nonce;
+    private BigInteger nonce;
 
     @JsonProperty("gas_used")
-    private String gasUsed;
+    private BigInteger gasUsed;
 
     @JsonProperty("gas_refunded")
-    private String gasRefunded;
+    private BigInteger gasRefunded;
 
     @JsonProperty("new_address")
     private String newAddress;
@@ -52,26 +53,26 @@ public class Transaction {
     private boolean excepted;
 
     @JsonProperty("confirmation_timestamp")
-    private long confirmationTimestamp;
+    private BigInteger confirmationTimestamp;
 
     public Transaction() {}
 
     public Transaction(
             String blockHash,
-            String transactionIndex,
+            BigInteger transactionIndex,
             String senderAddress,
             String receiverAddress,
-            String value,
-            String gas,
-            String gasPrice,
+            BigInteger value,
+            BigInteger gas,
+            BigInteger gasPrice,
             String data,
-            String nonce,
-            String gasUsed,
-            String gasRefunded,
+            BigInteger nonce,
+            BigInteger gasUsed,
+            BigInteger gasRefunded,
             String newAddress,
             String output,
             boolean excepted,
-            long confirmationTimestamp) {
+            BigInteger confirmationTimestamp) {
         this.blockHash = blockHash;
         this.transactionIndex = transactionIndex;
         this.senderAddress = senderAddress;
@@ -97,11 +98,11 @@ public class Transaction {
         this.blockHash = blockHash;
     }
 
-    public String getTransactionIndex() {
+    public BigInteger getTransactionIndex() {
         return transactionIndex;
     }
 
-    public void setTransactionIndex(String transactionIndex) {
+    public void setTransactionIndex(BigInteger transactionIndex) {
         this.transactionIndex = transactionIndex;
     }
 
@@ -121,27 +122,27 @@ public class Transaction {
         this.receiverAddress = receiverAddress;
     }
 
-    public String getValue() {
+    public BigInteger getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(BigInteger value) {
         this.value = value;
     }
 
-    public String getGas() {
+    public BigInteger getGas() {
         return gas;
     }
 
-    public void setGas(String gas) {
+    public void setGas(BigInteger gas) {
         this.gas = gas;
     }
 
-    public String getGasPrice() {
+    public BigInteger getGasPrice() {
         return gasPrice;
     }
 
-    public void setGasPrice(String gasPrice) {
+    public void setGasPrice(BigInteger gasPrice) {
         this.gasPrice = gasPrice;
     }
 
@@ -153,27 +154,27 @@ public class Transaction {
         this.data = data;
     }
 
-    public String getNonce() {
+    public BigInteger getNonce() {
         return nonce;
     }
 
-    public void setNonce(String nonce) {
+    public void setNonce(BigInteger nonce) {
         this.nonce = nonce;
     }
 
-    public String getGasUsed() {
+    public BigInteger getGasUsed() {
         return gasUsed;
     }
 
-    public void setGasUsed(String gasUsed) {
+    public void setGasUsed(BigInteger gasUsed) {
         this.gasUsed = gasUsed;
     }
 
-    public String getGasRefunded() {
+    public BigInteger getGasRefunded() {
         return gasRefunded;
     }
 
-    public void setGasRefunded(String gasRefunded) {
+    public void setGasRefunded(BigInteger gasRefunded) {
         this.gasRefunded = gasRefunded;
     }
 
@@ -201,11 +202,11 @@ public class Transaction {
         this.excepted = excepted;
     }
 
-    public long getConfirmationTimestamp() {
+    public BigInteger getConfirmationTimestamp() {
         return confirmationTimestamp;
     }
 
-    public void setConfirmationTimestamp(long confirmationTimestamp) {
+    public void setConfirmationTimestamp(BigInteger confirmationTimestamp) {
         this.confirmationTimestamp = confirmationTimestamp;
     }
 

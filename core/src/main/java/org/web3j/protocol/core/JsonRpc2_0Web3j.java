@@ -271,7 +271,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     public Request<?, TolTransaction> tolGetTransaction(String transactionHash) {
         return new Request<>(
                 "tol_getTransaction",
-                Arrays.asList(transactionHash),
+                Collections.singletonList(transactionHash),
                 web3jService,
                 TolTransaction.class);
     }

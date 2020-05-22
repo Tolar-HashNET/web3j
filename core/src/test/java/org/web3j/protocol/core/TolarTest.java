@@ -272,4 +272,40 @@ class TolarTest {
         System.out.println("Transaction hashes: ");
         blockByIndex.getBlock().getTransactionHashes().forEach(System.out::println);
     }
+
+    @Test
+    public void testTolGetTransaction() throws IOException {
+        TolTransaction response =
+                web3j.tolGetTransaction(
+                                "808cf4ff160048ce58de4869ea11fe43c62a72f63a7df415d18f33ac0f6c769b")
+                        .send();
+
+        if (response.getTransaction().isPresent()) {
+            Transaction transaction = response.getTransaction().get();
+            Assertions.assertEquals(
+                    "93f0c1766bf3fe06b7a29b51ceb6626906b0d8d654f33b5c1b50768fab06bb9f",
+                    transaction.getBlockHash());
+            Assertions.assertEquals(BigInteger.valueOf(0L), transaction.getTransactionIndex());
+            Assertions.assertEquals(
+                    "5484c512b1cf3d45e7506a772b7358375acc571b2930d27deb",
+                    transaction.getSenderAddress());
+            Assertions.assertEquals(
+                    "540dc971237be2361e04c1643d57b572709db15e449a870fef",
+                    transaction.getReceiverAddress());
+            Assertions.assertEquals(BigInteger.valueOf(1L), transaction.getValue());
+            Assertions.assertEquals(BigInteger.valueOf(210000L), transaction.getGas());
+            Assertions.assertEquals(BigInteger.valueOf(1L), transaction.getGasPrice());
+            Assertions.assertEquals("kitula", transaction.getData());
+            Assertions.assertEquals(BigInteger.valueOf(30L), transaction.getNonce());
+            Assertions.assertEquals(BigInteger.valueOf(21000L), transaction.getGasUsed());
+            Assertions.assertEquals(BigInteger.valueOf(0L), transaction.getGasRefunded());
+            Assertions.assertEquals(
+                    "54000000000000000000000000000000000000000023199e2b",
+                    transaction.getNewAddress());
+            Assertions.assertEquals("", transaction.getOutput());
+            Assertions.assertFalse(transaction.isExcepted());
+            Assertions.assertEquals(
+                    BigInteger.valueOf(1588850261994L), transaction.getConfirmationTimestamp());
+        }
+    }
 }
