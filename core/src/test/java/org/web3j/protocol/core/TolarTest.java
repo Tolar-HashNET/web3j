@@ -329,9 +329,12 @@ class TolarTest {
 
     @Test
     public void testTolGetTransactionReceipt() throws IOException {
-        TolGetTransactionReceipt response = web3j.tolGetTransactionReceipt("808cf4ff160048ce58de4869ea11fe43c62a72f63a7df415d18f33ac0f6c769b").send();
+        TolGetTransactionReceipt response =
+                web3j.tolGetTransactionReceipt(
+                                "808cf4ff160048ce58de4869ea11fe43c62a72f63a7df415d18f33ac0f6c769b")
+                        .send();
 
-        if(response.getTransactionReceipt().isPresent()) {
+        if (response.getTransactionReceipt().isPresent()) {
             TransactionReceipt receipt = response.getTransactionReceipt().get();
             System.out.println(receipt.getTransactionIndex());
         }
