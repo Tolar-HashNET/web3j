@@ -16,6 +16,7 @@ import java.math.BigInteger;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.web3j.utils.Numeric;
 
 /**
@@ -32,9 +33,15 @@ public class Transaction {
     // default as per https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_sendtransaction
     public static final BigInteger DEFAULT_GAS = BigInteger.valueOf(9000);
 
+    @JsonProperty("sender_address")
     private String senderAddress;
+
+    @JsonProperty("receiver_address")
     private String receiverAddress;
+
     private BigInteger gas;
+
+    @JsonProperty("gas_price")
     private BigInteger gasPrice;
     private BigInteger amount;
     private String data;

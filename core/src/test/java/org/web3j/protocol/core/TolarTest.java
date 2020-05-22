@@ -339,4 +339,18 @@ class TolarTest {
             System.out.println(receipt.getTransactionIndex());
         }
     }
+
+    @Test
+    public void testTolGetGasEstimate() throws IOException {
+        org.web3j.protocol.core.methods.request.Transaction transaction =
+                new org.web3j.protocol.core.methods.request.Transaction(
+                        "5484c512b1cf3d45e7506a772b7358375acc571b2930d27deb",
+                        BigInteger.valueOf(7L),
+                        BigInteger.valueOf(1L),
+                        BigInteger.valueOf(6000000L),
+                        "5457c2d11f05725f4fa5c0cd119b75415b95cd40d059dfc2d5",
+                        BigInteger.valueOf(0L),
+                        "0xcfae3217");
+        TolGetGasEstimate response = web3j.tolGetGasEstimate(transaction).send();
+    }
 }
