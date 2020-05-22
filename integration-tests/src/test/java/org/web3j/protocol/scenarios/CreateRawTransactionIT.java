@@ -47,7 +47,7 @@ public class CreateRawTransactionIT extends Scenario {
 
         TransactionReceipt transactionReceipt = waitForTransactionReceipt(transactionHash);
 
-        assertEquals(transactionHash, transactionReceipt.getTransactionHash());
+        assertEquals(transactionHash, transactionReceipt.getHash());
     }
 
     @Test
@@ -66,7 +66,7 @@ public class CreateRawTransactionIT extends Scenario {
 
         TransactionReceipt transactionReceipt = waitForTransactionReceipt(transactionHash);
 
-        assertEquals(transactionHash, transactionReceipt.getTransactionHash());
+        assertEquals(transactionHash, transactionReceipt.getHash());
 
         assertFalse(
                 rawTransaction.getGasLimit().equals(transactionReceipt.getGasUsed()),

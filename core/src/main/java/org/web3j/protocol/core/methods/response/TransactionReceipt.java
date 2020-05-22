@@ -14,79 +14,61 @@ package org.web3j.protocol.core.methods.response;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Objects;
 
-import org.web3j.utils.Numeric;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /** TransactionReceipt object used by {@link TolGetTransactionReceipt}. */
 public class TransactionReceipt {
-    private String transactionHash;
-    private String transactionIndex;
+    @JsonProperty("block_hash")
     private String blockHash;
-    private String blockNumber;
-    private String cumulativeGasUsed;
-    private String gasUsed;
-    private String contractAddress;
-    private String root;
-    // status is only present on Byzantium transactions onwards
-    // see EIP 658 https://github.com/ethereum/EIPs/pull/658
-    private String status;
-    private String from;
-    private String to;
+
+    @JsonProperty("transaction_index")
+    private String transactionIndex;
+
+    @JsonProperty("sender_address")
+    private String senderAddress;
+
+    @JsonProperty("receiver_address")
+    private String receiverAddress;
+
+    @JsonProperty("gas_used")
+    private BigInteger gasUsed;
+
+    @JsonProperty("new_address")
+    private String newAddress;
+
+    private boolean excepted;
+
+    @JsonProperty("block_number")
+    private BigInteger blockNumber;
+
+    private String hash;
     private List<Log> logs;
-    private String logsBloom;
-    private String revertReason;
 
     public TransactionReceipt() {}
 
     public TransactionReceipt(
-            String transactionHash,
-            String transactionIndex,
             String blockHash,
-            String blockNumber,
-            String cumulativeGasUsed,
-            String gasUsed,
-            String contractAddress,
-            String root,
-            String status,
-            String from,
-            String to,
-            List<Log> logs,
-            String logsBloom,
-            String revertReason) {
-        this.transactionHash = transactionHash;
-        this.transactionIndex = transactionIndex;
+            String transactionIndex,
+            String senderAddress,
+            String receiverAddress,
+            BigInteger gasUsed,
+            String newAddress,
+            boolean excepted,
+            BigInteger blockNumber,
+            String hash,
+            List<Log> logs) {
         this.blockHash = blockHash;
-        this.blockNumber = blockNumber;
-        this.cumulativeGasUsed = cumulativeGasUsed;
-        this.gasUsed = gasUsed;
-        this.contractAddress = contractAddress;
-        this.root = root;
-        this.status = status;
-        this.from = from;
-        this.to = to;
-        this.logs = logs;
-        this.logsBloom = logsBloom;
-        this.revertReason = revertReason;
-    }
-
-    public String getTransactionHash() {
-        return transactionHash;
-    }
-
-    public void setTransactionHash(String transactionHash) {
-        this.transactionHash = transactionHash;
-    }
-
-    public BigInteger getTransactionIndex() {
-        return Numeric.decodeQuantity(transactionIndex);
-    }
-
-    public String getTransactionIndexRaw() {
-        return transactionIndex;
-    }
-
-    public void setTransactionIndex(String transactionIndex) {
         this.transactionIndex = transactionIndex;
+        this.senderAddress = senderAddress;
+        this.receiverAddress = receiverAddress;
+        this.gasUsed = gasUsed;
+        this.newAddress = newAddress;
+        this.excepted = excepted;
+        this.blockNumber = blockNumber;
+        this.hash = hash;
+        this.logs = logs;
     }
 
     public String getBlockHash() {
@@ -97,88 +79,68 @@ public class TransactionReceipt {
         this.blockHash = blockHash;
     }
 
-    public BigInteger getBlockNumber() {
-        return Numeric.decodeQuantity(blockNumber);
+    public String getTransactionIndex() {
+        return transactionIndex;
     }
 
-    public String getBlockNumberRaw() {
-        return blockNumber;
+    public void setTransactionIndex(String transactionIndex) {
+        this.transactionIndex = transactionIndex;
     }
 
-    public void setBlockNumber(String blockNumber) {
-        this.blockNumber = blockNumber;
+    public String getSenderAddress() {
+        return senderAddress;
     }
 
-    public BigInteger getCumulativeGasUsed() {
-        return Numeric.decodeQuantity(cumulativeGasUsed);
+    public void setSenderAddress(String senderAddress) {
+        this.senderAddress = senderAddress;
     }
 
-    public String getCumulativeGasUsedRaw() {
-        return cumulativeGasUsed;
+    public String getReceiverAddress() {
+        return receiverAddress;
     }
 
-    public void setCumulativeGasUsed(String cumulativeGasUsed) {
-        this.cumulativeGasUsed = cumulativeGasUsed;
+    public void setReceiverAddress(String receiverAddress) {
+        this.receiverAddress = receiverAddress;
     }
 
     public BigInteger getGasUsed() {
-        return Numeric.decodeQuantity(gasUsed);
-    }
-
-    public String getGasUsedRaw() {
         return gasUsed;
     }
 
-    public void setGasUsed(String gasUsed) {
+    public void setGasUsed(BigInteger gasUsed) {
         this.gasUsed = gasUsed;
     }
 
-    public String getContractAddress() {
-        return contractAddress;
+    public String getNewAddress() {
+        return newAddress;
     }
 
-    public void setContractAddress(String contractAddress) {
-        this.contractAddress = contractAddress;
+    public void setNewAddress(String newAddress) {
+        this.newAddress = newAddress;
     }
 
-    public String getRoot() {
-        return root;
+    public boolean isExcepted() {
+        return excepted;
     }
 
-    public void setRoot(String root) {
-        this.root = root;
+    public void setExcepted(boolean excepted) {
+        this.excepted = excepted;
     }
 
-    public String getStatus() {
-        return status;
+    public BigInteger getBlockNumber() {
+        return blockNumber;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setBlockNumber(BigInteger blockNumber) {
+        this.blockNumber = blockNumber;
     }
 
-    public boolean isStatusOK() {
-        if (null == getStatus()) {
-            return true;
-        }
-        BigInteger statusQuantity = Numeric.decodeQuantity(getStatus());
-        return BigInteger.ONE.equals(statusQuantity);
+    public String getHash() {
+        return hash;
     }
 
-    public String getFrom() {
-        return from;
-    }
-
-    public void setFrom(String from) {
-        this.from = from;
-    }
-
-    public String getTo() {
-        return to;
-    }
-
-    public void setTo(String to) {
-        this.to = to;
+    public void setHash(String hash) {
+        this.hash = hash;
     }
 
     public List<Log> getLogs() {
@@ -189,156 +151,68 @@ public class TransactionReceipt {
         this.logs = logs;
     }
 
-    public String getLogsBloom() {
-        return logsBloom;
-    }
-
-    public void setLogsBloom(String logsBloom) {
-        this.logsBloom = logsBloom;
-    }
-
-    public String getRevertReason() {
-        return revertReason;
-    }
-
-    public void setRevertReason(String revertReason) {
-        this.revertReason = revertReason;
-    }
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof TransactionReceipt)) {
-            return false;
-        }
-
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         TransactionReceipt that = (TransactionReceipt) o;
-
-        if (getTransactionHash() != null
-                ? !getTransactionHash().equals(that.getTransactionHash())
-                : that.getTransactionHash() != null) {
-            return false;
-        }
-        if (transactionIndex != null
-                ? !transactionIndex.equals(that.transactionIndex)
-                : that.transactionIndex != null) {
-            return false;
-        }
-        if (getBlockHash() != null
-                ? !getBlockHash().equals(that.getBlockHash())
-                : that.getBlockHash() != null) {
-            return false;
-        }
-        if (blockNumber != null
-                ? !blockNumber.equals(that.blockNumber)
-                : that.blockNumber != null) {
-            return false;
-        }
-        if (cumulativeGasUsed != null
-                ? !cumulativeGasUsed.equals(that.cumulativeGasUsed)
-                : that.cumulativeGasUsed != null) {
-            return false;
-        }
-        if (gasUsed != null ? !gasUsed.equals(that.gasUsed) : that.gasUsed != null) {
-            return false;
-        }
-        if (getContractAddress() != null
-                ? !getContractAddress().equals(that.getContractAddress())
-                : that.getContractAddress() != null) {
-            return false;
-        }
-        if (getRoot() != null ? !getRoot().equals(that.getRoot()) : that.getRoot() != null) {
-            return false;
-        }
-        if (getStatus() != null
-                ? !getStatus().equals(that.getStatus())
-                : that.getStatus() != null) {
-            return false;
-        }
-        if (getFrom() != null ? !getFrom().equals(that.getFrom()) : that.getFrom() != null) {
-            return false;
-        }
-        if (getTo() != null ? !getTo().equals(that.getTo()) : that.getTo() != null) {
-            return false;
-        }
-        if (getLogs() != null ? !getLogs().equals(that.getLogs()) : that.getLogs() != null) {
-            return false;
-        }
-        if (getLogsBloom() != null
-                ? !getLogsBloom().equals(that.getLogsBloom())
-                : that.getLogsBloom() != null) {
-            return false;
-        }
-        return getRevertReason() != null
-                ? getRevertReason().equals(that.getRevertReason())
-                : that.getRevertReason() == null;
+        return excepted == that.excepted
+                && Objects.equals(blockHash, that.blockHash)
+                && Objects.equals(transactionIndex, that.transactionIndex)
+                && Objects.equals(senderAddress, that.senderAddress)
+                && Objects.equals(receiverAddress, that.receiverAddress)
+                && Objects.equals(gasUsed, that.gasUsed)
+                && Objects.equals(newAddress, that.newAddress)
+                && Objects.equals(blockNumber, that.blockNumber)
+                && Objects.equals(hash, that.hash)
+                && Objects.equals(logs, that.logs);
     }
 
     @Override
     public int hashCode() {
-        int result = getTransactionHash() != null ? getTransactionHash().hashCode() : 0;
-        result = 31 * result + (transactionIndex != null ? transactionIndex.hashCode() : 0);
-        result = 31 * result + (getBlockHash() != null ? getBlockHash().hashCode() : 0);
-        result = 31 * result + (blockNumber != null ? blockNumber.hashCode() : 0);
-        result = 31 * result + (cumulativeGasUsed != null ? cumulativeGasUsed.hashCode() : 0);
-        result = 31 * result + (gasUsed != null ? gasUsed.hashCode() : 0);
-        result = 31 * result + (getContractAddress() != null ? getContractAddress().hashCode() : 0);
-        result = 31 * result + (getRoot() != null ? getRoot().hashCode() : 0);
-        result = 31 * result + (getStatus() != null ? getStatus().hashCode() : 0);
-        result = 31 * result + (getFrom() != null ? getFrom().hashCode() : 0);
-        result = 31 * result + (getTo() != null ? getTo().hashCode() : 0);
-        result = 31 * result + (getLogs() != null ? getLogs().hashCode() : 0);
-        result = 31 * result + (getLogsBloom() != null ? getLogsBloom().hashCode() : 0);
-        result = 31 * result + (getRevertReason() != null ? getRevertReason().hashCode() : 0);
-        return result;
+        return Objects.hash(
+                blockHash,
+                transactionIndex,
+                senderAddress,
+                receiverAddress,
+                gasUsed,
+                newAddress,
+                excepted,
+                blockNumber,
+                hash,
+                logs);
     }
 
     @Override
     public String toString() {
         return "TransactionReceipt{"
-                + "transactionHash='"
-                + transactionHash
+                + "blockHash='"
+                + blockHash
                 + '\''
                 + ", transactionIndex='"
                 + transactionIndex
                 + '\''
-                + ", blockHash='"
-                + blockHash
+                + ", senderAddress='"
+                + senderAddress
                 + '\''
-                + ", blockNumber='"
-                + blockNumber
-                + '\''
-                + ", cumulativeGasUsed='"
-                + cumulativeGasUsed
+                + ", receiverAddress='"
+                + receiverAddress
                 + '\''
                 + ", gasUsed='"
                 + gasUsed
                 + '\''
-                + ", contractAddress='"
-                + contractAddress
+                + ", newAddress='"
+                + newAddress
                 + '\''
-                + ", root='"
-                + root
-                + '\''
-                + ", status='"
-                + status
-                + '\''
-                + ", from='"
-                + from
-                + '\''
-                + ", to='"
-                + to
+                + ", excepted="
+                + excepted
+                + ", blockNumber="
+                + blockNumber
+                + ", hash='"
+                + hash
                 + '\''
                 + ", logs="
                 + logs
-                + ", logsBloom='"
-                + logsBloom
-                + '\''
-                + ", revertReason='"
-                + revertReason
-                + '\''
                 + '}';
     }
 }

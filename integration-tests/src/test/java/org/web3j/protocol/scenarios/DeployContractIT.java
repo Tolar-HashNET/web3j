@@ -44,11 +44,11 @@ public class DeployContractIT extends Scenario {
 
         TransactionReceipt transactionReceipt = waitForTransactionReceipt(transactionHash);
 
-        assertEquals(transactionReceipt.getTransactionHash(), (transactionHash));
+        assertEquals(transactionReceipt.getHash(), (transactionHash));
 
         assertFalse(transactionReceipt.getGasUsed().equals(GAS_LIMIT));
 
-        String contractAddress = transactionReceipt.getContractAddress();
+        String contractAddress = transactionReceipt.getNewAddress();
 
         assertNotNull(contractAddress);
 

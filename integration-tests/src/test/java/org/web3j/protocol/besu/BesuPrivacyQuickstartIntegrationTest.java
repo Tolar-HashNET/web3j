@@ -130,10 +130,10 @@ public class BesuPrivacyQuickstartIntegrationTest {
         final PrivateTransactionReceipt receipt =
                 receiptProcessor.waitForTransactionReceipt(transactionHash);
 
-        assertEquals(receipt.getFrom(), (ALICE.getAddress()));
+        assertEquals(receipt.getSenderAddress(), (ALICE.getAddress()));
         assertEquals(receipt.getLogs().size(), (0));
-        assertNull(receipt.getTo());
-        assertNotNull(receipt.getContractAddress());
+        assertNull(receipt.getReceiverAddress());
+        assertNotNull(receipt.getNewAddress());
 
         assertNotNull(receipt.getStatus());
 

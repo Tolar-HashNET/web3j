@@ -142,11 +142,11 @@ public class HumanStandardTokenIT extends Scenario {
         TransactionReceipt createTransactionReceipt =
                 waitForTransactionReceipt(createTransactionHash);
 
-        assertEquals(createTransactionReceipt.getTransactionHash(), (createTransactionHash));
+        assertEquals(createTransactionReceipt.getHash(), (createTransactionHash));
 
         assertFalse(createTransactionReceipt.getGasUsed().equals(GAS_LIMIT));
 
-        String contractAddress = createTransactionReceipt.getContractAddress();
+        String contractAddress = createTransactionReceipt.getNewAddress();
 
         assertNotNull(contractAddress);
         return contractAddress;
@@ -189,7 +189,7 @@ public class HumanStandardTokenIT extends Scenario {
         String functionHash = execute(credentials, function, contractAddress);
 
         TransactionReceipt transferTransactionReceipt = waitForTransactionReceipt(functionHash);
-        assertEquals(transferTransactionReceipt.getTransactionHash(), (functionHash));
+        assertEquals(transferTransactionReceipt.getHash(), (functionHash));
 
         List<Log> logs = transferTransactionReceipt.getLogs();
         assertFalse(logs.isEmpty());
@@ -222,7 +222,7 @@ public class HumanStandardTokenIT extends Scenario {
         String functionHash = execute(credentials, function, contractAddress);
 
         TransactionReceipt transferTransactionReceipt = waitForTransactionReceipt(functionHash);
-        assertEquals(transferTransactionReceipt.getTransactionHash(), (functionHash));
+        assertEquals(transferTransactionReceipt.getHash(), (functionHash));
 
         List<Log> logs = transferTransactionReceipt.getLogs();
         assertFalse(logs.isEmpty());
@@ -260,7 +260,7 @@ public class HumanStandardTokenIT extends Scenario {
         String functionHash = execute(credentials, function, contractAddress);
 
         TransactionReceipt transferTransactionReceipt = waitForTransactionReceipt(functionHash);
-        assertEquals(transferTransactionReceipt.getTransactionHash(), (functionHash));
+        assertEquals(transferTransactionReceipt.getHash(), (functionHash));
 
         List<Log> logs = transferTransactionReceipt.getLogs();
         assertFalse(logs.isEmpty());

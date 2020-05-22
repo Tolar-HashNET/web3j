@@ -49,7 +49,7 @@ public class SendEtherIT extends Scenario {
 
         TransactionReceipt transactionReceipt = waitForTransactionReceipt(transactionHash);
 
-        assertEquals(transactionReceipt.getTransactionHash(), (transactionHash));
+        assertEquals(transactionReceipt.getHash(), (transactionHash));
     }
 
     /*

@@ -55,11 +55,11 @@ public class GreeterContractIT extends Scenario {
         TransactionReceipt createTransactionReceipt =
                 waitForTransactionReceipt(createTransactionHash);
 
-        assertEquals(createTransactionReceipt.getTransactionHash(), (createTransactionHash));
+        assertEquals(createTransactionReceipt.getHash(), (createTransactionHash));
 
         assertFalse(createTransactionReceipt.getGasUsed().equals(GAS_LIMIT));
 
-        String contractAddress = createTransactionReceipt.getContractAddress();
+        String contractAddress = createTransactionReceipt.getNewAddress();
 
         assertNotNull(contractAddress);
 

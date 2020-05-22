@@ -75,9 +75,9 @@ public class ContractTest extends ManagedTransactionTester {
 
     private static final String TXN_FAIL_STATUS = "0x0";
 
-    private static final String TXN_GAS_USED = "0x1";
+    private static final BigInteger TXN_GAS_USED = BigInteger.valueOf(1L);
 
-    private static final String TXN_BLOCK_NUM = "0x2";
+    private static final BigInteger TXN_BLOCK_NUM = BigInteger.valueOf(2L);
 
     private static final String OWNER_REVERT_MSG_STR =
             "Only the contract owner can perform this action";
@@ -191,7 +191,7 @@ public class ContractTest extends ManagedTransactionTester {
     @Test
     public void testDeployInvalidContractAddress() throws Throwable {
         TransactionReceipt transactionReceipt = new TransactionReceipt();
-        transactionReceipt.setTransactionHash(TRANSACTION_HASH);
+        transactionReceipt.setHash(TRANSACTION_HASH);
 
         prepareTransaction(transactionReceipt);
         ContractGasProvider contractGasProvider = new DefaultGasProvider();
@@ -268,8 +268,7 @@ public class ContractTest extends ManagedTransactionTester {
     @Test
     public void testTransaction() throws Exception {
         TransactionReceipt transactionReceipt = new TransactionReceipt();
-        transactionReceipt.setTransactionHash(TRANSACTION_HASH);
-        transactionReceipt.setStatus(TXN_SUCCESS_STATUS);
+        transactionReceipt.setHash(TRANSACTION_HASH);
 
         prepareTransaction(transactionReceipt);
 
@@ -511,9 +510,8 @@ public class ContractTest extends ManagedTransactionTester {
 
     private TransactionReceipt createTransactionReceiptWithStatus(String status) {
         TransactionReceipt transactionReceipt = new TransactionReceipt();
-        transactionReceipt.setTransactionHash(TRANSACTION_HASH);
-        transactionReceipt.setContractAddress(ADDRESS);
-        transactionReceipt.setStatus(status);
+        transactionReceipt.setHash(TRANSACTION_HASH);
+        transactionReceipt.setNewAddress(ADDRESS);
         transactionReceipt.setGasUsed(TXN_GAS_USED);
         transactionReceipt.setBlockNumber(TXN_BLOCK_NUM);
         return transactionReceipt;

@@ -66,17 +66,17 @@ public class PrivateTransactionReceipt extends TransactionReceipt {
     }
 
     @Override
-    public String getContractAddress() {
+    public String getNewAddress() {
         return contractAddress;
     }
 
     @Override
-    public String getFrom() {
+    public String getSenderAddress() {
         return from;
     }
 
     @Override
-    public String getTo() {
+    public String getReceiverAddress() {
         return to;
     }
 

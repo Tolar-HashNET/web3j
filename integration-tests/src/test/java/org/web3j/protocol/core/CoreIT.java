@@ -322,7 +322,7 @@ public class CoreIT {
         assertTrue(tolGetTransactionReceipt.getTransactionReceipt().isPresent());
         TransactionReceipt transactionReceipt =
                 tolGetTransactionReceipt.getTransactionReceipt().get();
-        assertEquals(transactionReceipt.getTransactionHash(), (config.validTransactionHash()));
+        assertEquals(transactionReceipt.getHash(), (config.validTransactionHash()));
     }
 
     @Test

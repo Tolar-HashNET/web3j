@@ -117,7 +117,7 @@ public class FastRawTransactionManagerIT extends Scenario {
 
         for (int i = 0; i < COUNT; i++) {
             TransactionReceipt transactionReceipt = createTransaction(transfer, gasPrice).send();
-            pendingTransactions.put(transactionReceipt.getTransactionHash(), new Object());
+            pendingTransactions.put(transactionReceipt.getHash(), new Object());
         }
 
         for (int i = 0;
@@ -125,7 +125,7 @@ public class FastRawTransactionManagerIT extends Scenario {
                 i++) {
             for (TransactionReceipt transactionReceipt : transactionReceipts) {
                 assertFalse(transactionReceipt.getBlockHash().isEmpty());
-                pendingTransactions.remove(transactionReceipt.getTransactionHash());
+                pendingTransactions.remove(transactionReceipt.getHash());
                 transactionReceipts.remove(transactionReceipt);
             }
 

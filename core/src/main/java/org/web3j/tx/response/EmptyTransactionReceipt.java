@@ -26,17 +26,17 @@ public class EmptyTransactionReceipt extends TransactionReceipt {
 
     public EmptyTransactionReceipt(String transactionHash) {
         super();
-        this.setTransactionHash(transactionHash);
+        this.setHash(transactionHash);
     }
 
     @Override
-    public String getTransactionHash() {
-        return super.getTransactionHash();
+    public String getHash() {
+        return super.getHash();
     }
 
     @Override
-    public void setTransactionHash(String transactionHash) {
-        super.setTransactionHash(transactionHash);
+    public void setHash(String hash) {
+        super.setHash(hash);
     }
 
     private UnsupportedOperationException unsupportedOperation() {
@@ -45,12 +45,7 @@ public class EmptyTransactionReceipt extends TransactionReceipt {
     }
 
     @Override
-    public BigInteger getTransactionIndex() {
-        throw unsupportedOperation();
-    }
-
-    @Override
-    public String getTransactionIndexRaw() {
+    public String getTransactionIndex() {
         throw unsupportedOperation();
     }
 
@@ -75,27 +70,7 @@ public class EmptyTransactionReceipt extends TransactionReceipt {
     }
 
     @Override
-    public String getBlockNumberRaw() {
-        throw unsupportedOperation();
-    }
-
-    @Override
-    public void setBlockNumber(String blockNumber) {
-        throw unsupportedOperation();
-    }
-
-    @Override
-    public BigInteger getCumulativeGasUsed() {
-        throw unsupportedOperation();
-    }
-
-    @Override
-    public String getCumulativeGasUsedRaw() {
-        throw unsupportedOperation();
-    }
-
-    @Override
-    public void setCumulativeGasUsed(String cumulativeGasUsed) {
+    public void setBlockNumber(BigInteger blockNumber) {
         throw unsupportedOperation();
     }
 
@@ -105,62 +80,37 @@ public class EmptyTransactionReceipt extends TransactionReceipt {
     }
 
     @Override
-    public String getGasUsedRaw() {
+    public void setGasUsed(BigInteger gasUsed) {
         throw unsupportedOperation();
     }
 
     @Override
-    public void setGasUsed(String gasUsed) {
+    public String getNewAddress() {
         throw unsupportedOperation();
     }
 
     @Override
-    public String getContractAddress() {
+    public void setNewAddress(String newAddress) {
         throw unsupportedOperation();
     }
 
     @Override
-    public void setContractAddress(String contractAddress) {
+    public String getSenderAddress() {
         throw unsupportedOperation();
     }
 
     @Override
-    public String getRoot() {
+    public void setSenderAddress(String senderAddress) {
         throw unsupportedOperation();
     }
 
     @Override
-    public void setRoot(String root) {
+    public String getReceiverAddress() {
         throw unsupportedOperation();
     }
 
     @Override
-    public String getStatus() {
-        throw unsupportedOperation();
-    }
-
-    @Override
-    public void setStatus(String status) {
-        throw unsupportedOperation();
-    }
-
-    @Override
-    public String getFrom() {
-        throw unsupportedOperation();
-    }
-
-    @Override
-    public void setFrom(String from) {
-        throw unsupportedOperation();
-    }
-
-    @Override
-    public String getTo() {
-        throw unsupportedOperation();
-    }
-
-    @Override
-    public void setTo(String to) {
+    public void setReceiverAddress(String receiverAddress) {
         throw unsupportedOperation();
     }
 
@@ -175,16 +125,6 @@ public class EmptyTransactionReceipt extends TransactionReceipt {
     }
 
     @Override
-    public String getLogsBloom() {
-        throw unsupportedOperation();
-    }
-
-    @Override
-    public void setLogsBloom(String logsBloom) {
-        throw unsupportedOperation();
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -195,13 +135,11 @@ public class EmptyTransactionReceipt extends TransactionReceipt {
 
         TransactionReceipt that = (TransactionReceipt) o;
 
-        return getTransactionHash() != null
-                ? getTransactionHash().equals(that.getTransactionHash())
-                : that.getTransactionHash() == null;
+        return getHash() != null ? getHash().equals(that.getHash()) : that.getHash() == null;
     }
 
     @Override
     public int hashCode() {
-        return getTransactionHash() != null ? getTransactionHash().hashCode() : 0;
+        return getHash() != null ? getHash().hashCode() : 0;
     }
 }

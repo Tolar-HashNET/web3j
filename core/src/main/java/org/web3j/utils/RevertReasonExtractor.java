@@ -40,7 +40,8 @@ public class RevertReasonExtractor {
             Boolean revertReasonCallEnabled)
             throws IOException {
 
-        if (transactionReceipt.getRevertReason() != null) {
+        // TODO See what to do with this
+        /*if (transactionReceipt.getRevertReason() != null) {
             return transactionReceipt.getRevertReason();
         } else if (revertReasonCallEnabled) {
             String revertReason = retrieveRevertReason(transactionReceipt, data, web3j);
@@ -48,7 +49,7 @@ public class RevertReasonExtractor {
                 transactionReceipt.setRevertReason(revertReason);
                 return revertReason;
             }
-        }
+        }*/
         return MISSING_REASON;
     }
 
@@ -69,7 +70,9 @@ public class RevertReasonExtractor {
         }
         return web3j.tolTryCallTransaction(
                         Transaction.createEthCallTransaction(
-                                transactionReceipt.getFrom(), transactionReceipt.getTo(), data))
+                                transactionReceipt.getSenderAddress(),
+                                transactionReceipt.getReceiverAddress(),
+                                data))
                 .send()
                 .getRevertReason();
     }
