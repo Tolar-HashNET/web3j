@@ -15,8 +15,8 @@ package org.web3j.protocol.core.methods.request;
 import java.math.BigInteger;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.web3j.utils.Numeric;
 
 /**
@@ -43,6 +43,7 @@ public class Transaction {
 
     @JsonProperty("gas_price")
     private BigInteger gasPrice;
+
     private BigInteger amount;
     private String data;
     private BigInteger nonce; // nonce field is not present on eth_call/eth_estimateGas
