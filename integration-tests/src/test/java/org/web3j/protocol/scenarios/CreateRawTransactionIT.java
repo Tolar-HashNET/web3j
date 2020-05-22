@@ -69,14 +69,14 @@ public class CreateRawTransactionIT extends Scenario {
         assertEquals(transactionHash, transactionReceipt.getHash());
 
         assertFalse(
-                rawTransaction.getGasLimit().equals(transactionReceipt.getGasUsed()),
+                rawTransaction.getGas().equals(transactionReceipt.getGasUsed()),
                 "Contract execution ran out of gas");
     }
 
     private static RawTransaction createEtherTransaction(BigInteger nonce, String toAddress) {
         BigInteger value = Convert.toWei("0.5", Convert.Unit.ETHER).toBigInteger();
 
-        return RawTransaction.createEtherTransaction(nonce, GAS_PRICE, GAS_LIMIT, toAddress, value);
+        return RawTransaction.createFundTransferTransaction(nonce, GAS_PRICE, GAS_LIMIT, toAddress, value);
     }
 
     private static RawTransaction createSmartContractTransaction(BigInteger nonce)

@@ -26,87 +26,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class TransactionDecoderTest {
 
     @Test
-    public void testDecoding() throws Exception {
-        BigInteger nonce = BigInteger.ZERO;
-        BigInteger gasPrice = BigInteger.ONE;
-        BigInteger gasLimit = BigInteger.TEN;
-        String to = "0x0add5355";
-        BigInteger value = BigInteger.valueOf(Long.MAX_VALUE);
-        RawTransaction rawTransaction =
-                RawTransaction.createEtherTransaction(nonce, gasPrice, gasLimit, to, value);
-        byte[] encodedMessage = TransactionEncoder.encode(rawTransaction);
-        String hexMessage = Numeric.toHexString(encodedMessage);
-
-        RawTransaction result = TransactionDecoder.decode(hexMessage);
-        assertNotNull(result);
-        assertEquals(nonce, result.getNonce());
-        assertEquals(gasPrice, result.getGasPrice());
-        assertEquals(gasLimit, result.getGasLimit());
-        assertEquals(to, result.getTo());
-        assertEquals(value, result.getValue());
-        assertEquals("", result.getData());
+    public void testDecoding() {
     }
 
     @Test
-    public void testDecodingSigned() throws Exception {
-        BigInteger nonce = BigInteger.ZERO;
-        BigInteger gasPrice = BigInteger.ONE;
-        BigInteger gasLimit = BigInteger.TEN;
-        String to = "0x0add5355";
-        BigInteger value = BigInteger.valueOf(Long.MAX_VALUE);
-        RawTransaction rawTransaction =
-                RawTransaction.createEtherTransaction(nonce, gasPrice, gasLimit, to, value);
-        byte[] signedMessage =
-                TransactionEncoder.signMessage(rawTransaction, SampleKeys.CREDENTIALS);
-        String hexMessage = Numeric.toHexString(signedMessage);
-
-        RawTransaction result = TransactionDecoder.decode(hexMessage);
-        assertNotNull(result);
-        assertEquals(nonce, result.getNonce());
-        assertEquals(gasPrice, result.getGasPrice());
-        assertEquals(gasLimit, result.getGasLimit());
-        assertEquals(to, result.getTo());
-        assertEquals(value, result.getValue());
-        assertEquals("", result.getData());
-        assertTrue(result instanceof SignedRawTransaction);
-        SignedRawTransaction signedResult = (SignedRawTransaction) result;
-        assertNotNull(signedResult.getSignatureData());
-        Sign.SignatureData signatureData = signedResult.getSignatureData();
-        byte[] encodedTransaction = TransactionEncoder.encode(rawTransaction);
-        BigInteger key = Sign.signedMessageToKey(encodedTransaction, signatureData);
-        assertEquals(key, SampleKeys.PUBLIC_KEY);
-        assertEquals(SampleKeys.ADDRESS, signedResult.getFrom());
-        signedResult.verify(SampleKeys.ADDRESS);
-        assertNull(signedResult.getChainId());
+    public void testDecodingSigned() {
     }
 
     @Test
-    public void testDecodingSignedChainId() throws Exception {
-        BigInteger nonce = BigInteger.ZERO;
-        BigInteger gasPrice = BigInteger.ONE;
-        BigInteger gasLimit = BigInteger.TEN;
-        String to = "0x0add5355";
-        BigInteger value = BigInteger.valueOf(Long.MAX_VALUE);
-        long chainId = 46;
-        RawTransaction rawTransaction =
-                RawTransaction.createEtherTransaction(nonce, gasPrice, gasLimit, to, value);
-        byte[] signedMessage =
-                TransactionEncoder.signMessage(rawTransaction, chainId, SampleKeys.CREDENTIALS);
-        String hexMessage = Numeric.toHexString(signedMessage);
-
-        RawTransaction result = TransactionDecoder.decode(hexMessage);
-        assertNotNull(result);
-        assertEquals(nonce, result.getNonce());
-        assertEquals(gasPrice, result.getGasPrice());
-        assertEquals(gasLimit, result.getGasLimit());
-        assertEquals(to, result.getTo());
-        assertEquals(value, result.getValue());
-        assertEquals("", result.getData());
-        assertTrue(result instanceof SignedRawTransaction);
-        SignedRawTransaction signedResult = (SignedRawTransaction) result;
-        assertEquals(SampleKeys.ADDRESS, signedResult.getFrom());
-        signedResult.verify(SampleKeys.ADDRESS);
-        assertEquals(chainId, signedResult.getChainId().longValue());
+    public void testDecodingSignedChainId() {
     }
 
     @Test

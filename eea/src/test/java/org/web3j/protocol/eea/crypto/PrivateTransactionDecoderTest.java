@@ -59,8 +59,8 @@ public class PrivateTransactionDecoderTest {
         assertNotNull(result);
         assertEquals(nonce, result.getNonce());
         assertEquals(gasPrice, result.getGasPrice());
-        assertEquals(gasLimit, result.getGasLimit());
-        assertEquals(to, result.getTo());
+        assertEquals(gasLimit, result.getGas());
+        assertEquals(to, result.getReceiverAddress());
         assertEquals("", result.getData());
         assertEquals(MOCK_ENCLAVE_KEY, result.getPrivateFrom());
         assertEquals(MOCK_PRIVATE_FOR, result.getPrivateFor().get());
@@ -90,8 +90,8 @@ public class PrivateTransactionDecoderTest {
         assertNotNull(result);
         assertEquals(nonce, result.getNonce());
         assertEquals(gasPrice, result.getGasPrice());
-        assertEquals(gasLimit, result.getGasLimit());
-        assertEquals(to, result.getTo());
+        assertEquals(gasLimit, result.getGas());
+        assertEquals(to, result.getReceiverAddress());
         assertEquals("", result.getData());
         assertEquals(MOCK_ENCLAVE_KEY, result.getPrivateFrom());
         assertEquals(MOCK_ENCLAVE_KEY, result.getPrivacyGroupId().get());
@@ -125,8 +125,8 @@ public class PrivateTransactionDecoderTest {
         assertNotNull(result);
         assertEquals(nonce, result.getNonce());
         assertEquals(gasPrice, result.getGasPrice());
-        assertEquals(gasLimit, result.getGasLimit());
-        assertEquals(to, result.getTo());
+        assertEquals(gasLimit, result.getGas());
+        assertEquals(to, result.getReceiverAddress());
         assertEquals("", result.getData());
         assertEquals(MOCK_ENCLAVE_KEY, result.getPrivateFrom());
         assertEquals(MOCK_PRIVATE_FOR, result.getPrivateFor().get());
@@ -170,8 +170,8 @@ public class PrivateTransactionDecoderTest {
         assertNotNull(result);
         assertEquals(nonce, result.getNonce());
         assertEquals(gasPrice, result.getGasPrice());
-        assertEquals(gasLimit, result.getGasLimit());
-        assertEquals(to, result.getTo());
+        assertEquals(gasLimit, result.getGas());
+        assertEquals(to, result.getReceiverAddress());
         assertEquals("", result.getData());
         assertEquals(MOCK_ENCLAVE_KEY, result.getPrivateFrom());
         assertEquals(MOCK_ENCLAVE_KEY, result.getPrivacyGroupId().get());
@@ -216,8 +216,8 @@ public class PrivateTransactionDecoderTest {
         assertNotNull(result);
         assertEquals(nonce, result.getNonce());
         assertEquals(gasPrice, result.getGasPrice());
-        assertEquals(gasLimit, result.getGasLimit());
-        assertEquals(to, result.getTo());
+        assertEquals(gasLimit, result.getGas());
+        assertEquals(to, result.getReceiverAddress());
         assertEquals("", result.getData());
         assertEquals(MOCK_ENCLAVE_KEY, result.getPrivateFrom());
         assertEquals(MOCK_PRIVATE_FOR, result.getPrivateFor().get());
