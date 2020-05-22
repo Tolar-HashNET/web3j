@@ -159,7 +159,8 @@ public class RawTransactionManager extends TransactionManager {
 
     public AccountSendRawTransaction signAndSend(RawTransaction rawTransaction) throws IOException {
         String hexValue = sign(rawTransaction);
-        AccountSendRawTransaction accountSendRawTransaction = web3j.ethSendRawTransaction(hexValue).send();
+        AccountSendRawTransaction accountSendRawTransaction =
+                web3j.ethSendRawTransaction(hexValue).send();
 
         if (accountSendRawTransaction != null && !accountSendRawTransaction.hasError()) {
             String txHashLocal = Hash.sha3(hexValue);

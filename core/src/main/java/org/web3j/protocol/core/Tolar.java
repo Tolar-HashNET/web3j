@@ -76,12 +76,10 @@ public interface Tolar {
 
     Request<?, EthSign> ethSign(String address, String sha3HashOfDataToSign);
 
-    Request<?, AccountSendRawTransaction>
-            accountSendRawTransaction(
-                    org.web3j.protocol.core.methods.request.Transaction transaction);
+    Request<?, AccountSendRawTransaction> accountSendRawTransaction(
+            org.web3j.protocol.core.methods.request.Transaction transaction);
 
-    Request<?, AccountSendRawTransaction> ethSendRawTransaction(
-            String signedTransactionData);
+    Request<?, AccountSendRawTransaction> ethSendRawTransaction(String signedTransactionData);
 
     Request<?, TolTryCallTransaction> tolTryCallTransaction(
             org.web3j.protocol.core.methods.request.Transaction transaction);
@@ -200,4 +198,13 @@ public interface Tolar {
 
     Request<?, AccountChangeAddressPassword> accountChangeAddressPassword(
             String address, String oldPassword, String newPassword);
+
+    Request<?, AccountSendRawTransaction> accountSendDeployContractTransaction(
+            org.web3j.protocol.core.methods.request.Transaction transaction);
+
+    Request<?, AccountSendRawTransaction> accountSendExecuteFunctionTransaction(
+            org.web3j.protocol.core.methods.request.Transaction transaction);
+
+    Request<?, AccountSendRawTransaction> accountSendFundTransferTransaction(
+            org.web3j.protocol.core.methods.request.Transaction transaction);
 }

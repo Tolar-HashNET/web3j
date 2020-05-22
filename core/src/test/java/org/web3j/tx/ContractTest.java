@@ -373,7 +373,8 @@ public class ContractTest extends ManagedTransactionTester {
         accountSendRawTransaction.setError(new Response.Error(1, "Invalid transaction"));
 
         Request<?, AccountSendRawTransaction> rawTransactionRequest = mock(Request.class);
-        when(rawTransactionRequest.sendAsync()).thenReturn(Async.run(() -> accountSendRawTransaction));
+        when(rawTransactionRequest.sendAsync())
+                .thenReturn(Async.run(() -> accountSendRawTransaction));
         when(web3j.ethSendRawTransaction(any(String.class)))
                 .thenReturn((Request) rawTransactionRequest);
         assertThrows(RuntimeException.class, this::testErrorScenario);

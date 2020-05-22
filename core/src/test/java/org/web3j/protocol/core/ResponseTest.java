@@ -457,7 +457,8 @@ public class ResponseTest extends ResponseTester {
                         + "\"0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331\"\n"
                         + "}");
 
-        AccountSendRawTransaction accountSendRawTransaction = deserialiseResponse(AccountSendRawTransaction.class);
+        AccountSendRawTransaction accountSendRawTransaction =
+                deserialiseResponse(AccountSendRawTransaction.class);
         assertEquals(
                 accountSendRawTransaction.getTransactionHash(),
                 ("0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331"));

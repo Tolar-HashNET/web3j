@@ -210,8 +210,8 @@ public class JsonRpc2_0Web3j implements Web3j {
 
     // TODO: This method is in Tolar API
     @Override
-    public Request<?, AccountSendRawTransaction>
-            accountSendRawTransaction(Transaction transaction) {
+    public Request<?, AccountSendRawTransaction> accountSendRawTransaction(
+            Transaction transaction) {
         return new Request<>(
                 "account_sendRawTransaction",
                 Arrays.asList(
@@ -228,8 +228,8 @@ public class JsonRpc2_0Web3j implements Web3j {
     }
 
     @Override
-    public Request<?, AccountSendRawTransaction>
-            ethSendRawTransaction(String signedTransactionData) {
+    public Request<?, AccountSendRawTransaction> ethSendRawTransaction(
+            String signedTransactionData) {
         throw new UnsupportedOperationException();
     }
 
@@ -725,5 +725,57 @@ public class JsonRpc2_0Web3j implements Web3j {
                 Arrays.asList(address, oldPassword, newPassword),
                 web3jService,
                 AccountChangeAddressPassword.class);
+    }
+
+    @Override
+    public Request<?, AccountSendRawTransaction> accountSendDeployContractTransaction(
+            Transaction transaction) {
+        return new Request<>(
+                "account_sendDeployContractTransaction",
+                Arrays.asList(
+                        transaction.getSenderAddress(),
+                        transaction.getAmount(),
+                        transaction.getSenderAddressPassword(),
+                        transaction.getGas(),
+                        transaction.getGasPrice(),
+                        transaction.getData(),
+                        transaction.getNonce()),
+                web3jService,
+                AccountSendRawTransaction.class);
+    }
+
+    @Override
+    public Request<?, AccountSendRawTransaction> accountSendExecuteFunctionTransaction(
+            Transaction transaction) {
+        return new Request<>(
+                "account_sendExecuteFunctionTransaction",
+                Arrays.asList(
+                        transaction.getSenderAddress(),
+                        transaction.getReceiverAddress(),
+                        transaction.getAmount(),
+                        transaction.getSenderAddressPassword(),
+                        transaction.getGas(),
+                        transaction.getGasPrice(),
+                        transaction.getData(),
+                        transaction.getNonce()),
+                web3jService,
+                AccountSendRawTransaction.class);
+    }
+
+    @Override
+    public Request<?, AccountSendRawTransaction> accountSendFundTransferTransaction(
+            Transaction transaction) {
+        return new Request<>(
+                "account_sendExecuteFunctionTransaction",
+                Arrays.asList(
+                        transaction.getSenderAddress(),
+                        transaction.getReceiverAddress(),
+                        transaction.getAmount(),
+                        transaction.getSenderAddressPassword(),
+                        transaction.getGas(),
+                        transaction.getGasPrice(),
+                        transaction.getNonce()),
+                web3jService,
+                AccountSendRawTransaction.class);
     }
 }
