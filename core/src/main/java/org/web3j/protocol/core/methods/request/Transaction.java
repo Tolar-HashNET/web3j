@@ -125,31 +125,23 @@ public class Transaction {
         return receiverAddress;
     }
 
-    public String getGas() {
-        return convert(gas);
+    public BigInteger getGas() {
+        return gas;
     }
 
-    public String getGasPrice() {
-        return convert(gasPrice);
+    public BigInteger getGasPrice() {
+        return gasPrice;
     }
 
-    public String getAmount() {
-        return convert(amount);
+    public BigInteger getAmount() {
+        return amount;
     }
 
     public String getData() {
         return data;
     }
 
-    public String getNonce() {
-        return convert(nonce);
-    }
-
-    private static String convert(BigInteger value) {
-        if (value != null) {
-            return Numeric.encodeQuantity(value);
-        } else {
-            return null; // we don't want the field to be encoded if not present
-        }
+    public BigInteger getNonce() {
+        return nonce;
     }
 }
