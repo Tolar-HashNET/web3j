@@ -136,26 +136,56 @@ public class Transaction {
     }
 
     public static Transaction createExecuteFunctionTransaction(
-            String from,
-            BigInteger nonce,
+            String senderAddress,
+            String receiverAddress,
+            BigInteger amount,
+            String senderAddressPassword,
+            BigInteger gas,
             BigInteger gasPrice,
-            BigInteger gasLimit,
-            String to,
-            BigInteger value,
-            String data) {
+            String data,
+            BigInteger nonce) {
 
-        return new Transaction(from, nonce, gasPrice, gasLimit, to, value, data);
+        return new Transaction(
+                senderAddress,
+                nonce,
+                gasPrice,
+                gas,
+                receiverAddress,
+                amount,
+                data,
+                senderAddressPassword);
     }
 
     public static Transaction createExecuteFunctionTransaction(
-            String from,
-            BigInteger nonce,
+            String senderAddress,
+            String receiverAddress,
+            String senderAddressPassword,
+            BigInteger gas,
             BigInteger gasPrice,
-            BigInteger gasLimit,
-            String to,
-            String data) {
+            String data,
+            BigInteger nonce) {
 
-        return new Transaction(from, nonce, gasPrice, gasLimit, to, null, data);
+        return createExecuteFunctionTransaction(
+                senderAddress,
+                receiverAddress,
+                BigInteger.ZERO,
+                senderAddressPassword,
+                gas,
+                gasPrice,
+                data,
+                nonce);
+    }
+
+    public static Transaction createExecuteFunctionTransaction(
+            String senderAddress,
+            String receiverAddress,
+            BigInteger gas,
+            BigInteger gasPrice,
+            String data,
+            BigInteger nonce) {
+
+        return createExecuteFunctionTransaction(
+                senderAddress, receiverAddress, BigInteger.ZERO, "", gas, gasPrice, data, nonce);
     }
 
     public static Transaction createTryCallTransaction(String from, String to, String data) {
