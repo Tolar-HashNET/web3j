@@ -19,6 +19,7 @@ import java.util.concurrent.ScheduledExecutorService;
 
 import io.reactivex.Flowable;
 
+import org.web3j.crypto.SignedRawTransaction;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.Web3jService;
 import org.web3j.protocol.core.methods.request.ShhFilter;
@@ -777,5 +778,15 @@ public class JsonRpc2_0Web3j implements Web3j {
                         transaction.getNonce()),
                 web3jService,
                 AccountSendRawTransaction.class);
+    }
+
+    @Override
+    public Request<?, TxSendSignedTransaction> txSendSignedTransaction(
+            SignedRawTransaction transaction) {
+        return new Request<>(
+                "tx_sendSignedTransaction",
+                Collections.emptyList(),
+                web3jService,
+                TxSendSignedTransaction.class);
     }
 }
