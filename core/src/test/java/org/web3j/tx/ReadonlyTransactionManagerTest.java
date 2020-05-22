@@ -42,7 +42,7 @@ public class ReadonlyTransactionManagerTest {
 
     @Test
     public void sendCallTest() throws IOException {
-        when(response.getValue()).thenReturn("test");
+        when(response.getOutput()).thenReturn("test");
         when(service.send(any(), any())).thenReturn(response);
         ReadonlyTransactionManager readonlyTransactionManager =
                 new ReadonlyTransactionManager(web3j, "");

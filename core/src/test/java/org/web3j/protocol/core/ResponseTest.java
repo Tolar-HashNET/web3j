@@ -491,7 +491,7 @@ public class ResponseTest extends ResponseTester {
 
         TolTryCallTransaction tolTryCallTransaction =
                 deserialiseResponse(TolTryCallTransaction.class);
-        assertEquals(tolTryCallTransaction.getValue(), ("0x"));
+        assertEquals(tolTryCallTransaction.getOutput(), ("0x"));
         assertFalse(tolTryCallTransaction.isReverted());
         assertNull(tolTryCallTransaction.getRevertReason());
     }

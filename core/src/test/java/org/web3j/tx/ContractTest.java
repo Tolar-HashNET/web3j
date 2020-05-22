@@ -37,12 +37,10 @@ import org.web3j.crypto.Credentials;
 import org.web3j.crypto.SampleKeys;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.*;
-import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.protocol.core.methods.response.EthGetCode;
 import org.web3j.protocol.core.methods.response.EthGetTransactionReceipt;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.core.methods.response.Log;
-import org.web3j.protocol.core.methods.response.TolTryCallTransaction;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.exceptions.TransactionException;
 import org.web3j.tx.exceptions.ContractCallException;
@@ -265,15 +263,7 @@ public class ContractTest extends ManagedTransactionTester {
     }
 
     @SuppressWarnings("unchecked")
-    private void prepareCall(String result) throws IOException {
-        TolTryCallTransaction tolTryCallTransaction = new TolTryCallTransaction();
-        tolTryCallTransaction.setResult(result);
-
-        Request<?, TolTryCallTransaction> request = mock(Request.class);
-        when(request.send()).thenReturn(tolTryCallTransaction);
-
-        when(web3j.tolTryCallTransaction(any(Transaction.class))).thenReturn((Request) request);
-    }
+    private void prepareCall(String result) throws IOException {}
 
     @Test
     public void testTransaction() throws Exception {
