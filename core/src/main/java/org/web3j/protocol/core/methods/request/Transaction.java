@@ -90,20 +90,39 @@ public class Transaction {
     }
 
     public static Transaction createDeployContractTransaction(
-            String from,
-            BigInteger nonce,
+            String senderAddress,
+            BigInteger amount,
+            String senderAddressPassword,
+            BigInteger gas,
             BigInteger gasPrice,
-            BigInteger gasLimit,
-            BigInteger value,
-            String init) {
+            String data,
+            BigInteger nonce) {
 
-        return new Transaction(from, nonce, gasPrice, gasLimit, null, value, init);
+        return new Transaction(
+                senderAddress, nonce, gasPrice, gas, null, amount, data, senderAddressPassword);
     }
 
     public static Transaction createDeployContractTransaction(
-            String from, BigInteger nonce, BigInteger gasPrice, String init) {
+            String senderAddress,
+            String senderAddressPassword,
+            BigInteger gas,
+            BigInteger gasPrice,
+            String data,
+            BigInteger nonce) {
 
-        return createDeployContractTransaction(from, nonce, gasPrice, null, null, init);
+        return createDeployContractTransaction(
+                senderAddress, null, senderAddressPassword, gas, gasPrice, data, nonce);
+    }
+
+    public static Transaction createDeployContractTransaction(
+            String senderAddress,
+            BigInteger gas,
+            BigInteger gasPrice,
+            String data,
+            BigInteger nonce) {
+
+        return createDeployContractTransaction(
+                senderAddress, null, null, gas, gasPrice, data, nonce);
     }
 
     public static Transaction createFundTransferTransaction(
