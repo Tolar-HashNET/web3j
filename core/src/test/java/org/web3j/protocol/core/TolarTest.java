@@ -12,6 +12,7 @@
  */
 package org.web3j.protocol.core;
 
+import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.Collections;
@@ -23,7 +24,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
 
+import org.web3j.crypto.CipherException;
 import org.web3j.crypto.Credentials;
+import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.methods.request.SignedTransaction;
 import org.web3j.protocol.core.methods.response.*;
@@ -139,7 +142,7 @@ class TolarTest {
 
     @Test
     public void testAccountOpen() throws IOException {
-        AccountOpen response = web3j.accountOpen("password").send();
+        AccountOpen response = web3j.accountOpen("supersifra").send();
         System.out.println("Is account opened: " + response.isOpened());
     }
 
@@ -519,15 +522,15 @@ class TolarTest {
     }
 
     @Test
-    public void testTxSendSignedTransaction() throws IOException {
-        Credentials credentials =
-                Credentials.create(
-                        "d7ce009203c5d16d6b5daafa1efb1167a9e4558e88dff0bc14ebd65f3f0fc116");
+    @Ignore
+    public void testTxSendSignedTransaction() throws IOException, CipherException {
+        File file = new File("/home/bb/Desktop/keys/keys/630c1867-9a42-eb26-6488-8dfcbeafd0c9.json");
+        Credentials credentials = WalletUtils.loadCredentials("Password123", file);
 
         org.web3j.protocol.core.methods.request.Transaction transaction =
                 new org.web3j.protocol.core.methods.request.Transaction(
                         "547ec363f4d32b1fb3c67b8bf91aacf689943e6e87ae4ae600",
-                        BigInteger.ZERO,
+                        BigInteger.valueOf(42L),
                         BigInteger.ONE,
                         BigInteger.valueOf(21463L),
                         "540dc971237be2361e04c1643d57b572709db15e449a870fef",
