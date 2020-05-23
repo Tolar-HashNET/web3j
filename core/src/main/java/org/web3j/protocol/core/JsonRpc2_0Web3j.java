@@ -19,11 +19,11 @@ import java.util.concurrent.ScheduledExecutorService;
 
 import io.reactivex.Flowable;
 
-import org.web3j.crypto.SignedRawTransaction;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.Web3jService;
 import org.web3j.protocol.core.methods.request.ShhFilter;
 import org.web3j.protocol.core.methods.request.ShhPost;
+import org.web3j.protocol.core.methods.request.SignedTransaction;
 import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.protocol.core.methods.response.*;
 import org.web3j.protocol.core.methods.response.admin.AdminNodeInfo;
@@ -782,11 +782,21 @@ public class JsonRpc2_0Web3j implements Web3j {
 
     @Override
     public Request<?, TxSendSignedTransaction> txSendSignedTransaction(
-            SignedRawTransaction transaction) {
+            SignedTransaction transaction) {
         return new Request<>(
                 "tx_sendSignedTransaction",
-                Collections.emptyList(),
+                Collections.singletonList(transaction),
                 web3jService,
                 TxSendSignedTransaction.class);
+    }
+
+    @Override
+    public Request<?, TolGetTransactionProtobuf> tolGetTransactionProtobuf(
+            Transaction transaction) {
+        return new Request<>(
+                "tol_getTransactionProtobuf",
+                Collections.singletonList(transaction),
+                web3jService,
+                TolGetTransactionProtobuf.class);
     }
 }

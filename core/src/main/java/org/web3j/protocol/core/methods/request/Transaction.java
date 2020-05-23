@@ -17,8 +17,6 @@ import java.math.BigInteger;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import org.web3j.utils.Numeric;
-
 /**
  * Transaction request object used the below methods.
  *
@@ -62,11 +60,7 @@ public class Transaction {
         this.gas = gas;
         this.gasPrice = gasPrice;
         this.amount = amount;
-
-        if (data != null) {
-            this.data = Numeric.prependHexPrefix(data);
-        }
-
+        this.data = data;
         this.nonce = nonce;
     }
 

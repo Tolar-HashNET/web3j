@@ -23,7 +23,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
 
+import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
+import org.web3j.protocol.core.methods.request.SignedTransaction;
 import org.web3j.protocol.core.methods.response.*;
 import org.web3j.protocol.exceptions.ClientConnectionException;
 import org.web3j.protocol.http.HttpService;
@@ -497,6 +499,51 @@ class TolarTest {
 
         AccountSendRawTransaction response =
                 web3j.accountSendFundTransferTransaction(transaction).send();
+        System.out.println("Transaction hash: " + response.getTransactionHash());
+    }
+
+    @Test
+    public void testGetTransactionProtobuf() throws IOException {
+        org.web3j.protocol.core.methods.request.Transaction transaction =
+                new org.web3j.protocol.core.methods.request.Transaction(
+                        "547ec363f4d32b1fb3c67b8bf91aacf689943e6e87ae4ae600",
+                        BigInteger.ZERO,
+                        BigInteger.ONE,
+                        BigInteger.valueOf(21463L),
+                        "540dc971237be2361e04c1643d57b572709db15e449a870fef",
+                        BigInteger.ZERO,
+                        "kitula");
+
+        TolGetTransactionProtobuf response = web3j.tolGetTransactionProtobuf(transaction).send();
+        System.out.println("Protobuf: " + response.getTransactionProtobuf());
+    }
+
+    @Test
+    public void testTxSendSignedTransaction() throws IOException {
+        Credentials credentials =
+                Credentials.create(
+                        "d7ce009203c5d16d6b5daafa1efb1167a9e4558e88dff0bc14ebd65f3f0fc116");
+
+        org.web3j.protocol.core.methods.request.Transaction transaction =
+                new org.web3j.protocol.core.methods.request.Transaction(
+                        "547ec363f4d32b1fb3c67b8bf91aacf689943e6e87ae4ae600",
+                        BigInteger.ZERO,
+                        BigInteger.ONE,
+                        BigInteger.valueOf(21463L),
+                        "540dc971237be2361e04c1643d57b572709db15e449a870fef",
+                        BigInteger.ZERO,
+                        "kitula");
+
+        SignedTransaction signedTransaction = new SignedTransaction(transaction, credentials);
+
+        String hash = signedTransaction.getSignatureData().getHash();
+        String signature = signedTransaction.getSignatureData().getSignature();
+        String signerId = signedTransaction.getSignatureData().getSignerId();
+
+        System.out.println("Hash: " + hash);
+        System.out.println("Signature: " + signature);
+        System.out.println("Signer id: " + signerId);
+        TxSendSignedTransaction response = web3j.txSendSignedTransaction(signedTransaction).send();
         System.out.println("Transaction hash: " + response.getTransactionHash());
     }
 }
