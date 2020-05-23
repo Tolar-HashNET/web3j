@@ -524,7 +524,8 @@ class TolarTest {
     @Test
     @Ignore
     public void testTxSendSignedTransaction() throws IOException, CipherException {
-        File file = new File("/home/bb/Desktop/keys/keys/630c1867-9a42-eb26-6488-8dfcbeafd0c9.json");
+        File file =
+                new File("/home/bb/Desktop/keys/keys/630c1867-9a42-eb26-6488-8dfcbeafd0c9.json");
         Credentials credentials = WalletUtils.loadCredentials("Password123", file);
 
         org.web3j.protocol.core.methods.request.Transaction transaction =
