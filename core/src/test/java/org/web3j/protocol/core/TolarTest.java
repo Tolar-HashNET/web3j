@@ -319,7 +319,7 @@ class TolarTest {
         org.web3j.protocol.core.methods.request.Transaction transaction =
                 new org.web3j.protocol.core.methods.request.Transaction(
                         "5484c512b1cf3d45e7506a772b7358375acc571b2930d27deb",
-                        BigInteger.valueOf(28L),
+                        BigInteger.ZERO,
                         BigInteger.valueOf(1L),
                         BigInteger.valueOf(6000000L),
                         "5457c2d11f05725f4fa5c0cd119b75415b95cd40d059dfc2d5",

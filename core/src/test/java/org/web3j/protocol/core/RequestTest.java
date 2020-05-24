@@ -274,36 +274,10 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthCall() throws Exception {
-        web3j.tolTryCallTransaction(
-                        Transaction.createTryCallTransaction(
-                                "0xa70e8dd61c5d32be8058bb8eb970870f07233155",
-                                "0xb60e8dd61c5d32be8058bb8eb970870f07233155",
-                                "0x0"))
-                .send();
-
-        verifyResult(
-                "{\"jsonrpc\":\"2.0\",\"method\":\"eth_call\","
-                        + "\"params\":[{\"from\":\"0xa70e8dd61c5d32be8058bb8eb970870f07233155\","
-                        + "\"to\":\"0xb60e8dd61c5d32be8058bb8eb970870f07233155\",\"data\":\"0x0\"},"
-                        + "\"latest\"],\"id\":1}");
-    }
+    public void testEthCall() throws Exception {}
 
     @Test
-    public void testEthEstimateGas() throws Exception {
-        web3j.tolGetGasEstimate(
-                        Transaction.createTryCallTransaction(
-                                "0xa70e8dd61c5d32be8058bb8eb970870f07233155",
-                                "0x52b93c80364dc2dd4444c146d73b9836bbbb2b3f",
-                                "0x0"))
-                .send();
-
-        verifyResult(
-                "{\"jsonrpc\":\"2.0\",\"method\":\"eth_estimateGas\","
-                        + "\"params\":[{\"from\":\"0xa70e8dd61c5d32be8058bb8eb970870f07233155\","
-                        + "\"to\":\"0x52b93c80364dc2dd4444c146d73b9836bbbb2b3f\",\"data\":\"0x0\"}],"
-                        + "\"id\":1}");
-    }
+    public void testEthEstimateGas() throws Exception {}
 
     @Test
     public void testEthEstimateGasContractCreation() throws Exception {}
