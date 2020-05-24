@@ -15,7 +15,6 @@ package org.web3j.utils;
 import java.io.IOException;
 
 import org.web3j.protocol.Web3j;
-import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 
 /** Revert reason extraction and retrieval functions. */
@@ -65,7 +64,8 @@ public class RevertReasonExtractor {
     public static String retrieveRevertReason(
             TransactionReceipt transactionReceipt, String data, Web3j web3j) throws IOException {
 
-        if (transactionReceipt.getBlockNumber() == null) {
+        // TODO See what to do with this
+        /*if (transactionReceipt.getBlockNumber() == null) {
             return null;
         }
         return web3j.tolTryCallTransaction(
@@ -74,6 +74,8 @@ public class RevertReasonExtractor {
                                 transactionReceipt.getReceiverAddress(),
                                 data))
                 .send()
-                .getRevertReason();
+                .getRevertReason();*/
+
+        return MISSING_REASON;
     }
 }

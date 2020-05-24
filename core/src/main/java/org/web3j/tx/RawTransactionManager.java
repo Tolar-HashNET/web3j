@@ -123,11 +123,12 @@ public class RawTransactionManager extends TransactionManager {
     }
 
     @Override
-    public String sendCall(String to, String data, DefaultBlockParameter defaultBlockParameter)
+    public String sendCall(String receiverAddress, String data, BigInteger gas, BigInteger gasPrice)
             throws IOException {
         TolTryCallTransaction tolTryCallTransaction =
                 web3j.tolTryCallTransaction(
-                                Transaction.createTryCallTransaction(getFromAddress(), to, data))
+                                Transaction.createTryCallTransaction(
+                                        getFromAddress(), receiverAddress, gas, gasPrice, data))
                         .send();
 
         assertCallNotReverted(tolTryCallTransaction);

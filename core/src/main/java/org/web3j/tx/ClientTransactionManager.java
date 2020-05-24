@@ -32,22 +32,22 @@ public class ClientTransactionManager extends TransactionManager {
 
     private final Web3j web3j;
 
-    public ClientTransactionManager(Web3j web3j, String fromAddress) {
-        super(web3j, fromAddress);
+    public ClientTransactionManager(Web3j web3j, String senderAddress) {
+        super(web3j, senderAddress);
         this.web3j = web3j;
     }
 
     public ClientTransactionManager(
-            Web3j web3j, String fromAddress, int attempts, int sleepDuration) {
-        super(web3j, attempts, sleepDuration, fromAddress);
+            Web3j web3j, String senderAddress, int attempts, int sleepDuration) {
+        super(web3j, attempts, sleepDuration, senderAddress);
         this.web3j = web3j;
     }
 
     public ClientTransactionManager(
             Web3j web3j,
-            String fromAddress,
+            String senderAddress,
             TransactionReceiptProcessor transactionReceiptProcessor) {
-        super(transactionReceiptProcessor, fromAddress);
+        super(transactionReceiptProcessor, senderAddress);
         this.web3j = web3j;
     }
 
@@ -68,11 +68,12 @@ public class ClientTransactionManager extends TransactionManager {
     }
 
     @Override
-    public String sendCall(String to, String data, DefaultBlockParameter defaultBlockParameter)
+    public String sendCall(String receiverAddress, String data, BigInteger gas, BigInteger gasPrice)
             throws IOException {
         TolTryCallTransaction tolTryCallTransaction =
                 web3j.tolTryCallTransaction(
-                                Transaction.createTryCallTransaction(getFromAddress(), to, data))
+                                Transaction.createTryCallTransaction(
+                                        getFromAddress(), receiverAddress, gas, gasPrice, data))
                         .send();
 
         assertCallNotReverted(tolTryCallTransaction);

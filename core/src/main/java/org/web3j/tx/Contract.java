@@ -287,7 +287,7 @@ public abstract class Contract extends ManagedTransaction {
     private List<Type> executeCall(Function function) throws IOException {
         String encodedFunction = FunctionEncoder.encode(function);
 
-        String value = call(contractAddress, encodedFunction, defaultBlockParameter);
+        String value = call(contractAddress, encodedFunction, GAS_LIMIT, GAS_PRICE);
 
         return FunctionReturnDecoder.decode(value, function.getOutputParameters());
     }

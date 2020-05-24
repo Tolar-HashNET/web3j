@@ -203,9 +203,31 @@ public class Transaction {
                 senderAddress, receiverAddress, BigInteger.ZERO, "", gas, gasPrice, data, nonce);
     }
 
-    public static Transaction createTryCallTransaction(String from, String to, String data) {
+    public static Transaction createTryCallTransaction(
+            String senderAddress,
+            String receiverAddress,
+            BigInteger amount,
+            BigInteger gas,
+            BigInteger gasPrice,
+            String data) {
+        return new Transaction(
+                senderAddress, BigInteger.ZERO, gasPrice, gas, receiverAddress, amount, data);
+    }
 
-        return new Transaction(from, null, null, null, to, null, data);
+    public static Transaction createTryCallTransaction(
+            String senderAddress,
+            String receiverAddress,
+            BigInteger gas,
+            BigInteger gasPrice,
+            String data) {
+        return new Transaction(
+                senderAddress,
+                BigInteger.ZERO,
+                gasPrice,
+                gas,
+                receiverAddress,
+                BigInteger.ZERO,
+                data);
     }
 
     public String getSenderAddress() {

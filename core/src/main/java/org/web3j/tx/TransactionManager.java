@@ -97,7 +97,8 @@ public abstract class TransactionManager {
             throws IOException;
 
     public abstract String sendCall(
-            String to, String data, DefaultBlockParameter defaultBlockParameter) throws IOException;
+            String receiverAddress, String data, BigInteger gas, BigInteger gasPrice)
+            throws IOException;
 
     public abstract EthGetCode getCode(
             String contractAddress, DefaultBlockParameter defaultBlockParameter) throws IOException;

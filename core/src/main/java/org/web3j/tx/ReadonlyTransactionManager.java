@@ -47,11 +47,12 @@ public class ReadonlyTransactionManager extends TransactionManager {
     }
 
     @Override
-    public String sendCall(String to, String data, DefaultBlockParameter defaultBlockParameter)
+    public String sendCall(String receiverAddress, String data, BigInteger gas, BigInteger gasPrice)
             throws IOException {
         TolTryCallTransaction tolTryCallTransaction =
                 web3j.tolTryCallTransaction(
-                                Transaction.createTryCallTransaction(fromAddress, to, data))
+                                Transaction.createTryCallTransaction(
+                                        fromAddress, receiverAddress, gas, gasPrice, data))
                         .send();
 
         assertCallNotReverted(tolTryCallTransaction);

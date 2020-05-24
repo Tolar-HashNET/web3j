@@ -17,7 +17,6 @@ import java.math.BigInteger;
 
 import org.web3j.ens.EnsResolver;
 import org.web3j.protocol.Web3j;
-import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.methods.response.EthGasPrice;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.exceptions.TransactionException;
@@ -115,9 +114,9 @@ public abstract class ManagedTransaction {
                 gasPrice, gasLimit, to, data, value, constructor);
     }
 
-    protected String call(String to, String data, DefaultBlockParameter defaultBlockParameter)
+    protected String call(String receiverAddress, String data, BigInteger gas, BigInteger gasPrice)
             throws IOException {
 
-        return transactionManager.sendCall(to, data, defaultBlockParameter);
+        return transactionManager.sendCall(receiverAddress, data, gas, gasPrice);
     }
 }
