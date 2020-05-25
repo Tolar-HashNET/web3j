@@ -35,6 +35,7 @@ public class Credentials {
 
     public static Credentials create(ECKeyPair ecKeyPair) {
         String address = Numeric.prependHexPrefix(Keys.getAddress(ecKeyPair));
+        address = createTolarAddress(address);
         return new Credentials(ecKeyPair, address);
     }
 
@@ -69,5 +70,16 @@ public class Credentials {
         int result = ecKeyPair != null ? ecKeyPair.hashCode() : 0;
         result = 31 * result + (address != null ? address.hashCode() : 0);
         return result;
+    }
+
+    private static String createTolarAddress(String ethereumAddress) {
+        String prefix = "T";
+        String prefixHex = Numeric.toHexStringNoPrefix(prefix.getBytes());
+        String addressHash = Hash.sha3(ethereumAddress);
+        String hashOfHash = Hash.sha3(addressHash);
+
+        return prefixHex +
+                Numeric.cleanHexPrefix(ethereumAddress) +
+                hashOfHash.substring(hashOfHash.length() - 8);
     }
 }
