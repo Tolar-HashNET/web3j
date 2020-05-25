@@ -40,8 +40,7 @@ public class ReadonlyTransactionManager extends TransactionManager {
             String senderAddressPassword,
             BigInteger gas,
             BigInteger gasPrice,
-            String data,
-            BigInteger nonce)
+            String data)
             throws IOException {
         throw new UnsupportedOperationException(
                 "Only read operations are supported by this transaction manager");

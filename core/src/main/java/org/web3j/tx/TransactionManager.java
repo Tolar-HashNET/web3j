@@ -40,24 +40,24 @@ public abstract class TransactionManager {
             "Contract Call has been reverted by the EVM with the reason: '%s'.";
 
     private final TransactionReceiptProcessor transactionReceiptProcessor;
-    private final String fromAddress;
+    private final String senderAddress;
 
     protected TransactionManager(
-            TransactionReceiptProcessor transactionReceiptProcessor, String fromAddress) {
+            TransactionReceiptProcessor transactionReceiptProcessor, String senderAddress) {
         this.transactionReceiptProcessor = transactionReceiptProcessor;
-        this.fromAddress = fromAddress;
+        this.senderAddress = senderAddress;
     }
 
-    protected TransactionManager(Web3j web3j, String fromAddress) {
+    protected TransactionManager(Web3j web3j, String senderAddress) {
         this(
                 new PollingTransactionReceiptProcessor(
                         web3j, DEFAULT_POLLING_FREQUENCY, DEFAULT_POLLING_ATTEMPTS_PER_TX_HASH),
-                fromAddress);
+                senderAddress);
     }
 
     protected TransactionManager(
-            Web3j web3j, int attempts, long sleepDuration, String fromAddress) {
-        this(new PollingTransactionReceiptProcessor(web3j, sleepDuration, attempts), fromAddress);
+            Web3j web3j, int attempts, long sleepDuration, String senderAddress) {
+        this(new PollingTransactionReceiptProcessor(web3j, sleepDuration, attempts), senderAddress);
     }
 
     protected TransactionReceipt executeTransaction(
@@ -65,18 +65,11 @@ public abstract class TransactionManager {
             String senderAddressPassword,
             BigInteger gas,
             BigInteger gasPrice,
-            String data,
-            BigInteger nonce)
+            String data)
             throws IOException, TransactionException {
 
         return executeTransaction(
-                receiverAddress,
-                BigInteger.ZERO,
-                senderAddressPassword,
-                gas,
-                gasPrice,
-                data,
-                nonce);
+                receiverAddress, BigInteger.ZERO, senderAddressPassword, gas, gasPrice, data);
     }
 
     protected TransactionReceipt executeTransaction(
@@ -85,13 +78,12 @@ public abstract class TransactionManager {
             String senderAddressPassword,
             BigInteger gas,
             BigInteger gasPrice,
-            String data,
-            BigInteger nonce)
+            String data)
             throws IOException, TransactionException {
 
         AccountSendRawTransaction accountSendRawTransaction =
                 sendTransaction(
-                        receiverAddress, amount, senderAddressPassword, gas, gasPrice, data, nonce);
+                        receiverAddress, amount, senderAddressPassword, gas, gasPrice, data);
         return processResponse(accountSendRawTransaction);
     }
 
@@ -100,17 +92,10 @@ public abstract class TransactionManager {
             String senderAddressPassword,
             BigInteger gas,
             BigInteger gasPrice,
-            String data,
-            BigInteger nonce)
+            String data)
             throws IOException {
         return sendTransaction(
-                receiverAddress,
-                BigInteger.ZERO,
-                senderAddressPassword,
-                gas,
-                gasPrice,
-                data,
-                nonce);
+                receiverAddress, BigInteger.ZERO, senderAddressPassword, gas, gasPrice, data);
     }
 
     public abstract AccountSendRawTransaction sendTransaction(
@@ -119,8 +104,7 @@ public abstract class TransactionManager {
             String senderAddressPassword,
             BigInteger gas,
             BigInteger gasPrice,
-            String data,
-            BigInteger nonce)
+            String data)
             throws IOException;
 
     public abstract String sendCall(
@@ -130,8 +114,8 @@ public abstract class TransactionManager {
     public abstract EthGetCode getCode(
             String contractAddress, DefaultBlockParameter defaultBlockParameter) throws IOException;
 
-    public String getFromAddress() {
-        return fromAddress;
+    public String getSenderAddress() {
+        return senderAddress;
     }
 
     private TransactionReceipt processResponse(AccountSendRawTransaction transactionResponse)

@@ -20,6 +20,7 @@ import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.protocol.core.methods.response.AccountSendRawTransaction;
 import org.web3j.protocol.core.methods.response.EthGetCode;
+import org.web3j.protocol.core.methods.response.TolGetNonce;
 import org.web3j.protocol.core.methods.response.TolTryCallTransaction;
 import org.web3j.tx.response.TransactionReceiptProcessor;
 
@@ -58,13 +59,14 @@ public class ClientTransactionManager extends TransactionManager {
             String senderAddressPassword,
             BigInteger gas,
             BigInteger gasPrice,
-            String data,
-            BigInteger nonce)
+            String data)
             throws IOException {
+
+        BigInteger nonce = getNonce();
 
         Transaction transaction =
                 new Transaction(
-                        getFromAddress(),
+                        getSenderAddress(),
                         nonce,
                         gasPrice,
                         gas,
@@ -82,7 +84,7 @@ public class ClientTransactionManager extends TransactionManager {
         TolTryCallTransaction tolTryCallTransaction =
                 web3j.tolTryCallTransaction(
                                 Transaction.createTryCallTransaction(
-                                        getFromAddress(), receiverAddress, gas, gasPrice, data))
+                                        getSenderAddress(), receiverAddress, gas, gasPrice, data))
                         .send();
 
         assertCallNotReverted(tolTryCallTransaction);
@@ -91,8 +93,13 @@ public class ClientTransactionManager extends TransactionManager {
 
     @Override
     public EthGetCode getCode(
-            final String contractAddress, final DefaultBlockParameter defaultBlockParameter)
-            throws IOException {
-        return web3j.ethGetCode(contractAddress, defaultBlockParameter).send();
+            final String contractAddress, final DefaultBlockParameter defaultBlockParameter) {
+        throw new UnsupportedOperationException();
+    }
+
+    protected BigInteger getNonce() throws IOException {
+        TolGetNonce tolGetNonce = web3j.tolGetNonce(getSenderAddress()).send();
+
+        return tolGetNonce.getNonce();
     }
 }

@@ -100,12 +100,11 @@ public abstract class ManagedTransaction {
             String senderAddressPassword,
             BigInteger gas,
             BigInteger gasPrice,
-            String data,
-            BigInteger nonce)
+            String data)
             throws IOException, TransactionException {
 
         return transactionManager.executeTransaction(
-                receiverAddress, amount, senderAddressPassword, gas, gasPrice, data, nonce);
+                receiverAddress, amount, senderAddressPassword, gas, gasPrice, data);
     }
 
     protected String call(String receiverAddress, String data, BigInteger gas, BigInteger gasPrice)

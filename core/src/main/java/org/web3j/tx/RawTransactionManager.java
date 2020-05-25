@@ -110,9 +110,10 @@ public class RawTransactionManager extends TransactionManager {
             String senderAddressPassword,
             BigInteger gas,
             BigInteger gasPrice,
-            String data,
-            BigInteger nonce)
+            String data)
             throws IOException {
+
+        BigInteger nonce = getNonce();
         RawTransaction rawTransaction =
                 RawTransaction.createTransaction(
                         receiverAddress, amount, gas, gasPrice, data, nonce);
@@ -126,7 +127,7 @@ public class RawTransactionManager extends TransactionManager {
         TolTryCallTransaction tolTryCallTransaction =
                 web3j.tolTryCallTransaction(
                                 Transaction.createTryCallTransaction(
-                                        getFromAddress(), receiverAddress, gas, gasPrice, data))
+                                        getSenderAddress(), receiverAddress, gas, gasPrice, data))
                         .send();
 
         assertCallNotReverted(tolTryCallTransaction);

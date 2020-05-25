@@ -32,6 +32,7 @@ import org.web3j.protocol.core.methods.request.SignedTransaction;
 import org.web3j.protocol.core.methods.response.*;
 import org.web3j.protocol.exceptions.ClientConnectionException;
 import org.web3j.protocol.http.HttpService;
+import org.web3j.tx.ClientTransactionManager;
 
 class TolarTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(TolarTest.class);
@@ -142,7 +143,7 @@ class TolarTest {
 
     @Test
     public void testAccountOpen() throws IOException {
-        AccountOpen response = web3j.accountOpen("supersifra").send();
+        AccountOpen response = web3j.accountOpen("Password123").send();
         System.out.println("Is account opened: " + response.isOpened());
     }
 
@@ -548,6 +549,23 @@ class TolarTest {
         System.out.println("Signature: " + signature);
         System.out.println("Signer id: " + signerId);
         TxSendSignedTransaction response = web3j.txSendSignedTransaction(signedTransaction).send();
+        System.out.println("Transaction hash: " + response.getTransactionHash());
+    }
+
+    @Test
+    public void testClientTransactionManager() throws IOException {
+        ClientTransactionManager manager =
+                new ClientTransactionManager(
+                        web3j, "5484c512b1cf3d45e7506a772b7358375acc571b2930d27deb");
+
+        AccountSendRawTransaction response =
+                manager.sendTransaction(
+                        "540dc971237be2361e04c1643d57b572709db15e449a870fef",
+                        "Password123",
+                        BigInteger.valueOf(21000),
+                        BigInteger.ONE,
+                        "");
+
         System.out.println("Transaction hash: " + response.getTransactionHash());
     }
 }

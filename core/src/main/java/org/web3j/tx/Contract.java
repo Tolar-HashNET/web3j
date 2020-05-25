@@ -368,8 +368,7 @@ public abstract class Contract extends ManagedTransaction {
                         senderAddressPassword,
                         gasProvider.getGasLimit(funcName),
                         gasProvider.getGasPrice(funcName),
-                        data,
-                        nonce);
+                        data);
 
         // TODO see what to do with this
         /*if (!receipt.isStatusOK()) {

@@ -38,7 +38,7 @@ public class Transfer extends ManagedTransaction {
 
     /**
      * Given the duration required to execute a transaction, asyncronous execution is strongly
-     * recommended via {@link Transfer#sendFunds(String, BigDecimal, Convert.Unit)}.
+     * recommended via {@link Transfer#(String, BigDecimal, Convert.Unit)}.
      *
      * @param toAddress destination address
      * @param value amount to send
@@ -89,8 +89,7 @@ public class Transfer extends ManagedTransaction {
                 senderAddressPassword,
                 gas,
                 gasPrice,
-                "",
-                nonce);
+                "");
     }
 
     public static RemoteCall<TransactionReceipt> sendFunds(
