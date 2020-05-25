@@ -61,39 +61,66 @@ public abstract class TransactionManager {
     }
 
     protected TransactionReceipt executeTransaction(
-            BigInteger gasPrice, BigInteger gasLimit, String to, String data, BigInteger value)
+            String receiverAddress,
+            String senderAddressPassword,
+            BigInteger gas,
+            BigInteger gasPrice,
+            String data,
+            BigInteger nonce)
             throws IOException, TransactionException {
 
-        return executeTransaction(gasPrice, gasLimit, to, data, value, false);
+        return executeTransaction(
+                receiverAddress,
+                BigInteger.ZERO,
+                senderAddressPassword,
+                gas,
+                gasPrice,
+                data,
+                nonce);
     }
 
     protected TransactionReceipt executeTransaction(
+            String receiverAddress,
+            BigInteger amount,
+            String senderAddressPassword,
+            BigInteger gas,
             BigInteger gasPrice,
-            BigInteger gasLimit,
-            String to,
             String data,
-            BigInteger value,
-            boolean constructor)
+            BigInteger nonce)
             throws IOException, TransactionException {
 
         AccountSendRawTransaction accountSendRawTransaction =
-                sendTransaction(gasPrice, gasLimit, to, data, value, constructor);
+                sendTransaction(
+                        receiverAddress, amount, senderAddressPassword, gas, gasPrice, data, nonce);
         return processResponse(accountSendRawTransaction);
     }
 
     public AccountSendRawTransaction sendTransaction(
-            BigInteger gasPrice, BigInteger gasLimit, String to, String data, BigInteger value)
+            String receiverAddress,
+            String senderAddressPassword,
+            BigInteger gas,
+            BigInteger gasPrice,
+            String data,
+            BigInteger nonce)
             throws IOException {
-        return sendTransaction(gasPrice, gasLimit, to, data, value, false);
+        return sendTransaction(
+                receiverAddress,
+                BigInteger.ZERO,
+                senderAddressPassword,
+                gas,
+                gasPrice,
+                data,
+                nonce);
     }
 
     public abstract AccountSendRawTransaction sendTransaction(
+            String receiverAddress,
+            BigInteger amount,
+            String senderAddressPassword,
+            BigInteger gas,
             BigInteger gasPrice,
-            BigInteger gasLimit,
-            String to,
             String data,
-            BigInteger value,
-            boolean constructor)
+            BigInteger nonce)
             throws IOException;
 
     public abstract String sendCall(

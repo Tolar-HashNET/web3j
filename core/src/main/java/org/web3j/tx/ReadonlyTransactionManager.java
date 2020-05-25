@@ -35,12 +35,13 @@ public class ReadonlyTransactionManager extends TransactionManager {
 
     @Override
     public AccountSendRawTransaction sendTransaction(
+            String receiverAddress,
+            BigInteger amount,
+            String senderAddressPassword,
+            BigInteger gas,
             BigInteger gasPrice,
-            BigInteger gasLimit,
-            String to,
             String data,
-            BigInteger value,
-            boolean constructor)
+            BigInteger nonce)
             throws IOException {
         throw new UnsupportedOperationException(
                 "Only read operations are supported by this transaction manager");

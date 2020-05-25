@@ -48,19 +48,26 @@ public class Transfer extends ManagedTransaction {
      * @throws InterruptedException if the current thread was interrupted while waiting
      * @throws TransactionException if the transaction was not mined while waiting
      */
-    private TransactionReceipt send(String toAddress, BigDecimal value, Convert.Unit unit)
+    private TransactionReceipt send(
+            String toAddress,
+            BigDecimal value,
+            Convert.Unit unit,
+            String senderAddressPassword,
+            BigInteger nonce)
             throws IOException, InterruptedException, TransactionException {
 
         BigInteger gasPrice = requestCurrentGasPrice();
-        return send(toAddress, value, unit, gasPrice, GAS_LIMIT);
+        return send(toAddress, value, unit, senderAddressPassword, GAS_LIMIT, gasPrice, nonce);
     }
 
     private TransactionReceipt send(
             String toAddress,
             BigDecimal value,
             Convert.Unit unit,
+            String senderAddressPassword,
+            BigInteger gas,
             BigInteger gasPrice,
-            BigInteger gasLimit)
+            BigInteger nonce)
             throws IOException, InterruptedException, TransactionException {
 
         BigDecimal weiValue = Convert.toWei(value, unit);
@@ -76,7 +83,14 @@ public class Transfer extends ManagedTransaction {
         }
 
         String resolvedAddress = ensResolver.resolve(toAddress);
-        return send(resolvedAddress, "", weiValue.toBigIntegerExact(), gasPrice, gasLimit);
+        return send(
+                resolvedAddress,
+                weiValue.toBigIntegerExact(),
+                senderAddressPassword,
+                gas,
+                gasPrice,
+                "",
+                nonce);
     }
 
     public static RemoteCall<TransactionReceipt> sendFunds(
@@ -84,13 +98,17 @@ public class Transfer extends ManagedTransaction {
             Credentials credentials,
             String toAddress,
             BigDecimal value,
-            Convert.Unit unit)
+            Convert.Unit unit,
+            String senderAddressPassword,
+            BigInteger nonce)
             throws InterruptedException, IOException, TransactionException {
 
         TransactionManager transactionManager = new RawTransactionManager(web3j, credentials);
 
         return new RemoteCall<>(
-                () -> new Transfer(web3j, transactionManager).send(toAddress, value, unit));
+                () ->
+                        new Transfer(web3j, transactionManager)
+                                .send(toAddress, value, unit, senderAddressPassword, nonce));
     }
 
     /**
@@ -103,16 +121,31 @@ public class Transfer extends ManagedTransaction {
      * @return {@link RemoteCall} containing executing transaction
      */
     public RemoteCall<TransactionReceipt> sendFunds(
-            String toAddress, BigDecimal value, Convert.Unit unit) {
-        return new RemoteCall<>(() -> send(toAddress, value, unit));
+            String toAddress,
+            BigDecimal value,
+            Convert.Unit unit,
+            String senderAddressPassword,
+            BigInteger nonce) {
+        return new RemoteCall<>(() -> send(toAddress, value, unit, senderAddressPassword, nonce));
     }
 
     public RemoteCall<TransactionReceipt> sendFunds(
             String toAddress,
             BigDecimal value,
             Convert.Unit unit,
+            String senderAddressPassword,
             BigInteger gasPrice,
-            BigInteger gasLimit) {
-        return new RemoteCall<>(() -> send(toAddress, value, unit, gasPrice, gasLimit));
+            BigInteger gasLimit,
+            BigInteger nonce) {
+        return new RemoteCall<>(
+                () ->
+                        send(
+                                toAddress,
+                                value,
+                                unit,
+                                senderAddressPassword,
+                                gasLimit,
+                                gasPrice,
+                                nonce));
     }
 }

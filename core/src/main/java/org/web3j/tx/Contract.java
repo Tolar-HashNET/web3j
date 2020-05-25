@@ -341,8 +341,7 @@ public abstract class Contract extends ManagedTransaction {
 
     TransactionReceipt executeTransaction(String data, BigInteger weiValue, String funcName)
             throws TransactionException, IOException {
-
-        return executeTransaction(data, weiValue, funcName, false);
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -355,17 +354,22 @@ public abstract class Contract extends ManagedTransaction {
      * @throws TransactionException if the transaction was not mined while waiting
      */
     TransactionReceipt executeTransaction(
-            String data, BigInteger weiValue, String funcName, boolean constructor)
+            String data,
+            BigInteger weiValue,
+            String senderAddressPassword,
+            String funcName,
+            BigInteger nonce)
             throws TransactionException, IOException {
 
         TransactionReceipt receipt =
                 send(
                         contractAddress,
-                        data,
                         weiValue,
-                        gasProvider.getGasPrice(funcName),
+                        senderAddressPassword,
                         gasProvider.getGasLimit(funcName),
-                        constructor);
+                        gasProvider.getGasPrice(funcName),
+                        data,
+                        nonce);
 
         // TODO see what to do with this
         /*if (!receipt.isStatusOK()) {
@@ -411,7 +415,7 @@ public abstract class Contract extends ManagedTransaction {
             T contract, String binary, String encodedConstructor, BigInteger value)
             throws IOException, TransactionException {
         TransactionReceipt transactionReceipt =
-                contract.executeTransaction(binary + encodedConstructor, value, FUNC_DEPLOY, true);
+                contract.executeTransaction(binary + encodedConstructor, value, FUNC_DEPLOY);
 
         String contractAddress = transactionReceipt.getNewAddress();
         if (contractAddress == null) {

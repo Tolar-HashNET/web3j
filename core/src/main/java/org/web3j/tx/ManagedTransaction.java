@@ -95,23 +95,17 @@ public abstract class ManagedTransaction {
     }
 
     protected TransactionReceipt send(
-            String to, String data, BigInteger value, BigInteger gasPrice, BigInteger gasLimit)
-            throws IOException, TransactionException {
-
-        return transactionManager.executeTransaction(gasPrice, gasLimit, to, data, value);
-    }
-
-    protected TransactionReceipt send(
-            String to,
-            String data,
-            BigInteger value,
+            String receiverAddress,
+            BigInteger amount,
+            String senderAddressPassword,
+            BigInteger gas,
             BigInteger gasPrice,
-            BigInteger gasLimit,
-            boolean constructor)
+            String data,
+            BigInteger nonce)
             throws IOException, TransactionException {
 
         return transactionManager.executeTransaction(
-                gasPrice, gasLimit, to, data, value, constructor);
+                receiverAddress, amount, senderAddressPassword, gas, gasPrice, data, nonce);
     }
 
     protected String call(String receiverAddress, String data, BigInteger gas, BigInteger gasPrice)
