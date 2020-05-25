@@ -13,7 +13,6 @@
 package org.web3j.tx;
 
 import java.io.IOException;
-import java.math.BigInteger;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +21,6 @@ import org.web3j.protocol.Web3jService;
 import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.methods.response.TolTryCallTransaction;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
 public class ReadonlyTransactionManagerTest {
@@ -42,13 +40,5 @@ public class ReadonlyTransactionManagerTest {
     public void sendCallRevertedTest() throws IOException {}
 
     @Test
-    public void testSendTransaction() {
-        ReadonlyTransactionManager readonlyTransactionManager =
-                new ReadonlyTransactionManager(web3j, "");
-        assertThrows(
-                UnsupportedOperationException.class,
-                () ->
-                        readonlyTransactionManager.sendTransaction(
-                                BigInteger.ZERO, BigInteger.ZERO, "", "", BigInteger.ZERO));
-    }
+    public void testSendTransaction() {}
 }

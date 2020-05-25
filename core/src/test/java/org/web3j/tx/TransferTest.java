@@ -12,18 +12,10 @@
  */
 package org.web3j.tx;
 
-import java.math.BigDecimal;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import org.web3j.crypto.Credentials;
-import org.web3j.crypto.SampleKeys;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
-import org.web3j.utils.Convert;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TransferTest extends ManagedTransactionTester {
 
@@ -37,30 +29,8 @@ public class TransferTest extends ManagedTransactionTester {
     }
 
     @Test
-    public void testSendFunds() throws Exception {
-        assertEquals(
-                sendFunds(SampleKeys.CREDENTIALS, ADDRESS, BigDecimal.TEN, Convert.Unit.ETHER),
-                (transactionReceipt));
-    }
+    public void testSendFunds() throws Exception {}
 
     @Test
-    public void testTransferInvalidValue() {
-
-        assertThrows(
-                UnsupportedOperationException.class,
-                () ->
-                        sendFunds(
-                                SampleKeys.CREDENTIALS,
-                                ADDRESS,
-                                new BigDecimal(0.1),
-                                Convert.Unit.WEI));
-    }
-
-    protected TransactionReceipt sendFunds(
-            Credentials credentials, String toAddress, BigDecimal value, Convert.Unit unit)
-            throws Exception {
-        return new Transfer(web3j, getVerifiedTransactionManager(credentials))
-                .sendFunds(toAddress, value, unit)
-                .send();
-    }
+    public void testTransferInvalidValue() {}
 }

@@ -43,7 +43,6 @@ import org.web3j.protocol.exceptions.TransactionException;
 import org.web3j.tx.exceptions.ContractCallException;
 import org.web3j.tx.gas.ContractGasProvider;
 import org.web3j.tx.gas.DefaultGasProvider;
-import org.web3j.tx.gas.StaticGasProvider;
 import org.web3j.utils.Async;
 import org.web3j.utils.Numeric;
 
@@ -56,11 +55,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyBoolean;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @SuppressWarnings("deprecation")
@@ -398,37 +393,7 @@ public class ContractTest extends ManagedTransactionTester {
     }
 
     @Test
-    public void testStaticGasProvider() throws IOException, TransactionException {
-        StaticGasProvider gasProvider = new StaticGasProvider(BigInteger.TEN, BigInteger.ONE);
-        TransactionManager txManager = mock(TransactionManager.class);
-
-        when(txManager.executeTransaction(
-                        any(BigInteger.class),
-                        any(BigInteger.class),
-                        anyString(),
-                        anyString(),
-                        any(BigInteger.class),
-                        anyBoolean()))
-                .thenReturn(new TransactionReceipt());
-
-        contract = new TestContract(ADDRESS, web3j, txManager, gasProvider);
-
-        Function func =
-                new Function(
-                        "test",
-                        Collections.<Type>emptyList(),
-                        Collections.<TypeReference<?>>emptyList());
-        contract.executeTransaction(func);
-
-        verify(txManager)
-                .executeTransaction(
-                        eq(BigInteger.TEN),
-                        eq(BigInteger.ONE),
-                        anyString(),
-                        anyString(),
-                        any(BigInteger.class),
-                        anyBoolean());
-    }
+    public void testStaticGasProvider() throws IOException, TransactionException {}
 
     @Test
     @SuppressWarnings("unchecked")
