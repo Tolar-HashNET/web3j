@@ -781,13 +781,13 @@ public class JsonRpc2_0Web3j implements Web3j {
     }
 
     @Override
-    public Request<?, TxSendSignedTransaction> txSendSignedTransaction(
+    public Request<?, AccountSendRawTransaction> txSendSignedTransaction(
             SignedTransaction transaction) {
         return new Request<>(
                 "tx_sendSignedTransaction",
                 Collections.singletonList(transaction),
                 web3jService,
-                TxSendSignedTransaction.class);
+                AccountSendRawTransaction.class);
     }
 
     @Override

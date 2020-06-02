@@ -20,29 +20,29 @@ import org.web3j.protocol.Web3j;
 import org.web3j.tx.response.TransactionReceiptProcessor;
 
 /**
- * Simple RawTransactionManager derivative that manages nonces to facilitate multiple transactions
- * per block.
+ * Simple SignedTransactionManager derivative that manages nonces to facilitate multiple
+ * transactions per block.
  */
-public class FastRawTransactionManager extends RawTransactionManager {
+public class FastSignedTransactionManager extends SignedTransactionManager {
 
     private volatile BigInteger nonce = BigInteger.valueOf(-1);
 
-    public FastRawTransactionManager(Web3j web3j, Credentials credentials, byte chainId) {
+    public FastSignedTransactionManager(Web3j web3j, Credentials credentials, byte chainId) {
         super(web3j, credentials, chainId);
     }
 
-    public FastRawTransactionManager(Web3j web3j, Credentials credentials) {
+    public FastSignedTransactionManager(Web3j web3j, Credentials credentials) {
         super(web3j, credentials);
     }
 
-    public FastRawTransactionManager(
+    public FastSignedTransactionManager(
             Web3j web3j,
             Credentials credentials,
             TransactionReceiptProcessor transactionReceiptProcessor) {
         super(web3j, credentials, ChainId.NONE, transactionReceiptProcessor);
     }
 
-    public FastRawTransactionManager(
+    public FastSignedTransactionManager(
             Web3j web3j,
             Credentials credentials,
             byte chainId,

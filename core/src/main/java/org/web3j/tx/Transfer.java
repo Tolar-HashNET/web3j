@@ -102,7 +102,7 @@ public class Transfer extends ManagedTransaction {
             BigInteger nonce)
             throws InterruptedException, IOException, TransactionException {
 
-        TransactionManager transactionManager = new RawTransactionManager(web3j, credentials);
+        TransactionManager transactionManager = new SignedTransactionManager(web3j, credentials);
 
         return new RemoteCall<>(
                 () ->

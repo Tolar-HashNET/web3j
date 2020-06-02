@@ -112,7 +112,7 @@ public abstract class Contract extends ManagedTransaction {
                 contractBinary,
                 contractAddress,
                 web3j,
-                new RawTransactionManager(web3j, credentials),
+                new SignedTransactionManager(web3j, credentials),
                 gasProvider);
     }
 
@@ -145,7 +145,7 @@ public abstract class Contract extends ManagedTransaction {
                 contractBinary,
                 contractAddress,
                 web3j,
-                new RawTransactionManager(web3j, credentials),
+                new SignedTransactionManager(web3j, credentials),
                 gasPrice,
                 gasLimit);
     }
@@ -171,7 +171,7 @@ public abstract class Contract extends ManagedTransaction {
                 "",
                 contractAddress,
                 web3j,
-                new RawTransactionManager(web3j, credentials),
+                new SignedTransactionManager(web3j, credentials),
                 gasPrice,
                 gasLimit);
     }

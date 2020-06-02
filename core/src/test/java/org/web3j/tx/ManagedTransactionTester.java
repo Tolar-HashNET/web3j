@@ -44,14 +44,15 @@ public abstract class ManagedTransactionTester {
 
     public TransactionManager getVerifiedTransactionManager(
             Credentials credentials, int attempts, int sleepDuration) {
-        RawTransactionManager transactionManager =
-                new RawTransactionManager(web3j, credentials, attempts, sleepDuration);
+        SignedTransactionManager transactionManager =
+                new SignedTransactionManager(web3j, credentials, attempts, sleepDuration);
         transactionManager.setTxHashVerifier(txHashVerifier);
         return transactionManager;
     }
 
     public TransactionManager getVerifiedTransactionManager(Credentials credentials) {
-        RawTransactionManager transactionManager = new RawTransactionManager(web3j, credentials);
+        SignedTransactionManager transactionManager =
+                new SignedTransactionManager(web3j, credentials);
         transactionManager.setTxHashVerifier(txHashVerifier);
         return transactionManager;
     }

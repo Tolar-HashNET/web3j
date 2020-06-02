@@ -209,7 +209,7 @@ public interface Tolar {
     Request<?, AccountSendRawTransaction> accountSendFundTransferTransaction(
             org.web3j.protocol.core.methods.request.Transaction transaction);
 
-    Request<?, TxSendSignedTransaction> txSendSignedTransaction(SignedTransaction transaction);
+    Request<?, AccountSendRawTransaction> txSendSignedTransaction(SignedTransaction transaction);
 
     Request<?, TolGetTransactionProtobuf> tolGetTransactionProtobuf(
             org.web3j.protocol.core.methods.request.Transaction transaction);

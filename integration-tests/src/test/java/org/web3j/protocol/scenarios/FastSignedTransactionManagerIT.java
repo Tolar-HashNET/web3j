@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 
 import org.web3j.protocol.core.RemoteCall;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
-import org.web3j.tx.FastRawTransactionManager;
+import org.web3j.tx.FastSignedTransactionManager;
 import org.web3j.tx.Transfer;
 import org.web3j.tx.response.Callback;
 import org.web3j.tx.response.PollingTransactionReceiptProcessor;
@@ -39,7 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.web3j.tx.TransactionManager.DEFAULT_POLLING_ATTEMPTS_PER_TX_HASH;
 
 @BenchmarkOptions(concurrency = 1, warmupRounds = 0, benchmarkRounds = 1)
-public class FastRawTransactionManagerIT extends Scenario {
+public class FastSignedTransactionManagerIT extends Scenario {
 
     private static final int COUNT = 10; // don't set too high if using a real Tolar network
     private static final long POLLING_FREQUENCY = 15000;
@@ -48,8 +48,8 @@ public class FastRawTransactionManagerIT extends Scenario {
     public void testTransactionPolling() throws Exception {
 
         List<Future<TransactionReceipt>> transactionReceipts = new LinkedList<>();
-        FastRawTransactionManager transactionManager =
-                new FastRawTransactionManager(
+        FastSignedTransactionManager transactionManager =
+                new FastSignedTransactionManager(
                         web3j,
                         ALICE,
                         new PollingTransactionReceiptProcessor(
@@ -93,8 +93,8 @@ public class FastRawTransactionManagerIT extends Scenario {
         ConcurrentLinkedQueue<TransactionReceipt> transactionReceipts =
                 new ConcurrentLinkedQueue<>();
 
-        FastRawTransactionManager transactionManager =
-                new FastRawTransactionManager(
+        FastSignedTransactionManager transactionManager =
+                new FastSignedTransactionManager(
                         web3j,
                         ALICE,
                         new QueuingTransactionReceiptProcessor(

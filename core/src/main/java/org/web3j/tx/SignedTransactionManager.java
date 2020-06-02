@@ -15,16 +15,19 @@ package org.web3j.tx;
 import java.io.IOException;
 import java.math.BigInteger;
 
+import org.bouncycastle.util.encoders.Base64;
+
 import org.web3j.crypto.Credentials;
-import org.web3j.crypto.RawTransaction;
+import org.web3j.crypto.Hash;
+import org.web3j.crypto.Sign;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameter;
+import org.web3j.protocol.core.methods.request.SignedTransaction;
 import org.web3j.protocol.core.methods.request.Transaction;
-import org.web3j.protocol.core.methods.response.AccountSendRawTransaction;
-import org.web3j.protocol.core.methods.response.EthGetCode;
-import org.web3j.protocol.core.methods.response.TolGetNonce;
-import org.web3j.protocol.core.methods.response.TolTryCallTransaction;
+import org.web3j.protocol.core.methods.response.*;
+import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.response.TransactionReceiptProcessor;
+import org.web3j.utils.Numeric;
 import org.web3j.utils.SignatureData;
 import org.web3j.utils.TxHashVerifier;
 
@@ -36,16 +39,17 @@ import org.web3j.utils.TxHashVerifier;
  * <a href="https://github.com/ethereum/EIPs/issues/155">EIP155</a>, as well as for locally signing
  * RawTransaction instances without broadcasting them.
  */
-public class RawTransactionManager extends TransactionManager {
+public class SignedTransactionManager extends TransactionManager {
 
     private final Web3j web3j;
     final Credentials credentials;
 
     private final long chainId;
+    private String transactionProtobuf;
 
     protected TxHashVerifier txHashVerifier = new TxHashVerifier();
 
-    public RawTransactionManager(Web3j web3j, Credentials credentials, long chainId) {
+    public SignedTransactionManager(Web3j web3j, Credentials credentials, long chainId) {
         super(web3j, credentials.getAddress());
 
         this.web3j = web3j;
@@ -54,7 +58,7 @@ public class RawTransactionManager extends TransactionManager {
         this.chainId = chainId;
     }
 
-    public RawTransactionManager(
+    public SignedTransactionManager(
             Web3j web3j,
             Credentials credentials,
             long chainId,
@@ -67,7 +71,7 @@ public class RawTransactionManager extends TransactionManager {
         this.chainId = chainId;
     }
 
-    public RawTransactionManager(
+    public SignedTransactionManager(
             Web3j web3j, Credentials credentials, long chainId, int attempts, long sleepDuration) {
         super(web3j, attempts, sleepDuration, credentials.getAddress());
 
@@ -77,11 +81,11 @@ public class RawTransactionManager extends TransactionManager {
         this.chainId = chainId;
     }
 
-    public RawTransactionManager(Web3j web3j, Credentials credentials) {
+    public SignedTransactionManager(Web3j web3j, Credentials credentials) {
         this(web3j, credentials, ChainId.NONE);
     }
 
-    public RawTransactionManager(
+    public SignedTransactionManager(
             Web3j web3j, Credentials credentials, int attempts, int sleepDuration) {
         this(web3j, credentials, ChainId.NONE, attempts, sleepDuration);
     }
@@ -111,18 +115,11 @@ public class RawTransactionManager extends TransactionManager {
             throws IOException {
 
         BigInteger nonce = getNonce();
-        RawTransaction rawTransaction =
-                RawTransaction.createTransaction(
-                        getSenderAddress(),
-                        receiverAddress,
-                        amount,
-                        senderAddressPassword,
-                        gas,
-                        gasPrice,
-                        data,
-                        nonce);
+        Transaction transaction =
+                new Transaction(
+                        getSenderAddress(), nonce, gasPrice, gas, receiverAddress, amount, data);
 
-        return signAndSend(rawTransaction);
+        return signAndSend(transaction);
     }
 
     @Override
@@ -145,15 +142,77 @@ public class RawTransactionManager extends TransactionManager {
         throw new UnsupportedOperationException();
     }
 
-    /*
-     * @param rawTransaction a RawTransaction istance to be signed
-     * @return The transaction signed and encoded without ever broadcasting it
-     */
-    public SignatureData sign(RawTransaction rawTransaction) {
-        return null;
+    public AccountSendRawTransaction signAndSend(Transaction transaction) throws IOException {
+        SignatureData signatureData = sign(transaction);
+        return web3j.txSendSignedTransaction(new SignedTransaction(transaction, signatureData))
+                .send();
     }
 
-    public AccountSendRawTransaction signAndSend(RawTransaction rawTransaction) throws IOException {
-        return null;
+    public SignatureData sign(Transaction transaction) {
+        return createSignatureData(transaction);
+    }
+
+    private String getTransactionProtobuf(Transaction transaction) {
+        if (transactionProtobuf == null) {
+            try {
+                transactionProtobuf =
+                        Web3j.build(new HttpService("https://tolar.dream-factory.hr/"))
+                                .tolGetTransactionProtobuf(transaction)
+                                .send()
+                                .getTransactionProtobuf();
+            } catch (Exception e) {
+                throw new RuntimeException(
+                        "Failed to create signature. Can't get transaction protobuf.", e);
+            }
+        }
+        return transactionProtobuf;
+    }
+
+    private SignatureData createSignatureData(Transaction transaction) {
+        String hash = createHash(transaction);
+        String signature = createSignature(transaction);
+        String signerId = createSignerId();
+
+        return new SignatureData(hash, signature, signerId);
+    }
+
+    private String createHash(Transaction transaction) {
+        return Numeric.toHexStringNoPrefix(
+                Hash.sha3(Base64.decode(getTransactionProtobuf(transaction))));
+    }
+
+    private String createSignature(Transaction transaction) {
+        byte[] hashed = Hash.sha3(Base64.decode(getTransactionProtobuf(transaction)));
+        Sign.SignatureData signatureData =
+                Sign.signMessage(hashed, credentials.getEcKeyPair(), false);
+
+        byte[] concatSignatureLikeWeb3js =
+                new byte
+                        [signatureData.getR().length
+                                + signatureData.getS().length
+                                + signatureData.getV().length];
+
+        signatureData.getV()[0] = (byte) ((int) signatureData.getV()[0] - 27);
+
+        System.arraycopy(
+                signatureData.getR(), 0, concatSignatureLikeWeb3js, 0, signatureData.getR().length);
+        System.arraycopy(
+                signatureData.getS(),
+                0,
+                concatSignatureLikeWeb3js,
+                signatureData.getR().length,
+                signatureData.getS().length);
+        System.arraycopy(
+                signatureData.getV(),
+                0,
+                concatSignatureLikeWeb3js,
+                signatureData.getR().length + signatureData.getS().length,
+                signatureData.getV().length);
+
+        return Numeric.toHexStringNoPrefix(concatSignatureLikeWeb3js);
+    }
+
+    private String createSignerId() {
+        return credentials.getEcKeyPair().getPublicKey().toString(16);
     }
 }

@@ -16,7 +16,7 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
-public class RawTransactionManagerTest extends ManagedTransactionTester {
+public class SignedTransactionManagerTest extends ManagedTransactionTester {
 
     @Test
     public void testTxHashMismatch() throws IOException {}
