@@ -65,7 +65,7 @@ public abstract class ManagedTransactionTester {
     @SuppressWarnings("unchecked")
     void prepareNonceRequest() throws IOException {
         TolGetNonce tolGetNonce = new TolGetNonce();
-        tolGetNonce.setResult("0x1");
+        // tolGetNonce.setResult("0x1");
 
         Request<?, TolGetNonce> transactionCountRequest = mock(Request.class);
         when(transactionCountRequest.send()).thenReturn(tolGetNonce);

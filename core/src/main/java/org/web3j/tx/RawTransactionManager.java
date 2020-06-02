@@ -16,9 +16,7 @@ import java.io.IOException;
 import java.math.BigInteger;
 
 import org.web3j.crypto.Credentials;
-import org.web3j.crypto.Hash;
 import org.web3j.crypto.RawTransaction;
-import org.web3j.crypto.TransactionEncoder;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.methods.request.Transaction;
@@ -26,9 +24,8 @@ import org.web3j.protocol.core.methods.response.AccountSendRawTransaction;
 import org.web3j.protocol.core.methods.response.EthGetCode;
 import org.web3j.protocol.core.methods.response.TolGetNonce;
 import org.web3j.protocol.core.methods.response.TolTryCallTransaction;
-import org.web3j.tx.exceptions.TxHashMismatchException;
 import org.web3j.tx.response.TransactionReceiptProcessor;
-import org.web3j.utils.Numeric;
+import org.web3j.utils.SignatureData;
 import org.web3j.utils.TxHashVerifier;
 
 /**
@@ -116,7 +113,14 @@ public class RawTransactionManager extends TransactionManager {
         BigInteger nonce = getNonce();
         RawTransaction rawTransaction =
                 RawTransaction.createTransaction(
-                        receiverAddress, amount, gas, gasPrice, data, nonce);
+                        getSenderAddress(),
+                        receiverAddress,
+                        amount,
+                        senderAddressPassword,
+                        gas,
+                        gasPrice,
+                        data,
+                        nonce);
 
         return signAndSend(rawTransaction);
     }
@@ -138,39 +142,18 @@ public class RawTransactionManager extends TransactionManager {
     public EthGetCode getCode(
             final String contractAddress, final DefaultBlockParameter defaultBlockParameter)
             throws IOException {
-        return web3j.ethGetCode(contractAddress, defaultBlockParameter).send();
+        throw new UnsupportedOperationException();
     }
 
     /*
      * @param rawTransaction a RawTransaction istance to be signed
      * @return The transaction signed and encoded without ever broadcasting it
      */
-    public String sign(RawTransaction rawTransaction) {
-
-        byte[] signedMessage;
-
-        if (chainId > ChainId.NONE) {
-            signedMessage = TransactionEncoder.signMessage(rawTransaction, chainId, credentials);
-        } else {
-            signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
-        }
-
-        return Numeric.toHexString(signedMessage);
+    public SignatureData sign(RawTransaction rawTransaction) {
+        return null;
     }
 
     public AccountSendRawTransaction signAndSend(RawTransaction rawTransaction) throws IOException {
-        String hexValue = sign(rawTransaction);
-        AccountSendRawTransaction accountSendRawTransaction =
-                web3j.ethSendRawTransaction(hexValue).send();
-
-        if (accountSendRawTransaction != null && !accountSendRawTransaction.hasError()) {
-            String txHashLocal = Hash.sha3(hexValue);
-            String txHashRemote = accountSendRawTransaction.getTransactionHash();
-            if (!txHashVerifier.verify(txHashLocal, txHashRemote)) {
-                throw new TxHashMismatchException(txHashLocal, txHashRemote);
-            }
-        }
-
-        return accountSendRawTransaction;
+        return null;
     }
 }
