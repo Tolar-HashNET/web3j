@@ -52,11 +52,34 @@ public class ClientTransactionManager extends TransactionManager {
         this.web3j = web3j;
     }
 
-    @Override
     public AccountSendRawTransaction sendTransaction(
             String receiverAddress,
             BigInteger amount,
             String senderAddressPassword,
+            BigInteger gas,
+            BigInteger gasPrice,
+            String data)
+            throws IOException {
+        BigInteger nonce = getNonce();
+
+        Transaction transaction =
+                new Transaction(
+                        getSenderAddress(),
+                        nonce,
+                        gasPrice,
+                        gas,
+                        receiverAddress,
+                        amount,
+                        data,
+                        senderAddressPassword);
+
+        return web3j.accountSendRawTransaction(transaction).send();
+    }
+
+    @Override
+    public AccountSendRawTransaction sendTransaction(
+            String receiverAddress,
+            BigInteger amount,
             BigInteger gas,
             BigInteger gasPrice,
             String data)
@@ -73,7 +96,7 @@ public class ClientTransactionManager extends TransactionManager {
                         receiverAddress,
                         amount,
                         data,
-                        senderAddressPassword);
+                        "");
 
         return web3j.accountSendRawTransaction(transaction).send();
     }

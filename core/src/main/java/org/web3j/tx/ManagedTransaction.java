@@ -97,14 +97,12 @@ public abstract class ManagedTransaction {
     protected TransactionReceipt send(
             String receiverAddress,
             BigInteger amount,
-            String senderAddressPassword,
             BigInteger gas,
             BigInteger gasPrice,
             String data)
             throws IOException, TransactionException {
 
-        return transactionManager.executeTransaction(
-                receiverAddress, amount, senderAddressPassword, gas, gasPrice, data);
+        return transactionManager.executeTransaction(receiverAddress, amount, gas, gasPrice, data);
     }
 
     protected String call(String receiverAddress, String data, BigInteger gas, BigInteger gasPrice)

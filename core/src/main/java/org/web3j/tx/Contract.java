@@ -365,7 +365,6 @@ public abstract class Contract extends ManagedTransaction {
                 send(
                         contractAddress,
                         weiValue,
-                        senderAddressPassword,
                         gasProvider.getGasLimit(funcName),
                         gasProvider.getGasPrice(funcName),
                         data);

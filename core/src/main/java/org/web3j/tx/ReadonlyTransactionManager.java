@@ -37,7 +37,6 @@ public class ReadonlyTransactionManager extends TransactionManager {
     public AccountSendRawTransaction sendTransaction(
             String receiverAddress,
             BigInteger amount,
-            String senderAddressPassword,
             BigInteger gas,
             BigInteger gasPrice,
             String data)

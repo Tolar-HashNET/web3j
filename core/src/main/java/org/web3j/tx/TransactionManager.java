@@ -61,47 +61,34 @@ public abstract class TransactionManager {
     }
 
     protected TransactionReceipt executeTransaction(
-            String receiverAddress,
-            String senderAddressPassword,
-            BigInteger gas,
-            BigInteger gasPrice,
-            String data)
+            String receiverAddress, BigInteger gas, BigInteger gasPrice, String data)
             throws IOException, TransactionException {
 
-        return executeTransaction(
-                receiverAddress, BigInteger.ZERO, senderAddressPassword, gas, gasPrice, data);
+        return executeTransaction(receiverAddress, BigInteger.ZERO, gas, gasPrice, data);
     }
 
     protected TransactionReceipt executeTransaction(
             String receiverAddress,
             BigInteger amount,
-            String senderAddressPassword,
             BigInteger gas,
             BigInteger gasPrice,
             String data)
             throws IOException, TransactionException {
 
         AccountSendRawTransaction accountSendRawTransaction =
-                sendTransaction(
-                        receiverAddress, amount, senderAddressPassword, gas, gasPrice, data);
+                sendTransaction(receiverAddress, amount, gas, gasPrice, data);
         return processResponse(accountSendRawTransaction);
     }
 
     public AccountSendRawTransaction sendTransaction(
-            String receiverAddress,
-            String senderAddressPassword,
-            BigInteger gas,
-            BigInteger gasPrice,
-            String data)
+            String receiverAddress, BigInteger gas, BigInteger gasPrice, String data)
             throws IOException {
-        return sendTransaction(
-                receiverAddress, BigInteger.ZERO, senderAddressPassword, gas, gasPrice, data);
+        return sendTransaction(receiverAddress, BigInteger.ZERO, gas, gasPrice, data);
     }
 
     public abstract AccountSendRawTransaction sendTransaction(
             String receiverAddress,
             BigInteger amount,
-            String senderAddressPassword,
             BigInteger gas,
             BigInteger gasPrice,
             String data)
