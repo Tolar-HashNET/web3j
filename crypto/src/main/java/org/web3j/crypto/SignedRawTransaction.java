@@ -22,13 +22,12 @@ public class SignedRawTransaction extends RawTransaction implements SignatureDat
             String senderAddress,
             String receiverAddress,
             BigInteger amount,
-            String senderAddressPassword,
             BigInteger gas,
             BigInteger gasPrice,
             String data,
             BigInteger nonce,
             Sign.SignatureData signatureData) {
-        super(senderAddress, receiverAddress, amount, senderAddressPassword, gas, gasPrice, data, nonce);
+        super(senderAddress, receiverAddress, amount, gas, gasPrice, data, nonce);
         this.signatureData = signatureData;
     }
 
@@ -40,7 +39,7 @@ public class SignedRawTransaction extends RawTransaction implements SignatureDat
             String data,
             BigInteger nonce,
             Sign.SignatureData signatureData) {
-        super(null, receiverAddress, amount, "", gas, gasPrice, data, nonce);
+        super(null, receiverAddress, amount, gas, gasPrice, data, nonce);
         this.signatureData = signatureData;
     }
     public Sign.SignatureData getSignatureData() {
