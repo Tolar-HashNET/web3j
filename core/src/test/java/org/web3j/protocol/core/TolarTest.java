@@ -15,18 +15,19 @@ package org.web3j.protocol.core;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.util.Arrays;
 import java.util.Collections;
 
 import jdk.nashorn.internal.ir.annotations.Ignore;
-import org.bouncycastle.util.encoders.Hex;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
 
-import org.web3j.crypto.*;
+import org.web3j.crypto.CipherException;
+import org.web3j.crypto.Credentials;
+import org.web3j.crypto.RawTransaction;
+import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.methods.response.*;
 import org.web3j.protocol.exceptions.ClientConnectionException;
@@ -509,52 +510,6 @@ class TolarTest {
     }
 
     @Test
-    public void testGetTransactionProtobuf() throws IOException {
-        org.web3j.protocol.core.methods.request.Transaction transaction =
-                new org.web3j.protocol.core.methods.request.Transaction(
-                        "547ec363f4d32b1fb3c67b8bf91aacf689943e6e87ae4ae600",
-                        BigInteger.ZERO,
-                        BigInteger.ONE,
-                        BigInteger.valueOf(21463L),
-                        "540dc971237be2361e04c1643d57b572709db15e449a870fef",
-                        BigInteger.ZERO,
-                        "kitula");
-
-        TolGetTransactionProtobuf response = web3j.tolGetTransactionProtobuf(transaction).send();
-        System.out.println("Protobuf: " + response.getTransactionProtobuf());
-    }
-
-    @Test
-    @Ignore
-    public void testTxSendSignedTransaction() throws IOException, CipherException {
-        File file =
-                new File("/home/bb/Desktop/keys/keys/630c1867-9a42-eb26-6488-8dfcbeafd0c9.json");
-        Credentials credentials = WalletUtils.loadCredentials("supersifra", file);
-
-        byte[] bytes = Hash.sha3(credentials.getEcKeyPair().getPublicKey().toByteArray());
-        byte[] encode = Hex.encode(bytes);
-        System.out.println("Hex: " + Arrays.toString(encode));
-        System.out.println(Arrays.toString(bytes));
-        String address = credentials.getAddress();
-        System.out.println("Adresa: " + address);
-        org.web3j.protocol.core.methods.request.Transaction transaction =
-                new org.web3j.protocol.core.methods.request.Transaction(
-                        "547ec363f4d32b1fb3c67b8bf91aacf689943e6e87ae4ae600",
-                        BigInteger.valueOf(42L),
-                        BigInteger.ONE,
-                        BigInteger.valueOf(21463L),
-                        "540dc971237be2361e04c1643d57b572709db15e449a870fef",
-                        BigInteger.ZERO,
-                        "kitula",
-                        "krivasifra");
-
-        SignedTransactionManager manager = new SignedTransactionManager(web3j, credentials);
-        String transactionHash = manager.signAndSend(transaction).getTransactionHash();
-
-        System.out.println("Transaction hash: " + transactionHash);
-    }
-
-    @Test
     public void testClientTransactionManager() throws IOException {
         ClientTransactionManager manager =
                 new ClientTransactionManager(
@@ -586,29 +541,28 @@ class TolarTest {
         File file =
                 new File("/home/bb/Desktop/keys/keys/d90f9e3d-9b1c-cd85-99b7-5161379c97b1.json");
         Credentials credentials = WalletUtils.loadCredentials("supersifra", file);
-
-        String address = credentials.getAddress();
-        System.out.println("Address: " + address);
+        Assertions.assertEquals(
+                "5484c512b1cf3d45e7506a772b7358375acc571b2930d27deb", credentials.getAddress());
     }
 
     @Test
     @Ignore
-    public void testDeployContractToStaging() throws IOException {
+    public void deployContractToStagingSolidity4() throws IOException {
         Web3j web3j = Web3j.build(new HttpService("https://tolar-staging.dream-factory.hr/"));
-        Credentials credentials = Credentials.create("private-key");
+        Credentials credentials =
+                Credentials.create(
+                        "private-key");
 
-        org.web3j.protocol.core.methods.request.Transaction transaction =
-                new org.web3j.protocol.core.methods.request.Transaction(
+        RawTransaction transaction =
+                RawTransaction.createDeployContractTransaction(
                         "5493b8597964a2a7f0c93c49f9e4c4a170e0c42a5eb3beda0d",
+                        BigInteger.valueOf(0L),
+                        BigInteger.valueOf(6000000L),
+                        BigInteger.valueOf(1L),
+                        "60806040526040805190810160405280600c81526020017f48656c6c6f20576f726c642100000000000000000000000000000000000000008152506000908051906020019061004f929190610062565b5034801561005c57600080fd5b50610107565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f106100a357805160ff19168380011785556100d1565b828001600101855582156100d1579182015b828111156100d05782518255916020019190600101906100b5565b5b5090506100de91906100e2565b5090565b61010491905b808211156101005760008160009055506001016100e8565b5090565b90565b6102d7806101166000396000f30060806040526004361061004c576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063a413686214610051578063cfae3217146100ba575b600080fd5b34801561005d57600080fd5b506100b8600480360381019080803590602001908201803590602001908080601f016020809104026020016040519081016040528093929190818152602001838380828437820191505050505050919291929050505061014a565b005b3480156100c657600080fd5b506100cf610164565b6040518080602001828103825283818151815260200191508051906020019080838360005b8381101561010f5780820151818401526020810190506100f4565b50505050905090810190601f16801561013c5780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b8060009080519060200190610160929190610206565b5050565b606060008054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156101fc5780601f106101d1576101008083540402835291602001916101fc565b820191906000526020600020905b8154815290600101906020018083116101df57829003601f168201915b5050505050905090565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061024757805160ff1916838001178555610275565b82800160010185558215610275579182015b82811115610274578251825591602001919060010190610259565b5b5090506102829190610286565b5090565b6102a891905b808211156102a457600081600090555060010161028c565b5090565b905600a165627a7a7230582005676cc36787b4b0fdaecadf2525768dca9c2503fb3892aec9082426d9aecdb70029",
                         web3j.tolGetNonce("5493b8597964a2a7f0c93c49f9e4c4a170e0c42a5eb3beda0d")
                                 .send()
-                                .getNonce(),
-                        BigInteger.valueOf(1L),
-                        BigInteger.valueOf(6000000L),
-                        "00000000000000000000000000000000000000000000000000",
-                        BigInteger.valueOf(0L),
-                        "60806040526040518060400160405280600c81526020017f48656c6c6f20576f726c642100000000000000000000000000000000000000008152506000908051906020019061004f929190610062565b5034801561005c57600080fd5b50610107565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f106100a357805160ff19168380011785556100d1565b828001600101855582156100d1579182015b828111156100d05782518255916020019190600101906100b5565b5b5090506100de91906100e2565b5090565b61010491905b808211156101005760008160009055506001016100e8565b5090565b90565b61030f806101166000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c80635372af5d1461003b578063a4136862146100be575b600080fd5b610043610179565b6040518080602001828103825283818151815260200191508051906020019080838360005b83811015610083578082015181840152602081019050610068565b50505050905090810190601f1680156100b05780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b610177600480360360208110156100d457600080fd5b81019080803590602001906401000000008111156100f157600080fd5b82018360208201111561010357600080fd5b8035906020019184600183028401116401000000008311171561012557600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f82011690508083019250505050505050919291929050505061021b565b005b606060008054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156102115780601f106101e657610100808354040283529160200191610211565b820191906000526020600020905b8154815290600101906020018083116101f457829003601f168201915b5050505050905090565b8060009080519060200190610231929190610235565b5050565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061027657805160ff19168380011785556102a4565b828001600101855582156102a4579182015b828111156102a3578251825591602001919060010190610288565b5b5090506102b191906102b5565b5090565b6102d791905b808211156102d35760008160009055506001016102bb565b5090565b9056fea265627a7a72315820372560562cfea50c06ea0aa12a12d2f8140f9dc46e06a20bb93c9b4f914b6e0164736f6c63430005110032",
-                        "Password123");
+                                .getNonce());
 
         SignedTransactionManager manager = new SignedTransactionManager(web3j, credentials);
         String transactionHash = manager.signAndSend(transaction).getTransactionHash();
@@ -616,23 +570,23 @@ class TolarTest {
     }
 
     @Test
-    @Ignore
-    public void executeFunctionTransactionToStaging() throws IOException {
+    public void executeFunctionStaging() throws IOException {
         Web3j web3j = Web3j.build(new HttpService("https://tolar-staging.dream-factory.hr/"));
-        Credentials credentials = Credentials.create("private-key");
+        Credentials credentials =
+                Credentials.create(
+                        "private-key");
 
-        org.web3j.protocol.core.methods.request.Transaction transaction =
-                org.web3j.protocol.core.methods.request.Transaction
-                        .createExecuteFunctionTransaction(
-                                "5493b8597964a2a7f0c93c49f9e4c4a170e0c42a5eb3beda0d",
-                                "54000000000000000000000000000000000000000023199e2b",
-                                BigInteger.valueOf(600000),
-                                BigInteger.ONE,
-                                "0x5372af5d",
-                                web3j.tolGetNonce(
-                                                "5493b8597964a2a7f0c93c49f9e4c4a170e0c42a5eb3beda0d")
-                                        .send()
-                                        .getNonce());
+        RawTransaction transaction =
+                RawTransaction.createExecuteFunctionTransaction(
+                        "5493b8597964a2a7f0c93c49f9e4c4a170e0c42a5eb3beda0d",
+                        "54f51fb1836ad0dcaee07f2c750376d11fb21474f5587ea83c",
+                        BigInteger.valueOf(0L),
+                        BigInteger.valueOf(6000000L),
+                        BigInteger.valueOf(1),
+                        "0xcfae3217",
+                        web3j.tolGetNonce("5493b8597964a2a7f0c93c49f9e4c4a170e0c42a5eb3beda0d")
+                                .send()
+                                .getNonce());
 
         SignedTransactionManager manager = new SignedTransactionManager(web3j, credentials);
         String transactionHash = manager.signAndSend(transaction).getTransactionHash();

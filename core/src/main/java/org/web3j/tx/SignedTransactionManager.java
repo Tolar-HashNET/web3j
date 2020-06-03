@@ -19,13 +19,16 @@ import org.bouncycastle.util.encoders.Base64;
 
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.Hash;
+import org.web3j.crypto.RawTransaction;
 import org.web3j.crypto.Sign;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.methods.request.SignedTransaction;
 import org.web3j.protocol.core.methods.request.Transaction;
-import org.web3j.protocol.core.methods.response.*;
-import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.core.methods.response.AccountSendRawTransaction;
+import org.web3j.protocol.core.methods.response.EthGetCode;
+import org.web3j.protocol.core.methods.response.TolGetNonce;
+import org.web3j.protocol.core.methods.response.TolTryCallTransaction;
 import org.web3j.tx.response.TransactionReceiptProcessor;
 import org.web3j.utils.Numeric;
 import org.web3j.utils.SignatureData;
@@ -115,10 +118,9 @@ public class SignedTransactionManager extends TransactionManager {
             throws IOException {
 
         BigInteger nonce = getNonce();
-        Transaction transaction =
-                new Transaction(
-                        getSenderAddress(), nonce, gasPrice, gas, receiverAddress, amount, data);
-
+        RawTransaction transaction =
+                RawTransaction.createTransaction(
+                        getSenderAddress(), receiverAddress, amount, gas, gasPrice, data, nonce);
         return signAndSend(transaction);
     }
 
@@ -142,22 +144,21 @@ public class SignedTransactionManager extends TransactionManager {
         throw new UnsupportedOperationException();
     }
 
-    public AccountSendRawTransaction signAndSend(Transaction transaction) throws IOException {
+    public AccountSendRawTransaction signAndSend(RawTransaction transaction) throws IOException {
         SignatureData signatureData = sign(transaction);
         return web3j.txSendSignedTransaction(new SignedTransaction(transaction, signatureData))
                 .send();
     }
 
-    public SignatureData sign(Transaction transaction) {
+    public SignatureData sign(RawTransaction transaction) {
         return createSignatureData(transaction);
     }
 
-    private String getTransactionProtobuf(Transaction transaction) {
+    private String getTransactionProtobuf(RawTransaction transaction) {
         if (transactionProtobuf == null) {
             try {
                 transactionProtobuf =
-                        Web3j.build(new HttpService("https://tolar.dream-factory.hr/"))
-                                .tolGetTransactionProtobuf(transaction)
+                        web3j.tolGetTransactionProtobuf(transaction)
                                 .send()
                                 .getTransactionProtobuf();
             } catch (Exception e) {
@@ -168,7 +169,7 @@ public class SignedTransactionManager extends TransactionManager {
         return transactionProtobuf;
     }
 
-    private SignatureData createSignatureData(Transaction transaction) {
+    private SignatureData createSignatureData(RawTransaction transaction) {
         String hash = createHash(transaction);
         String signature = createSignature(transaction);
         String signerId = createSignerId();
@@ -176,12 +177,12 @@ public class SignedTransactionManager extends TransactionManager {
         return new SignatureData(hash, signature, signerId);
     }
 
-    private String createHash(Transaction transaction) {
+    private String createHash(RawTransaction transaction) {
         return Numeric.toHexStringNoPrefix(
                 Hash.sha3(Base64.decode(getTransactionProtobuf(transaction))));
     }
 
-    private String createSignature(Transaction transaction) {
+    private String createSignature(RawTransaction transaction) {
         byte[] hashed = Hash.sha3(Base64.decode(getTransactionProtobuf(transaction)));
         Sign.SignatureData signatureData =
                 Sign.signMessage(hashed, credentials.getEcKeyPair(), false);

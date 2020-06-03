@@ -12,6 +12,9 @@
  */
 package org.web3j.crypto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.math.BigInteger;
 
 /**
@@ -20,11 +23,19 @@ import java.math.BigInteger;
  * paper</a>.
  */
 public class RawTransaction {
+    @JsonIgnore
     private static String CONTRACT_DEPLOY_ADDRESS = "54000000000000000000000000000000000000000023199e2b";
+
+    @JsonProperty("sender_address")
     private String senderAddress;
+
+    @JsonProperty("receiver_address")
     private String receiverAddress;
+
     private BigInteger amount;
     private BigInteger gas;
+
+    @JsonProperty("gas_price")
     private BigInteger gasPrice;
     private String data;
     private BigInteger nonce;

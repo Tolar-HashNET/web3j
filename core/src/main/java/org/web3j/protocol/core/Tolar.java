@@ -15,6 +15,7 @@ package org.web3j.protocol.core;
 import java.math.BigInteger;
 import java.util.List;
 
+import org.web3j.crypto.RawTransaction;
 import org.web3j.protocol.core.methods.request.ShhFilter;
 import org.web3j.protocol.core.methods.request.SignedTransaction;
 import org.web3j.protocol.core.methods.response.*;
@@ -211,6 +212,5 @@ public interface Tolar {
 
     Request<?, AccountSendRawTransaction> txSendSignedTransaction(SignedTransaction transaction);
 
-    Request<?, TolGetTransactionProtobuf> tolGetTransactionProtobuf(
-            org.web3j.protocol.core.methods.request.Transaction transaction);
+    Request<?, TolGetTransactionProtobuf> tolGetTransactionProtobuf(RawTransaction transaction);
 }

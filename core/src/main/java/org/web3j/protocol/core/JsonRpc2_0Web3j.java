@@ -19,6 +19,7 @@ import java.util.concurrent.ScheduledExecutorService;
 
 import io.reactivex.Flowable;
 
+import org.web3j.crypto.RawTransaction;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.Web3jService;
 import org.web3j.protocol.core.methods.request.ShhFilter;
@@ -792,7 +793,7 @@ public class JsonRpc2_0Web3j implements Web3j {
 
     @Override
     public Request<?, TolGetTransactionProtobuf> tolGetTransactionProtobuf(
-            Transaction transaction) {
+            RawTransaction transaction) {
         return new Request<>(
                 "tol_getTransactionProtobuf",
                 Collections.singletonList(transaction),

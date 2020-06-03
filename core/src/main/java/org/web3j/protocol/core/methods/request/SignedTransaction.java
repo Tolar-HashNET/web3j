@@ -14,22 +14,23 @@ package org.web3j.protocol.core.methods.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.web3j.crypto.RawTransaction;
 import org.web3j.utils.SignatureData;
 
 public class SignedTransaction {
 
     @JsonProperty("body")
-    private Transaction transaction;
+    private RawTransaction transaction;
 
     @JsonProperty("sig_data")
     private SignatureData signatureData;
 
-    public SignedTransaction(Transaction transaction, SignatureData signatureData) {
+    public SignedTransaction(RawTransaction transaction, SignatureData signatureData) {
         this.transaction = transaction;
         this.signatureData = signatureData;
     }
 
-    public Transaction getTransaction() {
+    public RawTransaction getTransaction() {
         return transaction;
     }
 

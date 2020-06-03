@@ -45,6 +45,7 @@ public class Transaction {
     private String data;
     private BigInteger nonce;
 
+    @JsonProperty("sender_address_password")
     private String senderAddressPassword;
 
     public Transaction(
