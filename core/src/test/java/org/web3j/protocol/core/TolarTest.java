@@ -595,9 +595,7 @@ class TolarTest {
     @Ignore
     public void testDeployContractToStaging() throws IOException {
         Web3j web3j = Web3j.build(new HttpService("https://tolar-staging.dream-factory.hr/"));
-        Credentials credentials =
-                Credentials.create(
-                        "private-key");
+        Credentials credentials = Credentials.create("private-key");
 
         org.web3j.protocol.core.methods.request.Transaction transaction =
                 new org.web3j.protocol.core.methods.request.Transaction(
@@ -621,9 +619,7 @@ class TolarTest {
     @Ignore
     public void executeFunctionTransactionToStaging() throws IOException {
         Web3j web3j = Web3j.build(new HttpService("https://tolar-staging.dream-factory.hr/"));
-        Credentials credentials =
-                Credentials.create(
-                        "private-key");
+        Credentials credentials = Credentials.create("private-key");
 
         org.web3j.protocol.core.methods.request.Transaction transaction =
                 org.web3j.protocol.core.methods.request.Transaction
