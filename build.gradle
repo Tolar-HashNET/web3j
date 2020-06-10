@@ -34,7 +34,6 @@ ext {
 description 'web3j base project'
 
 [
-    'bintray',
     'jacoco',
     'java',
     'javadoc',
@@ -89,13 +88,9 @@ allprojects {
 
     if (project.name != 'integration-tests' && project.name != 'web3j') {
         apply from: "$rootDir/gradle/publish/build.gradle"
-        apply from: "$rootDir/gradle/bintray/build.gradle"
     }
 }
+
 configure(subprojects.findAll { it.name != 'integration-tests' }) {
     apply from: "$rootDir/gradle/jacoco/build.gradle"
-}
-
-bintrayUpload {
-    enabled = false
 }
