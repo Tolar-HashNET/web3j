@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.CipherSuite;
 import okhttp3.ConnectionSpec;
@@ -137,6 +138,7 @@ public class HttpService extends Service {
         final OkHttpClient.Builder builder =
                 new OkHttpClient.Builder().connectionSpecs(CONNECTION_SPEC_LIST);
         configureLogging(builder);
+        configureTimeouts(builder);
         return builder.build();
     }
 
@@ -146,6 +148,15 @@ public class HttpService extends Service {
             logging.setLevel(HttpLoggingInterceptor.Level.BODY);
             builder.addInterceptor(logging);
         }
+    }
+
+    private static void configureTimeouts(OkHttpClient.Builder builder) {
+        long timeoutSeconds = 300L;
+
+        builder.callTimeout(timeoutSeconds, TimeUnit.SECONDS);
+        builder.connectTimeout(timeoutSeconds, TimeUnit.SECONDS);
+        builder.readTimeout(timeoutSeconds, TimeUnit.SECONDS);
+        builder.writeTimeout(timeoutSeconds, TimeUnit.SECONDS);
     }
 
     @Override

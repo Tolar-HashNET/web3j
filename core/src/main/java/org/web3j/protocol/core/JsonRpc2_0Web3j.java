@@ -692,10 +692,10 @@ public class JsonRpc2_0Web3j implements Web3j {
 
     @Override
     public Request<?, AccountImportKeyFile> accountImportKeyFile(
-            String keyFile, String name, String lockPassword, String lockHint) {
+            String jsonKeyFile, String name, String lockPassword, String lockHint) {
         return new Request<>(
                 "account_importKeyFile",
-                Arrays.asList(keyFile, name, lockPassword, lockHint),
+                Arrays.asList(jsonKeyFile, name, lockPassword, lockHint),
                 web3jService,
                 AccountImportKeyFile.class);
     }

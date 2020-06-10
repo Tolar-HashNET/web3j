@@ -66,11 +66,12 @@ class TolarTest {
     }
 
     @Test
+    @Disabled("manual test")
     public void testTolGetBalance() throws IOException {
         TolGetBalance response =
                 web3j.tolGetBalance(
                                 "5484c512b1cf3d45e7506a772b7358375acc571b2930d27deb",
-                                BigInteger.valueOf(2104397L))
+                                BigInteger.valueOf(200_000))
                         .send();
 
         System.out.println("Balance: " + response.getBalance());
@@ -78,6 +79,7 @@ class TolarTest {
     }
 
     @Test
+    @Disabled("manual test")
     public void testTolGetNonce() throws IOException {
         TolGetNonce response =
                 web3j.tolGetNonce("5484c512b1cf3d45e7506a772b7358375acc571b2930d27deb").send();
@@ -89,28 +91,54 @@ class TolarTest {
     public void testNetIsMasterNode() throws IOException {
         IsMasterNode response = web3j.netIsMasterNode().send();
         System.out.println("Is master node: " + response.isMasterNode());
+        Assertions.assertFalse(response.isMasterNode());
+    }
+
+    @Test
+    public void testNetIsMasterNodeStaging() throws IOException {
+        Web3j stagingWeb3j = Web3j.build(new HttpService("https://tolar-staging.dream-factory.hr/"));
+        IsMasterNode response = stagingWeb3j.netIsMasterNode().send();
+        System.out.println("Is master node: " + response.isMasterNode());
+        Assertions.assertTrue(response.isMasterNode());
     }
 
     @Test
     public void testNetMaxPeerCount() throws IOException {
         MaxPeerCount response = web3j.netMaxPeerCount().send();
         System.out.println("Max peer count: " + response.getMaxPeerCount());
+        Assertions.assertTrue(response.getMaxPeerCount() > 4);
     }
 
     @Test
     public void testNetMasterNodeCount() throws IOException {
         MasterNodeCount response = web3j.netMasterNodeCount().send();
         System.out.println("Master node count: " + response.getMasterNodeCount());
+        Assertions.assertTrue(response.getMasterNodeCount() > 1);
     }
 
     @Test
     public void testGetTransactionList() throws IOException {
-
-        Web3j web3j = Web3j.build(new HttpService("https://tolar-staging.dream-factory.hr/"));
         TolGetTransactionList response =
                 web3j.tolGetTransactionList(
+                        Collections.singletonList(
+                                "5484c512b1cf3d45e7506a772b7358375acc571b2930d27deb"),
+                        2,
+                        0)
+                        .send();
+
+        //todo: check this again when they fix mainNet
+
+        System.out.println("Transaction list:");
+        response.getTransactionList().forEach(t -> System.out.println(t.getBlockHash()));
+    }
+
+    @Test
+    public void testGetTransactionListStaging() throws IOException {
+        Web3j stagingWeb3j = Web3j.build(new HttpService("https://tolar-staging.dream-factory.hr/"));
+        TolGetTransactionList response =
+                stagingWeb3j.tolGetTransactionList(
                                 Collections.singletonList(
-                                        "5484c512b1cf3d45e7506a772b7358375acc571b2930d27deb"),
+                                        "5493b8597964a2a7f0c93c49f9e4c4a170e0c42a5eb3beda0d"),
                                 2,
                                 0)
                         .send();
@@ -139,12 +167,14 @@ class TolarTest {
     }
 
     @Test
+    @Disabled("manual test")
     public void testAccountCreate() throws IOException {
         AccountCreate response = web3j.accountCreate("password").send();
         System.out.println("Is account created: " + response.isCreated());
     }
 
     @Test
+    @Disabled("manual test")
     public void testAccountOpen() throws IOException {
         AccountOpen response = web3j.accountOpen("newPassword123").send();
         System.out.println("Is account opened: " + response.isOpened());
@@ -159,10 +189,10 @@ class TolarTest {
     }
 
     @Test
-    @Ignore
+    @Disabled("manual test")
     public void testAccountCreateNewAddress() throws IOException {
         AccountCreateNewAddress response =
-                web3j.accountCreateNewAddress("name", "Password123", "hint").send();
+                web3j.accountCreateNewAddress("nameFromTest", "Password123", "hint").send();
         System.out.println("Created address: " + response.getAddress());
     }
 
@@ -176,10 +206,12 @@ class TolarTest {
     }
 
     @Test
+    @Disabled("manual test")
     public void testImportKeyFile() throws IOException {
+
         AccountImportKeyFile response =
                 web3j.accountImportKeyFile(
-                                "Key file: {\n"
+                                "{\n"
                                         + "    \"address\" : \"84c512b1cf3d45e7506a772b7358375acc571b29\",\n"
                                         + "    \"crypto\" : {\n"
                                         + "        \"cipher\" : \"aes-128-ctr\",\n"
@@ -200,12 +232,12 @@ class TolarTest {
                                         + "    \"id\" : \"d90f9e3d-9b1c-cd85-99b7-5161379c97b1\",\n"
                                         + "    \"version\" : 3\n"
                                         + "}",
-                                "name",
+                                "importTest",
                                 "Password123",
                                 "hint")
                         .send();
 
-        Assertions.assertFalse(response.isSuccessful());
+        Assertions.assertTrue(response.isSuccessful());
     }
 
     @Test
