@@ -12,6 +12,7 @@
  */
 package org.web3j.protocol.core;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import org.web3j.protocol.BatchTester;
@@ -24,6 +25,7 @@ import org.web3j.protocol.http.HttpService;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Disabled("Not needed for HashNet")
 public class BatchTest extends BatchTester {
 
     private Web3j web3j;

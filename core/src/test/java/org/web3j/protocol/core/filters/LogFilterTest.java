@@ -12,11 +12,13 @@
  */
 package org.web3j.protocol.core.filters;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import org.web3j.protocol.core.methods.request.EthFilter;
 import org.web3j.protocol.core.methods.response.EthLog;
 
+@Disabled("Not needed for HashNet")
 public class LogFilterTest extends FilterTester {
 
     @Test

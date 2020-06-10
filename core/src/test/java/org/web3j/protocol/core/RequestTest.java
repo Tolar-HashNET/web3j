@@ -15,6 +15,7 @@ package org.web3j.protocol.core;
 import java.math.BigInteger;
 import java.util.Arrays;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import org.web3j.protocol.RequestTester;
@@ -26,6 +27,7 @@ import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Numeric;
 
+@Disabled("Not needed for HashNet")
 public class RequestTest extends RequestTester {
 
     private Web3j web3j;

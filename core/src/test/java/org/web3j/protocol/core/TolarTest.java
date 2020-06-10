@@ -12,18 +12,11 @@
  */
 package org.web3j.protocol.core;
 
-import java.io.File;
-import java.io.IOException;
-import java.math.BigInteger;
-import java.util.Collections;
-
 import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.platform.commons.logging.Logger;
-import org.junit.platform.commons.logging.LoggerFactory;
-
 import org.web3j.crypto.CipherException;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.WalletUtils;
@@ -34,8 +27,12 @@ import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.ClientTransactionManager;
 import org.web3j.tx.SignedTransactionManager;
 
+import java.io.File;
+import java.io.IOException;
+import java.math.BigInteger;
+import java.util.Collections;
+
 class TolarTest {
-    private static final Logger LOGGER = LoggerFactory.getLogger(TolarTest.class);
     private static Web3j web3j;
 
     @BeforeAll
@@ -46,7 +43,7 @@ class TolarTest {
     @Test
     public void testNetPeerCount() throws IOException {
         NetPeerCount response = web3j.netPeerCount().send();
-        Assertions.assertEquals(BigInteger.valueOf(4L), response.getQuantity());
+        Assertions.assertEquals(4, response.getQuantity().intValue());
     }
 
     @Test
@@ -56,12 +53,16 @@ class TolarTest {
         for (String address : response.getAddresses()) {
             System.out.println("Address: " + address);
         }
+
+        Assertions.assertTrue(response.getAddresses().size() > 4);
     }
 
     @Test
     public void testTolGetBlockCount() throws IOException {
         TolGetBlockCount response = web3j.tolGetBlockCount().send();
         System.out.println("Block count: " + response.getBlockCount());
+
+        Assertions.assertTrue(response.getBlockCount().intValue() > 200_000);
     }
 
     @Test
@@ -492,7 +493,7 @@ class TolarTest {
     }
 
     @Test
-    @Ignore
+    @Disabled("manual test")
     public void testAccountSendFundTransferTransactionWithoutPassword() throws IOException {
         org.web3j.protocol.core.methods.request.Transaction transaction =
                 org.web3j.protocol.core.methods.request.Transaction.createFundTransferTransaction(
@@ -509,6 +510,7 @@ class TolarTest {
     }
 
     @Test
+    @Disabled("manual test")
     public void testClientTransactionManager() throws IOException {
         ClientTransactionManager manager =
                 new ClientTransactionManager(
@@ -527,6 +529,7 @@ class TolarTest {
     }
 
     @Test
+    @Disabled("manual test")
     public void testRawTransactionManager() throws IOException, CipherException {
         File file =
                 new File("/home/bb/Desktop/keys/keys/630c1867-9a42-eb26-6488-8dfcbeafd0c9.json");
@@ -537,6 +540,7 @@ class TolarTest {
     }
 
     @Test
+    @Disabled("manual test")
     public void testCredentialsAddress() throws IOException, CipherException {
         File file =
                 new File("/home/bb/Desktop/keys/keys/d90f9e3d-9b1c-cd85-99b7-5161379c97b1.json");
@@ -546,12 +550,10 @@ class TolarTest {
     }
 
     @Test
-    @Ignore
+    @Disabled("manual test")
     public void deployContractToStagingSolidity4() throws IOException {
         Web3j web3j = Web3j.build(new HttpService("https://tolar-staging.dream-factory.hr/"));
-        Credentials credentials =
-                Credentials.create(
-                        "private-key");
+        Credentials credentials = Credentials.create("private-key");
 
         SignedTransactionManager manager = new SignedTransactionManager(web3j, credentials);
         String transactionHash =
@@ -565,11 +567,10 @@ class TolarTest {
     }
 
     @Test
+    @Disabled("manual test")
     public void executeFunctionStaging() throws IOException {
         Web3j web3j = Web3j.build(new HttpService("https://tolar-staging.dream-factory.hr/"));
-        Credentials credentials =
-                Credentials.create(
-                        "private-key");
+        Credentials credentials = Credentials.create("private-key");
 
         SignedTransactionManager manager = new SignedTransactionManager(web3j, credentials);
         String transactionHash =
@@ -581,4 +582,5 @@ class TolarTest {
                         .getTransactionHash();
         System.out.println(transactionHash);
     }
+
 }

@@ -24,6 +24,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.reactivex.Flowable;
 import io.reactivex.disposables.Disposable;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.stubbing.OngoingStubbing;
 
@@ -43,6 +44,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@Disabled("Not needed for HashNet")
 public class JsonRpc2_0RxTest {
 
     private final ObjectMapper objectMapper = ObjectMapperFactory.getObjectMapper();

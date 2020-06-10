@@ -14,12 +14,14 @@ package org.web3j.protocol.admin;
 
 import java.math.BigInteger;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import org.web3j.protocol.RequestTester;
 import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.protocol.http.HttpService;
 
+@Disabled("Not needed for HashNet")
 public class RequestTest extends RequestTester {
 
     private Admin web3j;

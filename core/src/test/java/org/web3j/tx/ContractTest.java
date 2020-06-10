@@ -21,6 +21,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.function.BiFunction;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import org.web3j.abi.EventEncoder;
@@ -59,6 +60,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @SuppressWarnings("deprecation")
+@Disabled("Not needed for HashNet")
 public class ContractTest extends ManagedTransactionTester {
 
     private static final String TEST_CONTRACT_BINARY = "12345";

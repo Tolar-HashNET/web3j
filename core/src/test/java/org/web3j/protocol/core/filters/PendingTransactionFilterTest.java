@@ -12,6 +12,7 @@
  */
 package org.web3j.protocol.core.filters;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -19,6 +20,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.web3j.protocol.core.methods.response.EthLog;
 
 @ExtendWith(MockitoExtension.class)
+@Disabled("Not needed for HashNet")
 public class PendingTransactionFilterTest extends FilterTester {
 
     @Test

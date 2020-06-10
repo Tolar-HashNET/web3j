@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import org.web3j.protocol.ResponseTester;
@@ -34,6 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /** Core Protocol Response tests. */
+@Disabled("Not needed for HashNet")
 public class ResponseTest extends ResponseTester {
 
     @Test

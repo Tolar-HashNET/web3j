@@ -15,6 +15,7 @@ package org.web3j.ens;
 import java.io.IOException;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import org.web3j.protocol.Web3j;
@@ -31,6 +32,7 @@ import static org.mockito.Mockito.when;
 import static org.web3j.ens.EnsResolver.DEFAULT_SYNC_THRESHOLD;
 import static org.web3j.ens.EnsResolver.isValidEnsName;
 
+@Disabled("Not needed for HashNet")
 public class EnsResolverTest {
 
     private Web3j web3j;

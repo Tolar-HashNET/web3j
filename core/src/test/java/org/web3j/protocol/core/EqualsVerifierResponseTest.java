@@ -14,11 +14,13 @@ package org.web3j.protocol.core;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import org.web3j.protocol.core.methods.response.*;
 import org.web3j.protocol.core.methods.response.TolBlock;
 
+@Disabled("Not needed for HashNet")
 public class EqualsVerifierResponseTest {
 
     @Test
