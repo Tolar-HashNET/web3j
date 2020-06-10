@@ -254,9 +254,12 @@ class TolarTest {
                                                 + t.getBalance()
                                                 + "\n Name: "
                                                 + t.getAddressName()));
+
+        Assertions.assertFalse(response.getListBalancePerAddress().isEmpty());
     }
 
     @Test
+    @Disabled("manual test")
     public void testAccountChangePassword() {
         Assertions.assertThrows(
                 ClientConnectionException.class,
@@ -264,7 +267,7 @@ class TolarTest {
     }
 
     @Test
-    @Ignore
+    @Disabled("manual test")
     public void testAccountChangeAddressPassword() throws IOException {
         AccountChangeAddressPassword response =
                 web3j.accountChangeAddressPassword(
