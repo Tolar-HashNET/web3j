@@ -17,9 +17,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.web3j.crypto.CipherException;
-import org.web3j.crypto.Credentials;
-import org.web3j.crypto.WalletUtils;
+import org.web3j.crypto.*;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.methods.response.*;
 import org.web3j.protocol.exceptions.ClientConnectionException;
@@ -534,31 +532,27 @@ class TolarTest {
     }
 
     @Test
-    @Disabled("manual test")
-    public void testRawTransactionManager() throws IOException, CipherException {
-        File file =
-                new File("/home/bb/Desktop/keys/keys/630c1867-9a42-eb26-6488-8dfcbeafd0c9.json");
-
-        Credentials credentials = WalletUtils.loadCredentials("Password123", file);
-
+    public void testRawTransactionManager() throws Exception {
+        //fake private key, swap with a real one (who has some tolars)
+        Credentials credentials = Credentials.create("34b2655334e81dbda04632aedfcc100cc45270496432d03bb9c564f66509db3d");
         SignedTransactionManager manager = new SignedTransactionManager(web3j, credentials);
+        Assertions.assertNotNull(manager);
     }
 
     @Test
-    @Disabled("manual test")
-    public void testCredentialsAddress() throws IOException, CipherException {
-        File file =
-                new File("/home/bb/Desktop/keys/keys/d90f9e3d-9b1c-cd85-99b7-5161379c97b1.json");
-        Credentials credentials = WalletUtils.loadCredentials("supersifra", file);
+    public void testCredentialsAddress() throws Exception {
+        Credentials newPrivateKey = Credentials.create(
+                "34b2655334e81dbda04632aedfcc100cc45270496432d03bb9c564f66509db3d");
         Assertions.assertEquals(
-                "5484c512b1cf3d45e7506a772b7358375acc571b2930d27deb", credentials.getAddress());
+                "54bf2d11fc974940f03ab8f29241877f95602633a689d13f86", newPrivateKey.getAddress());
     }
 
     @Test
     @Disabled("manual test")
     public void deployContractToStagingSolidity4() throws IOException {
         Web3j web3j = Web3j.build(new HttpService("https://tolar-staging.dream-factory.hr/"));
-        Credentials credentials = Credentials.create("private-key");
+        //fake private key, swap with a real one (who has some tolars)
+        Credentials credentials = Credentials.create("34b2655334e81dbda04632aedfcc100cc45270496432d03bb9c564f66509db3d");
 
         SignedTransactionManager manager = new SignedTransactionManager(web3j, credentials);
         String transactionHash =
@@ -575,6 +569,7 @@ class TolarTest {
     @Disabled("manual test")
     public void executeFunctionStaging() throws IOException {
         Web3j web3j = Web3j.build(new HttpService("https://tolar-staging.dream-factory.hr/"));
+        //fake private key, swap with a real one (who has some tolars)
         Credentials credentials = Credentials.create("private-key");
 
         SignedTransactionManager manager = new SignedTransactionManager(web3j, credentials);
