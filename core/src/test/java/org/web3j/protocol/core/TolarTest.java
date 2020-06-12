@@ -49,48 +49,36 @@ class TolarTest {
     @Test
     public void testAccountListAddresses() throws IOException {
         TolAddresses response = web3j.accountListAddresses().send();
-
-        for (String address : response.getAddresses()) {
-            System.out.println("Address: " + address);
-        }
-
         Assertions.assertTrue(response.getAddresses().size() > 4);
     }
 
     @Test
     public void testTolGetBlockCount() throws IOException {
         TolGetBlockCount response = web3j.tolGetBlockCount().send();
-        System.out.println("Block count: " + response.getBlockCount());
-
         Assertions.assertTrue(response.getBlockCount().intValue() > 200_000);
     }
 
     @Test
-    @Disabled("manual test")
     public void testTolGetBalance() throws IOException {
         TolGetBalance response =
                 web3j.tolGetBalance(
                                 "5484c512b1cf3d45e7506a772b7358375acc571b2930d27deb",
                                 BigInteger.valueOf(200_000))
                         .send();
-
-        System.out.println("Balance: " + response.getBalance());
-        System.out.println("Block index: " + response.getBlockIndex());
+        Assertions.assertTrue(response.getBalance().intValue() > 1_000);
     }
 
     @Test
-    @Disabled("manual test")
     public void testTolGetNonce() throws IOException {
         TolGetNonce response =
                 web3j.tolGetNonce("5484c512b1cf3d45e7506a772b7358375acc571b2930d27deb").send();
 
-        System.out.println("Nonce: " + response.getNonce());
+        Assertions.assertTrue(response.getNonce().intValue() > 0);
     }
 
     @Test
     public void testNetIsMasterNode() throws IOException {
         IsMasterNode response = web3j.netIsMasterNode().send();
-        System.out.println("Is master node: " + response.isMasterNode());
         Assertions.assertFalse(response.isMasterNode());
     }
 
@@ -98,21 +86,18 @@ class TolarTest {
     public void testNetIsMasterNodeStaging() throws IOException {
         Web3j stagingWeb3j = Web3j.build(new HttpService("https://tolar-staging.dream-factory.hr/"));
         IsMasterNode response = stagingWeb3j.netIsMasterNode().send();
-        System.out.println("Is master node: " + response.isMasterNode());
         Assertions.assertTrue(response.isMasterNode());
     }
 
     @Test
     public void testNetMaxPeerCount() throws IOException {
         MaxPeerCount response = web3j.netMaxPeerCount().send();
-        System.out.println("Max peer count: " + response.getMaxPeerCount());
         Assertions.assertTrue(response.getMaxPeerCount() > 4);
     }
 
     @Test
     public void testNetMasterNodeCount() throws IOException {
         MasterNodeCount response = web3j.netMasterNodeCount().send();
-        System.out.println("Master node count: " + response.getMasterNodeCount());
         Assertions.assertTrue(response.getMasterNodeCount() > 1);
     }
 
@@ -127,9 +112,7 @@ class TolarTest {
                         .send();
 
         //todo: check this again when they fix mainNet
-
-        System.out.println("Transaction list:");
-        response.getTransactionList().forEach(t -> System.out.println(t.getBlockHash()));
+        Assertions.assertFalse(response.getTransactionList().isEmpty());
     }
 
     @Test
@@ -143,8 +126,7 @@ class TolarTest {
                                 0)
                         .send();
 
-        System.out.println("Transaction list:");
-        response.getTransactionList().forEach(t -> System.out.println(t.getBlockHash()));
+        Assertions.assertFalse(response.getTransactionList().isEmpty());
     }
 
     @Test
@@ -152,32 +134,27 @@ class TolarTest {
         TolGetLatestBalance response =
                 web3j.tolGetLatestBalance("5484c512b1cf3d45e7506a772b7358375acc571b2930d27deb")
                         .send();
-
-        System.out.println("Latest balance: " + response.getLatestBalance());
-        System.out.println("Block index: " + response.getBlockIndex());
+        Assertions.assertTrue(response.getLatestBalance().intValue() > 1_000);
     }
 
     @Test
     public void testGetBlockchainInfo() throws IOException {
         TolGetBlockchainInfo response = web3j.tolGetBlockchainInfo().send();
-
-        System.out.println("Last confirmed block hash: " + response.getLastConfirmedBlockHash());
-        System.out.println("Confirmed blocks count: " + response.getConfirmedBlocksCount());
-        System.out.println("Total block count: " + response.getTotalBlockCount());
+        Assertions.assertTrue(response.getConfirmedBlocksCount().intValue() > 10);
     }
 
     @Test
     @Disabled("manual test")
     public void testAccountCreate() throws IOException {
         AccountCreate response = web3j.accountCreate("password").send();
-        System.out.println("Is account created: " + response.isCreated());
+        Assertions.assertTrue(response.isCreated());
     }
 
     @Test
     @Disabled("manual test")
     public void testAccountOpen() throws IOException {
         AccountOpen response = web3j.accountOpen("veryDifferentPassword123").send();
-        System.out.println("Is account opened: " + response.isOpened());
+        Assertions.assertTrue(response.isOpened());
     }
 
     @Test
@@ -194,6 +171,7 @@ class TolarTest {
         AccountCreateNewAddress response =
                 web3j.accountCreateNewAddress("nameFromTest", "Password123", "hint").send();
         System.out.println("Created address: " + response.getAddress());
+        Assertions.assertNotNull(response.getAddress());
     }
 
     @Test
@@ -201,8 +179,6 @@ class TolarTest {
         AccountExportKeyFile response =
                 web3j.accountExportKeyFile("54b24647dc5a34b858eae00a1977b7263c66f1af121f461ddf")
                         .send();
-
-        System.out.println("Key file: " + response.getKeyFile());
         Assertions.assertNotNull(response.getKeyFile());
     }
 
@@ -242,18 +218,6 @@ class TolarTest {
     @Test
     public void testListBalancePerAddress() throws IOException {
         AccountListBalancePerAddress response = web3j.accountListBalancePerAddress().send();
-
-        response.getListBalancePerAddress()
-                .forEach(
-                        t ->
-                                System.out.println(
-                                        "Address: "
-                                                + t.getAddress()
-                                                + "\n Balance: "
-                                                + t.getBalance()
-                                                + "\n Name: "
-                                                + t.getAddressName()));
-
         Assertions.assertFalse(response.getListBalancePerAddress().isEmpty());
     }
 
@@ -282,12 +246,6 @@ class TolarTest {
                 web3j.tolGetBlockByHash(
                                 "e11bf6dde22a2c7b14d8931363d6737104ece8df6524500fe918520ff494be6b")
                         .send();
-        System.out.println("Transaction hashes: ");
-        response.getBlock().getTransactionHashes().forEach(System.out::println);
-        System.out.println("Block index: " + response.getBlock().getBlockIndex());
-        System.out.println(
-                "Confirmation timestamp: " + response.getBlock().getConfirmationTimestamp());
-        System.out.println("Previous block hash: " + response.getBlock().getPreviousBlockHash());
         Assertions.assertNotNull(response.getResult());
     }
 
@@ -306,35 +264,37 @@ class TolarTest {
     public void testTolGetTransaction() throws IOException {
         TolTransaction response =
                 web3j.tolGetTransaction(
-                                "808cf4ff160048ce58de4869ea11fe43c62a72f63a7df415d18f33ac0f6c769b")
+                                "0abfdd5b4b2d2e55b3cda4b0959ea7cf4de0cd0e8fb4804105ad2eec5c2ae9ae")
                         .send();
 
         if (response.getTransaction().isPresent()) {
             Transaction transaction = response.getTransaction().get();
             Assertions.assertEquals(
-                    "93f0c1766bf3fe06b7a29b51ceb6626906b0d8d654f33b5c1b50768fab06bb9f",
+                    "2358d7fa3d13649a8dac2292f5a3b3b9efc4632cee40ed0b0f08fa612de51385",
                     transaction.getBlockHash());
             Assertions.assertEquals(BigInteger.valueOf(0L), transaction.getTransactionIndex());
             Assertions.assertEquals(
                     "5484c512b1cf3d45e7506a772b7358375acc571b2930d27deb",
                     transaction.getSenderAddress());
             Assertions.assertEquals(
-                    "540dc971237be2361e04c1643d57b572709db15e449a870fef",
+                    "54000000000000000000000000000000000000000023199e2b",
                     transaction.getReceiverAddress());
-            Assertions.assertEquals(BigInteger.valueOf(1L), transaction.getValue());
-            Assertions.assertEquals(BigInteger.valueOf(210000L), transaction.getGas());
+            Assertions.assertEquals(BigInteger.ZERO, transaction.getValue());
+            Assertions.assertEquals(BigInteger.valueOf(6_000_000L), transaction.getGas());
             Assertions.assertEquals(BigInteger.valueOf(1L), transaction.getGasPrice());
-            Assertions.assertEquals("kitula", transaction.getData());
-            Assertions.assertEquals(BigInteger.valueOf(30L), transaction.getNonce());
-            Assertions.assertEquals(BigInteger.valueOf(21000L), transaction.getGasUsed());
+            Assertions.assertTrue(transaction.getData().length() > 500);
+            Assertions.assertEquals(BigInteger.ONE, transaction.getNonce());
+            Assertions.assertEquals(BigInteger.valueOf(249053L), transaction.getGasUsed());
             Assertions.assertEquals(BigInteger.valueOf(0L), transaction.getGasRefunded());
             Assertions.assertEquals(
-                    "54000000000000000000000000000000000000000023199e2b",
+                    "5422de393d7a0d716cdf1f9ea12d85f6c880b4570b17e1a7f9",
                     transaction.getNewAddress());
-            Assertions.assertEquals("", transaction.getOutput());
+            Assertions.assertTrue(transaction.getOutput().length() > 500);
             Assertions.assertFalse(transaction.isExcepted());
             Assertions.assertEquals(
-                    BigInteger.valueOf(1588850261994L), transaction.getConfirmationTimestamp());
+                    BigInteger.valueOf(1591177492201L), transaction.getConfirmationTimestamp());
+        } else {
+            Assertions.fail("missing transaction");
         }
     }
 
@@ -346,31 +306,35 @@ class TolarTest {
                         BigInteger.ZERO,
                         BigInteger.valueOf(1L),
                         BigInteger.valueOf(6000000L),
-                        "5457c2d11f05725f4fa5c0cd119b75415b95cd40d059dfc2d5",
+                        "5422de393d7a0d716cdf1f9ea12d85f6c880b4570b17e1a7f9",
                         BigInteger.valueOf(0L),
                         "0xcfae3217");
         TolTryCallTransaction response = web3j.tolTryCallTransaction(transaction).send();
         Assertions.assertFalse(response.isExcepted());
         Assertions.assertEquals(
-                response.getOutput(),
-                "00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000007506f7a6472617600000000000000000000000000000000000000000000000000");
+                "000000000000000000000000000000000000000000000000000000000000002000000000000" +
+                        "00000000000000000000000000000000000000000000000000007426f6b626f6b21000000000" +
+                        "00000000000000000000000000000000000000000", response.getOutput());
     }
 
     @Test
     public void testTolGetTransactionReceipt() throws IOException {
         TolGetTransactionReceipt response =
                 web3j.tolGetTransactionReceipt(
-                                "808cf4ff160048ce58de4869ea11fe43c62a72f63a7df415d18f33ac0f6c769b")
+                                "0abfdd5b4b2d2e55b3cda4b0959ea7cf4de0cd0e8fb4804105ad2eec5c2ae9ae")
                         .send();
 
         if (response.getTransactionReceipt().isPresent()) {
             TransactionReceipt receipt = response.getTransactionReceipt().get();
-            System.out.println(receipt.getTransactionIndex());
+            Assertions.assertEquals("2358d7fa3d13649a8dac2292f5a3b3b9efc4632cee40ed0b0f08fa612de51385",
+                    receipt.getBlockHash());
+        } else {
+            Assertions.fail();
         }
     }
 
     @Test
-    public void testTolGetGasEstimate() {
+    public void testTolGetGasEstimate() throws Exception {
         org.web3j.protocol.core.methods.request.Transaction transaction =
                 new org.web3j.protocol.core.methods.request.Transaction(
                         "5484c512b1cf3d45e7506a772b7358375acc571b2930d27deb",
@@ -380,8 +344,9 @@ class TolarTest {
                         "5457c2d11f05725f4fa5c0cd119b75415b95cd40d059dfc2d5",
                         BigInteger.valueOf(0L),
                         "0xcfae3217");
-        Assertions.assertThrows(
-                ClientConnectionException.class, () -> web3j.tolGetGasEstimate(transaction).send());
+
+        TolGetGasEstimate send = web3j.tolGetGasEstimate(transaction).send();
+        Assertions.assertEquals(BigInteger.valueOf(21272), send.getGasEstimate());
     }
 
     @Test
