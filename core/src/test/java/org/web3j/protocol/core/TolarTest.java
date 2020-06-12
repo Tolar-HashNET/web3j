@@ -176,7 +176,7 @@ class TolarTest {
     @Test
     @Disabled("manual test")
     public void testAccountOpen() throws IOException {
-        AccountOpen response = web3j.accountOpen("newPassword123").send();
+        AccountOpen response = web3j.accountOpen("veryDifferentPassword123").send();
         System.out.println("Is account opened: " + response.isOpened());
     }
 
@@ -199,41 +199,40 @@ class TolarTest {
     @Test
     public void testExportKeyFile() throws IOException {
         AccountExportKeyFile response =
-                web3j.accountExportKeyFile("5484c512b1cf3d45e7506a772b7358375acc571b2930d27deb")
+                web3j.accountExportKeyFile("54b24647dc5a34b858eae00a1977b7263c66f1af121f461ddf")
                         .send();
 
         System.out.println("Key file: " + response.getKeyFile());
+        Assertions.assertNotNull(response.getKeyFile());
     }
 
     @Test
-    @Disabled("manual test")
     public void testImportKeyFile() throws IOException {
-
         AccountImportKeyFile response =
                 web3j.accountImportKeyFile(
-                                "{\n"
-                                        + "    \"address\" : \"84c512b1cf3d45e7506a772b7358375acc571b29\",\n"
-                                        + "    \"crypto\" : {\n"
-                                        + "        \"cipher\" : \"aes-128-ctr\",\n"
-                                        + "        \"cipherparams\" : {\n"
-                                        + "            \"iv\" : \"26cdcb58f5057c4f3f04468ae9d9b7b1\"\n"
-                                        + "        },\n"
-                                        + "        \"ciphertext\" : \"9177eba69ff70349d52a4c96b6e98eec2717e5e0218d5f4da143b894111681a9\",\n"
-                                        + "        \"kdf\" : \"scrypt\",\n"
-                                        + "        \"kdfparams\" : {\n"
-                                        + "            \"dklen\" : 32,\n"
-                                        + "            \"n\" : 262144,\n"
-                                        + "            \"p\" : 1,\n"
-                                        + "            \"r\" : 8,\n"
-                                        + "            \"salt\" : \"21f0d2c7eb0cf00d96461bacd023a741ebacfd446fba01b9849399ce32d9a416\"\n"
-                                        + "        },\n"
-                                        + "        \"mac\" : \"963d2541fc26e05b5ff80272632e62060e5394e980b6a31affbaa6f6d09683c4\"\n"
-                                        + "    },\n"
-                                        + "    \"id\" : \"d90f9e3d-9b1c-cd85-99b7-5161379c97b1\",\n"
-                                        + "    \"version\" : 3\n"
-                                        + "}",
-                                "importTest",
-                                "Password123",
+                                "{\n" +
+                                        "    \"address\" : \"b24647dc5a34b858eae00a1977b7263c66f1af12\",\n" +
+                                        "    \"crypto\" : {\n" +
+                                        "        \"cipher\" : \"aes-128-ctr\",\n" +
+                                        "        \"cipherparams\" : {\n" +
+                                        "            \"iv\" : \"4efedccb4438efa973a018cb4733e45d\"\n" +
+                                        "        },\n" +
+                                        "        \"ciphertext\" : \"8884322f8e490178b6e457141ae364fa9facc807aa63cce82cbb8ed3cb053cf5\",\n" +
+                                        "        \"kdf\" : \"scrypt\",\n" +
+                                        "        \"kdfparams\" : {\n" +
+                                        "            \"dklen\" : 32,\n" +
+                                        "            \"n\" : 262144,\n" +
+                                        "            \"p\" : 1,\n" +
+                                        "            \"r\" : 8,\n" +
+                                        "            \"salt\" : \"a04f5d8337713171d11a20dda597e50028e34a09ce366adeff26a508dc1f3410\"\n" +
+                                        "        },\n" +
+                                        "        \"mac\" : \"1541ea4c25e689d4f4fe0018787fc8e2fdf517740e675386ccc3b4a42a272385\"\n" +
+                                        "    },\n" +
+                                        "    \"id\" : \"b16917de-a380-47bd-5d4c-0f5df0cd0302\",\n" +
+                                        "    \"version\" : 3\n" +
+                                        "}",
+                                "importTestAddress",
+                                "Password1234",
                                 "hint")
                         .send();
 
@@ -259,7 +258,6 @@ class TolarTest {
     }
 
     @Test
-    @Disabled("manual test")
     public void testAccountChangePassword() {
         Assertions.assertThrows(
                 ClientConnectionException.class,
@@ -282,7 +280,7 @@ class TolarTest {
     public void testTolGetBlockByHash() throws IOException {
         TolBlock response =
                 web3j.tolGetBlockByHash(
-                                "93f0c1766bf3fe06b7a29b51ceb6626906b0d8d654f33b5c1b50768fab06bb9f")
+                                "e11bf6dde22a2c7b14d8931363d6737104ece8df6524500fe918520ff494be6b")
                         .send();
         System.out.println("Transaction hashes: ");
         response.getBlock().getTransactionHashes().forEach(System.out::println);
@@ -290,31 +288,18 @@ class TolarTest {
         System.out.println(
                 "Confirmation timestamp: " + response.getBlock().getConfirmationTimestamp());
         System.out.println("Previous block hash: " + response.getBlock().getPreviousBlockHash());
+        Assertions.assertNotNull(response.getResult());
     }
 
     @Test
     public void testTolGetBlockByIndex() throws IOException {
-        TolBlock blockByHash =
-                web3j.tolGetBlockByHash(
-                                "93f0c1766bf3fe06b7a29b51ceb6626906b0d8d654f33b5c1b50768fab06bb9f")
-                        .send();
         TolBlock blockByIndex =
                 web3j.tolGetBlockByIndex(
-                                DefaultBlockParameter.valueOf(
-                                        blockByHash.getBlock().getBlockIndex()))
+                                DefaultBlockParameter.valueOf(BigInteger.TEN))
                         .send();
 
         Assertions.assertEquals(
-                blockByHash.getBlock().getBlockIndex(), blockByIndex.getBlock().getBlockIndex());
-        Assertions.assertEquals(
-                blockByHash.getBlock().getConfirmationTimestamp(),
-                blockByIndex.getBlock().getConfirmationTimestamp());
-        Assertions.assertEquals(
-                blockByHash.getBlock().getPreviousBlockHash(),
-                blockByIndex.getBlock().getPreviousBlockHash());
-
-        System.out.println("Transaction hashes: ");
-        blockByIndex.getBlock().getTransactionHashes().forEach(System.out::println);
+                BigInteger.TEN, blockByIndex.getBlock().getBlockIndex());
     }
 
     @Test
