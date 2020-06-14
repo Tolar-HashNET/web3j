@@ -28,6 +28,7 @@ import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.ClientTransactionManager;
 import org.web3j.tx.SignedTransactionManager;
 import org.web3j.tx.gas.DefaultGasProvider;
+import org.web3j.utils.Numeric;
 
 class TolarTest {
     private static Web3j web3j;
@@ -535,6 +536,7 @@ class TolarTest {
     }
 
     @Test
+    @Disabled("manual test")
     public void testRawTransactionManager() throws Exception {
         // fake private key, swap with a real one (who has some tolars)
         Credentials credentials =
@@ -547,7 +549,7 @@ class TolarTest {
         RawTransaction transaction = RawTransaction.createTransaction(
                 credentials.getAddress(),
                 "54b24647dc5a34b858eae00a1977b7263c66f1af121f461ddf",
-                DefaultGasProvider.GAS_LIMIT,
+                BigInteger.valueOf(240000L),
                 BigInteger.ONE,
                 "test",
                 nonce.getNonce()
