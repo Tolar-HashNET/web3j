@@ -12,12 +12,7 @@
  */
 package org.web3j.tx;
 
-import java.io.IOException;
-import java.math.BigInteger;
-import java.util.concurrent.CompletableFuture;
-
 import org.bouncycastle.util.encoders.Base64;
-
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.Hash;
 import org.web3j.crypto.RawTransaction;
@@ -34,6 +29,10 @@ import org.web3j.tx.response.TransactionReceiptProcessor;
 import org.web3j.utils.Numeric;
 import org.web3j.utils.SignatureData;
 import org.web3j.utils.TxHashVerifier;
+
+import java.io.IOException;
+import java.math.BigInteger;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * TransactionManager implementation using Tolar wallet file to create and sign transactions
@@ -129,8 +128,8 @@ public class SignedTransactionManager extends TransactionManager {
             throws IOException {
         TolTryCallTransaction tolTryCallTransaction =
                 web3j.tolTryCallTransaction(
-                                Transaction.createTryCallTransaction(
-                                        getSenderAddress(), receiverAddress, gas, gasPrice, data))
+                        Transaction.createTryCallTransaction(
+                                getSenderAddress(), receiverAddress, gas, gasPrice, data))
                         .send();
 
         assertCallNotReverted(tolTryCallTransaction);
@@ -195,8 +194,8 @@ public class SignedTransactionManager extends TransactionManager {
         byte[] concatSignatureLikeWeb3js =
                 new byte
                         [signatureData.getR().length
-                                + signatureData.getS().length
-                                + signatureData.getV().length];
+                        + signatureData.getS().length
+                        + signatureData.getV().length];
 
         signatureData.getV()[0] = (byte) ((int) signatureData.getV()[0] - 27);
 
@@ -218,7 +217,15 @@ public class SignedTransactionManager extends TransactionManager {
         return Numeric.toHexStringNoPrefix(concatSignatureLikeWeb3js);
     }
 
-    private static String createSignerId(Credentials inputCredentials) {
-        return inputCredentials.getEcKeyPair().getPublicKey().toString(16);
+    public static String createSignerId(Credentials inputCredentials) {
+        StringBuilder result = new StringBuilder();
+        String noPaddingSignerId = inputCredentials.getEcKeyPair().getPublicKey().toString(16);
+        result.append(noPaddingSignerId);
+
+        while (result.toString().length() < 128) {
+            result.insert(0, "0");
+        }
+
+        return result.toString();
     }
 }
