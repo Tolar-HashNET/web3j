@@ -53,7 +53,7 @@ class TolarTest {
     @Test
     public void testTolGetBlockCount() throws IOException {
         TolGetBlockCount response = web3j.tolGetBlockCount().send();
-        Assertions.assertTrue(response.getBlockCount().intValue() > 200_000);
+        Assertions.assertTrue(response.getBlockCount().intValue() > 20_000);
     }
 
     @Test
@@ -177,6 +177,7 @@ class TolarTest {
     }
 
     @Test
+    @Disabled("manual test")
     public void testExportKeyFile() throws IOException {
         AccountExportKeyFile response =
                 web3j.accountExportKeyFile("54b24647dc5a34b858eae00a1977b7263c66f1af121f461ddf")
@@ -254,13 +255,16 @@ class TolarTest {
 
     @Test
     public void testTolGetBlockByIndex() throws IOException {
+        Web3j web3jStaging = Web3j.build(new HttpService("https://tolar-staging.dream-factory.hr/"));
+
         TolBlock blockByIndex =
-                web3j.tolGetBlockByIndex(DefaultBlockParameter.valueOf(BigInteger.TEN)).send();
+                web3jStaging.tolGetBlockByIndex(DefaultBlockParameter.valueOf(BigInteger.TEN)).send();
 
         Assertions.assertEquals(BigInteger.TEN, blockByIndex.getBlock().getBlockIndex());
     }
 
     @Test
+    @Disabled("manual test")
     public void testTolGetTransaction() throws IOException {
         TolTransaction response =
                 web3j.tolGetTransaction(
@@ -299,6 +303,7 @@ class TolarTest {
     }
 
     @Test
+    @Disabled("manual test")
     public void testTolTryCallTransaction() throws IOException {
         org.web3j.protocol.core.methods.request.Transaction transaction =
                 new org.web3j.protocol.core.methods.request.Transaction(
@@ -319,6 +324,7 @@ class TolarTest {
     }
 
     @Test
+    @Disabled("manual test")
     public void testTolGetTransactionReceipt() throws IOException {
         TolGetTransactionReceipt response =
                 web3j.tolGetTransactionReceipt(
@@ -573,13 +579,13 @@ class TolarTest {
     @Test
     @Disabled("manual test")
     public void deployContractToStagingSolidity4() throws IOException {
-        Web3j web3j = Web3j.build(new HttpService("https://tolar-staging.dream-factory.hr/"));
+        Web3j web3jStaging = Web3j.build(new HttpService("https://tolar-staging.dream-factory.hr/"));
         // fake private key, swap with a real one (who has some tolars)
         Credentials credentials =
                 Credentials.create(
                         "34b2655334e81dbda04632aedfcc100cc45270496432d03bb9c564f66509db3d");
 
-        SignedTransactionManager manager = new SignedTransactionManager(web3j, credentials);
+        SignedTransactionManager manager = new SignedTransactionManager(web3jStaging, credentials);
         String transactionHash =
                 manager.sendTransaction(
                                 "54000000000000000000000000000000000000000023199e2b",
@@ -593,11 +599,11 @@ class TolarTest {
     @Test
     @Disabled("manual test")
     public void executeFunctionStaging() throws IOException {
-        Web3j web3j = Web3j.build(new HttpService("https://tolar-staging.dream-factory.hr/"));
+        Web3j web3jStaging = Web3j.build(new HttpService("https://tolar-staging.dream-factory.hr/"));
         // fake private key, swap with a real one (who has some tolars)
         Credentials credentials = Credentials.create("private-key");
 
-        SignedTransactionManager manager = new SignedTransactionManager(web3j, credentials);
+        SignedTransactionManager manager = new SignedTransactionManager(web3jStaging, credentials);
         String transactionHash =
                 manager.sendTransaction(
                                 "54f51fb1836ad0dcaee07f2c750376d11fb21474f5587ea83c",
