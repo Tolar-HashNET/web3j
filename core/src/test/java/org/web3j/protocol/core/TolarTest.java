@@ -27,8 +27,6 @@ import org.web3j.protocol.core.methods.response.*;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.ClientTransactionManager;
 import org.web3j.tx.SignedTransactionManager;
-import org.web3j.tx.gas.DefaultGasProvider;
-import org.web3j.utils.Numeric;
 
 class TolarTest {
     private static Web3j web3j;
@@ -546,14 +544,14 @@ class TolarTest {
         SignedTransactionManager manager = new SignedTransactionManager(web3j, credentials);
         TolGetNonce nonce = web3j.tolGetNonce(credentials.getAddress()).send();
 
-        RawTransaction transaction = RawTransaction.createTransaction(
-                credentials.getAddress(),
-                "54b24647dc5a34b858eae00a1977b7263c66f1af121f461ddf",
-                BigInteger.valueOf(240000L),
-                BigInteger.ONE,
-                "test",
-                nonce.getNonce()
-        );
+        RawTransaction transaction =
+                RawTransaction.createTransaction(
+                        credentials.getAddress(),
+                        "54b24647dc5a34b858eae00a1977b7263c66f1af121f461ddf",
+                        BigInteger.valueOf(240000L),
+                        BigInteger.ONE,
+                        "test",
+                        nonce.getNonce());
 
         AccountSendRawTransaction accountSendRawTransaction = manager.signAndSend(transaction);
         System.out.println(accountSendRawTransaction.getTransactionHash());

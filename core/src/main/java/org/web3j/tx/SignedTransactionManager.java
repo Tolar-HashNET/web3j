@@ -12,7 +12,12 @@
  */
 package org.web3j.tx;
 
+import java.io.IOException;
+import java.math.BigInteger;
+import java.util.concurrent.CompletableFuture;
+
 import org.bouncycastle.util.encoders.Base64;
+
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.Hash;
 import org.web3j.crypto.RawTransaction;
@@ -29,10 +34,6 @@ import org.web3j.tx.response.TransactionReceiptProcessor;
 import org.web3j.utils.Numeric;
 import org.web3j.utils.SignatureData;
 import org.web3j.utils.TxHashVerifier;
-
-import java.io.IOException;
-import java.math.BigInteger;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * TransactionManager implementation using Tolar wallet file to create and sign transactions
@@ -128,8 +129,8 @@ public class SignedTransactionManager extends TransactionManager {
             throws IOException {
         TolTryCallTransaction tolTryCallTransaction =
                 web3j.tolTryCallTransaction(
-                        Transaction.createTryCallTransaction(
-                                getSenderAddress(), receiverAddress, gas, gasPrice, data))
+                                Transaction.createTryCallTransaction(
+                                        getSenderAddress(), receiverAddress, gas, gasPrice, data))
                         .send();
 
         assertCallNotReverted(tolTryCallTransaction);
@@ -147,25 +148,27 @@ public class SignedTransactionManager extends TransactionManager {
                 .send();
     }
 
-    public CompletableFuture<AccountSendRawTransaction> signAndSendAsync(RawTransaction transaction) {
+    public CompletableFuture<AccountSendRawTransaction> signAndSendAsync(
+            RawTransaction transaction) {
         return web3j.txSendSignedTransaction(signTransaction(transaction, credentials, web3j))
                 .sendAsync();
     }
 
-    public static SignedTransaction signTransaction(RawTransaction rawTransaction, Credentials inputCredentials,
-                                                    Web3j inputWeb3j) {
+    public static SignedTransaction signTransaction(
+            RawTransaction rawTransaction, Credentials inputCredentials, Web3j inputWeb3j) {
         SignatureData signatureData = sign(rawTransaction, inputCredentials, inputWeb3j);
         return new SignedTransaction(rawTransaction, signatureData);
     }
 
-    public static SignatureData sign(RawTransaction transaction, Credentials inputCredentials,
-                                     Web3j inputWeb3j) {
+    public static SignatureData sign(
+            RawTransaction transaction, Credentials inputCredentials, Web3j inputWeb3j) {
         return createSignatureData(transaction, inputCredentials, inputWeb3j);
     }
 
     private static String getTransactionProtobuf(RawTransaction transaction, Web3j inputWeb3j) {
         try {
-            return inputWeb3j.tolGetTransactionProtobuf(transaction)
+            return inputWeb3j
+                    .tolGetTransactionProtobuf(transaction)
                     .send()
                     .getTransactionProtobuf();
         } catch (Exception e) {
@@ -174,10 +177,10 @@ public class SignedTransactionManager extends TransactionManager {
         }
     }
 
-    private static SignatureData createSignatureData(RawTransaction transaction, Credentials inputCredentials,
-                                                     Web3j inputWeb3j) {
-        byte[] hashedTransactionProtobuf = Hash.sha3(Base64.decode(
-                getTransactionProtobuf(transaction, inputWeb3j)));
+    private static SignatureData createSignatureData(
+            RawTransaction transaction, Credentials inputCredentials, Web3j inputWeb3j) {
+        byte[] hashedTransactionProtobuf =
+                Hash.sha3(Base64.decode(getTransactionProtobuf(transaction, inputWeb3j)));
 
         String hash = Numeric.toHexStringNoPrefix(hashedTransactionProtobuf);
         String signature = createSignature(inputCredentials, hashedTransactionProtobuf);
@@ -186,16 +189,16 @@ public class SignedTransactionManager extends TransactionManager {
         return new SignatureData(hash, signature, signerId);
     }
 
-    private static String createSignature(Credentials inputCredentials, byte[] hashedTransactionProtobuf) {
+    private static String createSignature(
+            Credentials inputCredentials, byte[] hashedTransactionProtobuf) {
         Sign.SignatureData signatureData =
-                Sign.signMessage(hashedTransactionProtobuf,
-                        inputCredentials.getEcKeyPair(), false);
+                Sign.signMessage(hashedTransactionProtobuf, inputCredentials.getEcKeyPair(), false);
 
         byte[] concatSignatureLikeWeb3js =
                 new byte
                         [signatureData.getR().length
-                        + signatureData.getS().length
-                        + signatureData.getV().length];
+                                + signatureData.getS().length
+                                + signatureData.getV().length];
 
         signatureData.getV()[0] = (byte) ((int) signatureData.getV()[0] - 27);
 
