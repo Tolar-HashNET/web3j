@@ -43,6 +43,7 @@ class TolarTest {
     }
 
     @Test
+    @Disabled("manual test")
     public void testAccountListAddresses() throws IOException {
         TolAddresses response = web3j.accountListAddresses().send();
         Assertions.assertTrue(response.getAddresses().size() > 4);
@@ -55,6 +56,7 @@ class TolarTest {
     }
 
     @Test
+    @Disabled("manual test")
     public void testTolGetBalance() throws IOException {
         TolGetBalance response =
                 web3j.tolGetBalance(
@@ -65,6 +67,7 @@ class TolarTest {
     }
 
     @Test
+    @Disabled("manual test")
     public void testTolGetNonce() throws IOException {
         TolGetNonce response =
                 web3j.tolGetNonce("5484c512b1cf3d45e7506a772b7358375acc571b2930d27deb").send();
@@ -73,12 +76,14 @@ class TolarTest {
     }
 
     @Test
+    @Disabled("manual test")
     public void testNetIsMasterNode() throws IOException {
         IsMasterNode response = web3j.netIsMasterNode().send();
         Assertions.assertFalse(response.isMasterNode());
     }
 
     @Test
+    @Disabled("manual test")
     public void testNetIsMasterNodeStaging() throws IOException {
         Web3j stagingWeb3j =
                 Web3j.build(new HttpService("https://tolar-staging.dream-factory.hr/"));
@@ -114,6 +119,7 @@ class TolarTest {
     }
 
     @Test
+    @Disabled("manual test")
     public void testGetTransactionListStaging() throws IOException {
         Web3j stagingWeb3j =
                 Web3j.build(new HttpService("https://tolar-staging.dream-factory.hr/"));
@@ -130,6 +136,7 @@ class TolarTest {
     }
 
     @Test
+    @Disabled("manual test")
     public void testGetLatestBalance() throws IOException {
         TolGetLatestBalance response =
                 web3j.tolGetLatestBalance("5484c512b1cf3d45e7506a772b7358375acc571b2930d27deb")
@@ -184,6 +191,7 @@ class TolarTest {
     }
 
     @Test
+    @Disabled("manual test")
     public void testImportKeyFile() throws IOException {
         AccountImportKeyFile response =
                 web3j.accountImportKeyFile(
@@ -217,6 +225,7 @@ class TolarTest {
     }
 
     @Test
+    @Disabled("manual test")
     public void testListBalancePerAddress() throws IOException {
         AccountListBalancePerAddress response = web3j.accountListBalancePerAddress().send();
         Assertions.assertFalse(response.getListBalancePerAddress().isEmpty());
@@ -243,6 +252,7 @@ class TolarTest {
     }
 
     @Test
+    @Disabled("manual test")
     public void testTolGetBlockByHash() throws IOException {
         TolBlock response =
                 web3j.tolGetBlockByHash(
@@ -252,6 +262,7 @@ class TolarTest {
     }
 
     @Test
+    @Disabled("manual test")
     public void testTolGetBlockByIndex() throws IOException {
         Web3j web3jStaging =
                 Web3j.build(new HttpService("https://tolar-staging.dream-factory.hr/"));
@@ -343,6 +354,7 @@ class TolarTest {
     }
 
     @Test
+    @Disabled("manual test")
     public void testTolGetGasEstimate() throws Exception {
         org.web3j.protocol.core.methods.request.Transaction transaction =
                 new org.web3j.protocol.core.methods.request.Transaction(
