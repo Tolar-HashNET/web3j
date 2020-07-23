@@ -253,10 +253,13 @@ class TolarTest {
 
     @Test
     public void testTolGetBlockByIndex() throws IOException {
-        Web3j web3jStaging = Web3j.build(new HttpService("https://tolar-staging.dream-factory.hr/"));
+        Web3j web3jStaging =
+                Web3j.build(new HttpService("https://tolar-staging.dream-factory.hr/"));
 
         TolBlock blockByIndex =
-                web3jStaging.tolGetBlockByIndex(DefaultBlockParameter.valueOf(BigInteger.TEN)).send();
+                web3jStaging
+                        .tolGetBlockByIndex(DefaultBlockParameter.valueOf(BigInteger.TEN))
+                        .send();
 
         Assertions.assertEquals(BigInteger.TEN, blockByIndex.getBlock().getBlockIndex());
     }
@@ -577,7 +580,8 @@ class TolarTest {
     @Test
     @Disabled("manual test")
     public void deployContractToStagingSolidity4() throws IOException {
-        Web3j web3jStaging = Web3j.build(new HttpService("https://tolar-staging.dream-factory.hr/"));
+        Web3j web3jStaging =
+                Web3j.build(new HttpService("https://tolar-staging.dream-factory.hr/"));
         // fake private key, swap with a real one (who has some tolars)
         Credentials credentials =
                 Credentials.create(
@@ -597,7 +601,8 @@ class TolarTest {
     @Test
     @Disabled("manual test")
     public void executeFunctionStaging() throws IOException {
-        Web3j web3jStaging = Web3j.build(new HttpService("https://tolar-staging.dream-factory.hr/"));
+        Web3j web3jStaging =
+                Web3j.build(new HttpService("https://tolar-staging.dream-factory.hr/"));
         // fake private key, swap with a real one (who has some tolars)
         Credentials credentials = Credentials.create("private-key");
 
